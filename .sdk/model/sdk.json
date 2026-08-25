@@ -1,15 +1,6 @@
 {
-  "NAME": "GCAL",
-  "Name": "Gcal",
   "def": "gcal-events-only.json",
   "main": {
-    "api": {
-      "entity": {},
-      "guide": {}
-    },
-    "custom": {
-      "plurals": {}
-    },
     "def": {
       "desc": ""
     },
@@ -1131,8 +1122,5 @@
     }
   },
   "name": "gcal",
-  "name-": "gcal",
-  "name_": "gcal",
-  "name__orig": "gcal",
   "origin": "voxgig-sdk"
 }
