@@ -131,6 +131,10 @@ class GcalConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'event',
           'op' => [
             'create' => [
@@ -142,15 +146,26 @@ class GcalConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/calendars/primary/events',
-                  'parts' => [
-                    'calendars',
-                    'primary',
-                    'events',
+                  'segments' => [
+                    [
+                      'lit' => 'calendars',
+                    ],
+                    [
+                      'lit' => 'primary',
+                    ],
+                    [
+                      'lit' => 'events',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'calendars',
+                    'primary',
+                    'events',
                   ],
                 ],
               ],
@@ -179,10 +194,16 @@ class GcalConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/calendars/primary/events',
-                  'parts' => [
-                    'calendars',
-                    'primary',
-                    'events',
+                  'segments' => [
+                    [
+                      'lit' => 'calendars',
+                    ],
+                    [
+                      'lit' => 'primary',
+                    ],
+                    [
+                      'lit' => 'events',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -193,6 +214,11 @@ class GcalConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.items`',
+                  ],
+                  'parts' => [
+                    'calendars',
+                    'primary',
+                    'events',
                   ],
                 ],
               ],
@@ -216,15 +242,23 @@ class GcalConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/calendars/primary/events/{eventId}',
-                  'parts' => [
-                    'calendars',
-                    'primary',
-                    'events',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'eventId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'calendars',
+                    ],
+                    [
+                      'lit' => 'primary',
+                    ],
+                    [
+                      'lit' => 'events',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -235,6 +269,12 @@ class GcalConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'calendars',
+                    'primary',
+                    'events',
+                    '{id}',
                   ],
                 ],
               ],
@@ -258,15 +298,23 @@ class GcalConfig
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/calendars/primary/events/{eventId}',
-                  'parts' => [
-                    'calendars',
-                    'primary',
-                    'events',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'eventId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'calendars',
+                    ],
+                    [
+                      'lit' => 'primary',
+                    ],
+                    [
+                      'lit' => 'events',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -277,6 +325,12 @@ class GcalConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'calendars',
+                    'primary',
+                    'events',
+                    '{id}',
                   ],
                 ],
               ],
@@ -300,15 +354,23 @@ class GcalConfig
                   'kind' => 'http',
                   'method' => 'PATCH',
                   'orig' => '/calendars/primary/events/{eventId}',
-                  'parts' => [
-                    'calendars',
-                    'primary',
-                    'events',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'eventId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'calendars',
+                    ],
+                    [
+                      'lit' => 'primary',
+                    ],
+                    [
+                      'lit' => 'events',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -319,6 +381,12 @@ class GcalConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'calendars',
+                    'primary',
+                    'events',
+                    '{id}',
                   ],
                 ],
               ],

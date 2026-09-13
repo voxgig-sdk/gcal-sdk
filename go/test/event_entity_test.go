@@ -101,7 +101,7 @@ func TestEventEntity(t *testing.T) {
 		// CREATE
 		eventRef01Ent := client.Event(nil)
 		eventRef01Data := core.ToMapAny(vs.GetProp(
-			vs.GetPath([]any{"new", "event"}, setup.data), "event_ref01"))
+			vs.GetPath(setup.data, []any{"new", "event"}), "event_ref01"))
 
 		eventRef01DataResult, err := eventRef01Ent.Create(eventRef01Data, nil)
 		if err != nil {
@@ -225,7 +225,7 @@ func eventBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"event01", "event02", "event03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -245,7 +245,7 @@ func eventBasicSetup(extra map[string]any) *entityTestSetup {
 		"GCAL_TEST_EVENT_ENTID": idmap,
 		"GCAL_TEST_LIVE":      "FALSE",
 		"GCAL_TEST_EXPLAIN":   "FALSE",
-		"GCAL_APIKEY":         "NONE",
+		"GCAL_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["GCAL_TEST_EVENT_ENTID"])
@@ -254,11 +254,23 @@ func eventBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["GCAL_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["GCAL_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewGcalSDK(core.ToMapAny(mergedOpts))
 	}

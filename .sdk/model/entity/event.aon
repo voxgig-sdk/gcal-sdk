@@ -100,10 +100,16 @@ main: kit: entity: event: {
         {
           method: "POST"
           orig: "/calendars/primary/events"
-          parts: [
-            "calendars"
-            "primary"
-            "events"
+          segments: [
+            {
+              lit: "calendars"
+            }
+            {
+              lit: "primary"
+            }
+            {
+              lit: "events"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -136,10 +142,16 @@ main: kit: entity: event: {
           }
           method: "GET"
           orig: "/calendars/primary/events"
-          parts: [
-            "calendars"
-            "primary"
-            "events"
+          segments: [
+            {
+              lit: "calendars"
+            }
+            {
+              lit: "primary"
+            }
+            {
+              lit: "events"
+            }
           ]
           select: {
             exist: [
@@ -171,17 +183,25 @@ main: kit: entity: event: {
           }
           method: "GET"
           orig: "/calendars/primary/events/{eventId}"
-          parts: [
-            "calendars"
-            "primary"
-            "events"
-            "{id}"
-          ]
           rename: {
             param: {
               eventId: "id"
             }
           }
+          segments: [
+            {
+              lit: "calendars"
+            }
+            {
+              lit: "primary"
+            }
+            {
+              lit: "events"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -211,17 +231,25 @@ main: kit: entity: event: {
           }
           method: "DELETE"
           orig: "/calendars/primary/events/{eventId}"
-          parts: [
-            "calendars"
-            "primary"
-            "events"
-            "{id}"
-          ]
           rename: {
             param: {
               eventId: "id"
             }
           }
+          segments: [
+            {
+              lit: "calendars"
+            }
+            {
+              lit: "primary"
+            }
+            {
+              lit: "events"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -251,17 +279,25 @@ main: kit: entity: event: {
           }
           method: "PATCH"
           orig: "/calendars/primary/events/{eventId}"
-          parts: [
-            "calendars"
-            "primary"
-            "events"
-            "{id}"
-          ]
           rename: {
             param: {
               eventId: "id"
             }
           }
+          segments: [
+            {
+              lit: "calendars"
+            }
+            {
+              lit: "primary"
+            }
+            {
+              lit: "events"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

@@ -34,16 +34,8 @@ class EventLoadMatch(TypedDict):
 
 
 class EventListMatch(TypedDict, total=False):
-    created: str
-    description: str
-    end: dict
-    htmlLink: str
-    id: str
-    location: str
-    start: dict
-    status: str
-    summary: str
-    updated: str
+    order_by: str
+    single_event: bool
 
 
 class EventCreateData(TypedDict, total=False):

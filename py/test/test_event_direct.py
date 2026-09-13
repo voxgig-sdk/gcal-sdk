@@ -107,15 +107,18 @@ def _event_direct_setup(mockres):
     env = runner.env_override({
         "GCAL_TEST_EVENT_ENTID": {},
         "GCAL_TEST_LIVE": "FALSE",
-        "GCAL_APIKEY": "NONE",
+        "GCAL_APIKEY": "",
     })
 
     live = env.get("GCAL_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
             "apikey": env.get("GCAL_APIKEY"),
-        }
+        })
         client = GcalSDK(merged_opts)
         return {
             "client": client,

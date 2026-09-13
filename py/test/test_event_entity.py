@@ -171,7 +171,7 @@ def _event_basic_setup(extra):
         "GCAL_TEST_EVENT_ENTID": idmap,
         "GCAL_TEST_LIVE": "FALSE",
         "GCAL_TEST_EXPLAIN": "FALSE",
-        "GCAL_APIKEY": "NONE",
+        "GCAL_APIKEY": "",
     })
 
     idmap_resolved = helpers.to_map(
@@ -181,6 +181,10 @@ def _event_basic_setup(extra):
 
     if env.get("GCAL_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
                 "apikey": env.get("GCAL_APIKEY"),
             },

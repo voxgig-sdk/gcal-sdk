@@ -27,16 +27,8 @@
 
 /**
  * @typedef {Object} EventListMatch
- * @property {string} [created]
- * @property {string} [description]
- * @property {Object} [end]
- * @property {string} [htmlLink]
- * @property {string} [id]
- * @property {string} [location]
- * @property {Object} [start]
- * @property {string} [status]
- * @property {string} [summary]
- * @property {string} [updated]
+ * @property {string} [order_by]
+ * @property {boolean} [single_event]
  */
 
 /**

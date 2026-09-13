@@ -14,16 +14,8 @@ export interface EventLoadMatch {
     id: string;
 }
 export interface EventListMatch {
-    created?: string;
-    description?: string;
-    end?: Record<string, any>;
-    htmlLink?: string;
-    id?: string;
-    location?: string;
-    start?: Record<string, any>;
-    status?: string;
-    summary?: string;
-    updated?: string;
+    order_by?: string;
+    single_event?: boolean;
 }
 export interface EventCreateData {
     created?: string;

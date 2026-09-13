@@ -105,6 +105,10 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "event",
         ["op"] = {
           ["create"] = {
@@ -116,15 +120,26 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/calendars/primary/events",
-                ["parts"] = {
-                  "calendars",
-                  "primary",
-                  "events",
+                ["segments"] = {
+                  {
+                    ["lit"] = "calendars",
+                  },
+                  {
+                    ["lit"] = "primary",
+                  },
+                  {
+                    ["lit"] = "events",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "calendars",
+                  "primary",
+                  "events",
                 },
               },
             },
@@ -153,10 +168,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/calendars/primary/events",
-                ["parts"] = {
-                  "calendars",
-                  "primary",
-                  "events",
+                ["segments"] = {
+                  {
+                    ["lit"] = "calendars",
+                  },
+                  {
+                    ["lit"] = "primary",
+                  },
+                  {
+                    ["lit"] = "events",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -167,6 +188,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.items`",
+                },
+                ["parts"] = {
+                  "calendars",
+                  "primary",
+                  "events",
                 },
               },
             },
@@ -190,15 +216,23 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/calendars/primary/events/{eventId}",
-                ["parts"] = {
-                  "calendars",
-                  "primary",
-                  "events",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["eventId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "calendars",
+                  },
+                  {
+                    ["lit"] = "primary",
+                  },
+                  {
+                    ["lit"] = "events",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -209,6 +243,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "calendars",
+                  "primary",
+                  "events",
+                  "{id}",
                 },
               },
             },
@@ -232,15 +272,23 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/calendars/primary/events/{eventId}",
-                ["parts"] = {
-                  "calendars",
-                  "primary",
-                  "events",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["eventId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "calendars",
+                  },
+                  {
+                    ["lit"] = "primary",
+                  },
+                  {
+                    ["lit"] = "events",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -251,6 +299,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "calendars",
+                  "primary",
+                  "events",
+                  "{id}",
                 },
               },
             },
@@ -274,15 +328,23 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "PATCH",
                 ["orig"] = "/calendars/primary/events/{eventId}",
-                ["parts"] = {
-                  "calendars",
-                  "primary",
-                  "events",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["eventId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "calendars",
+                  },
+                  {
+                    ["lit"] = "primary",
+                  },
+                  {
+                    ["lit"] = "events",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -293,6 +355,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "calendars",
+                  "primary",
+                  "events",
+                  "{id}",
                 },
               },
             },

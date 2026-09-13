@@ -22,16 +22,8 @@
 ---@field id string
 
 ---@class EventListMatch
----@field created? string
----@field description? string
----@field end? table
----@field htmlLink? string
----@field id? string
----@field location? string
----@field start? table
----@field status? string
----@field summary? string
----@field updated? string
+---@field order_by? string
+---@field single_event? boolean
 
 ---@class EventCreateData
 ---@field created? string

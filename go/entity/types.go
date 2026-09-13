@@ -33,16 +33,8 @@ type EventLoadMatch struct {
 
 // EventListMatch is the typed request payload for Event.ListTyped.
 type EventListMatch struct {
-	Created *string `json:"created,omitempty"`
-	Description *string `json:"description,omitempty"`
-	End *map[string]any `json:"end,omitempty"`
-	HtmlLink *string `json:"htmlLink,omitempty"`
-	Id *string `json:"id,omitempty"`
-	Location *string `json:"location,omitempty"`
-	Start *map[string]any `json:"start,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Summary *string `json:"summary,omitempty"`
-	Updated *string `json:"updated,omitempty"`
+	OrderBy *string `json:"order_by,omitempty"`
+	SingleEvent *bool `json:"single_event,omitempty"`
 }
 
 // EventCreateData is the typed request payload for Event.CreateTyped.

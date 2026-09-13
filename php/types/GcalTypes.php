@@ -36,16 +36,8 @@ class EventLoadMatch
 /** Request payload for Event#list. */
 class EventListMatch
 {
-    public ?string $created = null;
-    public ?string $description = null;
-    public ?array $end = null;
-    public ?string $htmlLink = null;
-    public ?string $id = null;
-    public ?string $location = null;
-    public ?array $start = null;
-    public ?string $status = null;
-    public ?string $summary = null;
-    public ?string $updated = null;
+    public ?string $order_by = null;
+    public ?bool $single_event = null;
 }
 
 /** Request payload for Event#create. */

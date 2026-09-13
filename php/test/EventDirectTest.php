@@ -123,15 +123,17 @@ function event_direct_setup($mockres)
     $env = Runner::env_override([
         "GCAL_TEST_EVENT_ENTID" => [],
         "GCAL_TEST_LIVE" => "FALSE",
-        "GCAL_APIKEY" => "NONE",
+        "GCAL_APIKEY" => "",
     ]);
 
     $live = $env["GCAL_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
             "apikey" => $env["GCAL_APIKEY"],
-        ];
+        ]);
         $client = new GcalSDK($merged_opts);
         return [
             "client" => $client,
