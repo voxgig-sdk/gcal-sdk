@@ -4,7 +4,14 @@ declare(strict_types=1);
 // Gcal SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/DebugFeature.php';
+require_once __DIR__ . '/feature/IdempotencyFeature.php';
+require_once __DIR__ . '/feature/MetricsFeature.php';
+require_once __DIR__ . '/feature/PagingFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class GcalFeatures
@@ -14,8 +21,22 @@ class GcalFeatures
         switch ($name) {
             case "base":
                 return new GcalBaseFeature();
+            case "debug":
+                return new GcalDebugFeature();
+            case "idempotency":
+                return new GcalIdempotencyFeature();
+            case "metrics":
+                return new GcalMetricsFeature();
+            case "paging":
+                return new GcalPagingFeature();
+            case "ratelimit":
+                return new GcalRatelimitFeature();
+            case "retry":
+                return new GcalRetryFeature();
             case "test":
                 return new GcalTestFeature();
+            case "timeout":
+                return new GcalTimeoutFeature();
             default:
                 return new GcalBaseFeature();
         }
@@ -31,7 +52,14 @@ class GcalFeatures
     {
         switch ($name) {
             case "base":
+            case "debug":
+            case "idempotency":
+            case "metrics":
+            case "paging":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

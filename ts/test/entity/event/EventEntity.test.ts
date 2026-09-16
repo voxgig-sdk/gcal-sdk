@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { GcalSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('EventEntity', async () => {
 
     const live = 'TRUE' === process.env.GCAL_TEST_LIVE
     for (const op of ['create', 'list', 'update', 'load', 'remove']) {
-      if (maybeSkipControl(t, 'entityOp', 'event.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'event.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set GCAL_TEST_EVENT_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"created","req":false,"type":"`$STRING`","index$":0},{"active":true,"name":"description","req":false,"type":"`$STRING`","index$":1},{"active":true,"name":"end","op":{"create":{"req":true,"type":"`$OBJECT`"},"update":{"req":true,"type":"`$OBJECT`"}},"req":false,"type":"`$OBJECT`","index$":2},{"active":true,"name":"htmlLink","req":false,"type":"`$STRING`","index$":3},{"active":true,"name":"id","req":false,"type":"`$STRING`","index$":4},{"active":true,"name":"location","req":false,"type":"`$STRING`","index$":5},{"active":true,"name":"start","op":{"create":{"req":true,"type":"`$OBJECT`"},"update":{"req":true,"type":"`$OBJECT`"}},"req":false,"type":"`$OBJECT`","index$":6},{"active":true,"name":"status","req":false,"type":"`$STRING`","index$":7},{"active":true,"name":"summary","op":{"create":{"req":true,"type":"`$STRING`"},"update":{"req":true,"type":"`$STRING`"}},"req":false,"type":"`$STRING`","index$":8},{"active":true,"name":"updated","req":false,"type":"`$STRING`","index$":9}],"id":{"field":"id","name":"id"},"name":"event","op":{"create":{"input":"data","name":"create","points":[{"active":true,"args":{},"contract":{"id":"POST /calendars/primary/events","json":"{\"operationId\":\"createEvent\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"description\":{\"type\":\"string\"},\"end\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"location\":{\"type\":\"string\"},\"start\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"summary\":{\"type\":\"string\"}},\"required\":[\"summary\",\"start\",\"end\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"created\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"end\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"htmlLink\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"location\":{\"type\":\"string\"},\"start\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"status\":{\"type\":\"string\"},\"summary\":{\"type\":\"string\"},\"updated\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"The created event\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"POST","orig":"/calendars/primary/events","segments":[{"lit":"calendars"},{"lit":"primary"},{"lit":"events"}],"select":{},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"},"list":{"input":"data","name":"list","points":[{"active":true,"args":{"query":[{"active":true,"kind":"query","name":"order_by","orig":"order_by","reqd":false,"type":"`$STRING`","index$":0},{"active":true,"kind":"query","name":"single_event","orig":"single_event","reqd":false,"type":"`$BOOLEAN`","index$":1}]},"contract":{"id":"GET /calendars/primary/events","json":"{\"operationId\":\"listEvents\",\"parameters\":[{\"in\":\"query\",\"name\":\"singleEvents\",\"required\":false,\"schema\":{\"type\":\"boolean\"}},{\"in\":\"query\",\"name\":\"orderBy\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"items\":{\"items\":{\"properties\":{\"created\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"end\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"htmlLink\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"location\":{\"type\":\"string\"},\"start\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"status\":{\"type\":\"string\"},\"summary\":{\"type\":\"string\"},\"updated\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"type\":\"object\"}}},\"description\":\"A page of events\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/calendars/primary/events","segments":[{"lit":"calendars"},{"lit":"primary"},{"lit":"events"}],"select":{"exist":["order_by","single_event"]},"transform":{"req":"`reqdata`","res":"`body.items`"},"index$":0}],"key$":"list"},"load":{"input":"data","name":"load","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"id","orig":"event_id","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /calendars/primary/events/{eventId}","json":"{\"operationId\":\"getEvent\",\"parameters\":[{\"in\":\"path\",\"name\":\"eventId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"created\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"end\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"htmlLink\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"location\":{\"type\":\"string\"},\"start\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"status\":{\"type\":\"string\"},\"summary\":{\"type\":\"string\"},\"updated\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"The requested event\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/calendars/primary/events/{eventId}","rename":{"param":{"eventId":"id"}},"segments":[{"lit":"calendars"},{"lit":"primary"},{"lit":"events"},{"var":"id"}],"select":{"exist":["id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"},"remove":{"input":"data","name":"remove","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"id","orig":"event_id","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"DELETE /calendars/primary/events/{eventId}","json":"{\"operationId\":\"deleteEvent\",\"parameters\":[{\"in\":\"path\",\"name\":\"eventId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"204\":{\"description\":\"Deleted\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"DELETE","orig":"/calendars/primary/events/{eventId}","rename":{"param":{"eventId":"id"}},"segments":[{"lit":"calendars"},{"lit":"primary"},{"lit":"events"},{"var":"id"}],"select":{"exist":["id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"remove"},"update":{"input":"data","name":"update","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"id","orig":"event_id","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"PATCH /calendars/primary/events/{eventId}","json":"{\"operationId\":\"updateEvent\",\"parameters\":[{\"in\":\"path\",\"name\":\"eventId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"description\":{\"type\":\"string\"},\"end\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"location\":{\"type\":\"string\"},\"start\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"summary\":{\"type\":\"string\"}},\"required\":[\"summary\",\"start\",\"end\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"created\":{\"type\":\"string\"},\"description\":{\"type\":\"string\"},\"end\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"htmlLink\":{\"type\":\"string\"},\"id\":{\"type\":\"string\"},\"location\":{\"type\":\"string\"},\"start\":{\"properties\":{\"dateTime\":{\"type\":\"string\"},\"timeZone\":{\"type\":\"string\"}},\"type\":\"object\"},\"status\":{\"type\":\"string\"},\"summary\":{\"type\":\"string\"},\"updated\":{\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"The updated event\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"definition\"}","source":"openapi3","version":1},"kind":"http","method":"PATCH","orig":"/calendars/primary/events/{eventId}","rename":{"param":{"eventId":"id"}},"segments":[{"lit":"calendars"},{"lit":"primary"},{"lit":"events"},{"var":"id"}],"select":{"exist":["id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"update"}},"relations":{"ancestors":[]},"key$":"event","name__orig":"event","Name":"Event","name_":"event","name-":"event","NAME":"EVENT","index$":0}, {"active":true,"entity":"event","key$":"BasicEventFlow","kind":"basic","name":"BasicEventFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"event_ref01"},"match":{},"op":"create","spec":[],"valid":[],"index$":0},{"active":true,"data":{},"input":{},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"event_ref01"}}],"index$":1},{"active":true,"data":{},"input":{"ref":"event_ref01","srcdatavar":"event_ref01_data","suffix":"_up0","textfield":"created"},"match":{},"op":"update","spec":[{"apply":"TextFieldMark","def":{"mark":"Mark01-event_ref01"}}],"valid":[],"index$":2},{"active":true,"data":{},"input":{"ref":"event_ref01","srcdatavar":"event_ref01_data","suffix":"_dt0"},"match":{"id":"event01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-event_ref01"}}],"index$":3},{"active":true,"data":{},"input":{"ref":"event_ref01","suffix":"_rm0"},"match":{"id":"event01"},"op":"remove","spec":[],"valid":[],"index$":4},{"active":true,"data":{},"input":{"suffix":"_rt0"},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemNotExists","def":{"ref":"event_ref01"}}],"index$":5}]}, 'Event')
     }
     const client = setup.client
     const struct = setup.struct
@@ -150,13 +149,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['GCAL_TEST_EVENT_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'GCAL_TEST_EVENT_ENTID': idmap,
     'GCAL_TEST_LIVE': 'FALSE',
@@ -168,7 +160,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.GCAL_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['GCAL_TEST_EVENT_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new GcalSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -181,7 +179,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -194,7 +193,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.GCAL_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 
