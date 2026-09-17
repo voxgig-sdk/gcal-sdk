@@ -7,7 +7,7 @@
 # SDK Details.
 name: 'gcal'
 origin: 'voxgig-sdk'
-def: 'gcal-events-only.json'
+def: 'gcal-v3-openapi.json'
 
 
 # API Information
