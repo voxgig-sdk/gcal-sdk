@@ -1,0 +1,15 @@
+{
+  "existing": {
+    "watch": {
+      "WATCH00": {},
+      "WATCH01": {},
+      "WATCH02": {}
+    }
+  },
+  "new": {
+    "watch": {
+      "watch_ref01": {}
+    }
+  },
+  "requests": {}
+}

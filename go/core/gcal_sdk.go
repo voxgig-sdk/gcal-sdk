@@ -338,11 +338,99 @@ func (sdk *GcalSDK) Graphql(
 }
 
 
+// Acl returns a Acl entity bound to this client.
+// Idiomatic usage: client.Acl(nil).List(nil, nil) or
+// client.Acl(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) Acl(data map[string]any) GcalEntity {
+	return NewAclEntityFunc(sdk, data)
+}
+
+
+// Calendar returns a Calendar entity bound to this client.
+// Idiomatic usage: client.Calendar(nil).List(nil, nil) or
+// client.Calendar(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) Calendar(data map[string]any) GcalEntity {
+	return NewCalendarEntityFunc(sdk, data)
+}
+
+
+// CalendarList returns a CalendarList entity bound to this client.
+// Idiomatic usage: client.CalendarList(nil).List(nil, nil) or
+// client.CalendarList(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) CalendarList(data map[string]any) GcalEntity {
+	return NewCalendarListEntityFunc(sdk, data)
+}
+
+
+// Channel returns a Channel entity bound to this client.
+// Idiomatic usage: client.Channel(nil).List(nil, nil) or
+// client.Channel(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) Channel(data map[string]any) GcalEntity {
+	return NewChannelEntityFunc(sdk, data)
+}
+
+
+// Color returns a Color entity bound to this client.
+// Idiomatic usage: client.Color(nil).List(nil, nil) or
+// client.Color(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) Color(data map[string]any) GcalEntity {
+	return NewColorEntityFunc(sdk, data)
+}
+
+
 // Event returns a Event entity bound to this client.
 // Idiomatic usage: client.Event(nil).List(nil, nil) or
 // client.Event(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GcalSDK) Event(data map[string]any) GcalEntity {
 	return NewEventEntityFunc(sdk, data)
+}
+
+
+// FreeBusy returns a FreeBusy entity bound to this client.
+// Idiomatic usage: client.FreeBusy(nil).List(nil, nil) or
+// client.FreeBusy(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) FreeBusy(data map[string]any) GcalEntity {
+	return NewFreeBusyEntityFunc(sdk, data)
+}
+
+
+// Import returns a Import entity bound to this client.
+// Idiomatic usage: client.Import(nil).List(nil, nil) or
+// client.Import(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) Import(data map[string]any) GcalEntity {
+	return NewImportEntityFunc(sdk, data)
+}
+
+
+// QuickAdd returns a QuickAdd entity bound to this client.
+// Idiomatic usage: client.QuickAdd(nil).List(nil, nil) or
+// client.QuickAdd(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) QuickAdd(data map[string]any) GcalEntity {
+	return NewQuickAddEntityFunc(sdk, data)
+}
+
+
+// Setting returns a Setting entity bound to this client.
+// Idiomatic usage: client.Setting(nil).List(nil, nil) or
+// client.Setting(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) Setting(data map[string]any) GcalEntity {
+	return NewSettingEntityFunc(sdk, data)
+}
+
+
+// Stop returns a Stop entity bound to this client.
+// Idiomatic usage: client.Stop(nil).List(nil, nil) or
+// client.Stop(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) Stop(data map[string]any) GcalEntity {
+	return NewStopEntityFunc(sdk, data)
+}
+
+
+// Watch returns a Watch entity bound to this client.
+// Idiomatic usage: client.Watch(nil).List(nil, nil) or
+// client.Watch(nil).Load(map[string]any{"id": ...}, nil).
+func (sdk *GcalSDK) Watch(data map[string]any) GcalEntity {
+	return NewWatchEntityFunc(sdk, data)
 }
 
 

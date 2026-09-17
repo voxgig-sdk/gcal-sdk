@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Calendar | Calendar API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">Calendar API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/gcal-sdk">voxgig-sdk/gcal-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Calendar API</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/acl.html">Acl</a>
+<a aria-current="page" href="../api/calendar.html">Calendar</a><div class="nav-sections"><a class="nav-section" href="#post-calendarscalendaridclear">POST /calendars/{calendarId}/clear</a>
+<a class="nav-section" href="#post-calendars">POST /calendars</a>
+<a class="nav-section" href="#get-calendarscalendarid">GET /calendars/{calendarId}</a>
+<a class="nav-section" href="#patch-calendarscalendarid">PATCH /calendars/{calendarId}</a>
+<a class="nav-section" href="#delete-calendarscalendarid">DELETE /calendars/{calendarId}</a>
+<a class="nav-section" href="#put-calendarscalendarid">PUT /calendars/{calendarId}</a></div>
+<a href="../api/calendar_list.html">CalendarList</a>
+<a href="../api/channel.html">Channel</a>
+<a href="../api/color.html">Color</a>
+<a href="../api/event.html">Event</a>
+<a href="../api/free_busy.html">FreeBusy</a>
+<a href="../api/import.html">Import</a>
+<a href="../api/quick_add.html">QuickAdd</a>
+<a href="../api/setting.html">Setting</a>
+<a href="../api/stop.html">Stop</a>
+<a href="../api/watch.html">Watch</a></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/js.html">JavaScript</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="calendar">Calendar</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-calendarscalendaridclear"><code>/calendars/{calendarId}/clear</code></a></td>
+<td><code>create</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-calendars"><code>/calendars</code></a></td>
+<td><code>create</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-calendarscalendarid"><code>/calendars/{calendarId}</code></a></td>
+<td><code>load</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td><a href="#patch-calendarscalendarid"><code>/calendars/{calendarId}</code></a></td>
+<td><code>patch</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td><a href="#delete-calendarscalendarid"><code>/calendars/{calendarId}</code></a></td>
+<td><code>remove</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><a href="#put-calendarscalendarid"><code>/calendars/{calendarId}</code></a></td>
+<td><code>update</code></td>
+<td>Successful response</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>allowedConferenceSolutionTypes</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendar&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create">create</h2>
+<h3 id="post-calendarscalendaridclear" class="operation" data-method="post"><code>POST</code> /calendars/{calendarId}/clear</h3>
+<p>Operation ID: <code>calendar.calendars.clear</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>calendarId</code> | <code>path</code> | <code>string</code> | Yes | Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the &quot;primary&quot; keyword. |</p>
+<h4 id="responses">Responses</h4>
+<h5 id="200-successful-response" class="status" data-status="2xx">200: Successful response</h5>
+<h3 id="post-calendars" class="operation" data-method="post"><code>POST</code> /calendars</h3>
+<p>Operation ID: <code>calendar.calendars.insert</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-1">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |</p>
+<h4 id="request-body">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar. To retrieve IDs call the calendarList.list() method.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendar&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. (Formatted as an IANA Time Zone Database name, for example &quot;Europe/Zurich&quot;.) Optional.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-1">Responses</h4>
+<h5 id="200-successful-response-1" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar. To retrieve IDs call the calendarList.list() method.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendar&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. (Formatted as an IANA Time Zone Database name, for example &quot;Europe/Zurich&quot;.) Optional.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="load">load</h2>
+<h3 id="get-calendarscalendarid" class="operation" data-method="get"><code>GET</code> /calendars/{calendarId}</h3>
+<p>Operation ID: <code>calendar.calendars.get</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-2">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>calendarId</code> | <code>path</code> | <code>string</code> | Yes | Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the &quot;primary&quot; keyword. |</p>
+<h4 id="responses-2">Responses</h4>
+<h5 id="200-successful-response-2" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar. To retrieve IDs call the calendarList.list() method.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendar&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. (Formatted as an IANA Time Zone Database name, for example &quot;Europe/Zurich&quot;.) Optional.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="patch">patch</h2>
+<h3 id="patch-calendarscalendarid" class="operation" data-method="patch"><code>PATCH</code> /calendars/{calendarId}</h3>
+<p>Operation ID: <code>calendar.calendars.patch</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-3">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>calendarId</code> | <code>path</code> | <code>string</code> | Yes | Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the &quot;primary&quot; keyword. |</p>
+<h4 id="request-body-1">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar. To retrieve IDs call the calendarList.list() method.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendar&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. (Formatted as an IANA Time Zone Database name, for example &quot;Europe/Zurich&quot;.) Optional.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-3">Responses</h4>
+<h5 id="200-successful-response-3" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar. To retrieve IDs call the calendarList.list() method.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendar&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. (Formatted as an IANA Time Zone Database name, for example &quot;Europe/Zurich&quot;.) Optional.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="remove">remove</h2>
+<h3 id="delete-calendarscalendarid" class="operation" data-method="delete"><code>DELETE</code> /calendars/{calendarId}</h3>
+<p>Operation ID: <code>calendar.calendars.delete</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-4">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>calendarId</code> | <code>path</code> | <code>string</code> | Yes | Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the &quot;primary&quot; keyword. |</p>
+<h4 id="responses-4">Responses</h4>
+<h5 id="200-successful-response-4" class="status" data-status="2xx">200: Successful response</h5>
+<h2 id="update">update</h2>
+<h3 id="put-calendarscalendarid" class="operation" data-method="put"><code>PUT</code> /calendars/{calendarId}</h3>
+<p>Operation ID: <code>calendar.calendars.update</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-5">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>calendarId</code> | <code>path</code> | <code>string</code> | Yes | Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the &quot;primary&quot; keyword. |</p>
+<h4 id="request-body-2">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar. To retrieve IDs call the calendarList.list() method.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendar&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. (Formatted as an IANA Time Zone Database name, for example &quot;Europe/Zurich&quot;.) Optional.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-5">Responses</h4>
+<h5 id="200-successful-response-5" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar. To retrieve IDs call the calendarList.list() method.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendar&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. (Formatted as an IANA Time Zone Database name, for example &quot;Europe/Zurich&quot;.) Optional.</td>
+</tr>
+</tbody>
+</table>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

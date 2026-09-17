@@ -21,13 +21,27 @@ class EventDirectTest extends TestCase
             $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
             return;
         }
+        if ($setup["live"]) {
+            foreach (["calendar01"] as $_liveKey) {
+                if (!isset($setup["idmap"][$_liveKey]) || $setup["idmap"][$_liveKey] === null) {
+                    $this->markTestSkipped("live test needs $_liveKey via *_ENTID env var (synthetic IDs only)");
+                    return;
+                }
+            }
+        }
         $client = $setup["client"];
 
+        $params = [];
+        if ($setup["live"]) {
+            $params["calendar_id"] = $setup["idmap"]["calendar01"];
+        } else {
+            $params["calendar_id"] = "direct01";
+        }
 
         $result = $client->direct([
-            "path" => "calendars/primary/events",
+            "path" => "calendars/{calendar_id}/events",
             "method" => "GET",
-            "params" => [],
+            "params" => $params,
         ]);
         if ($setup["live"]) {
             // Live mode is lenient: synthetic IDs frequently 4xx and the
@@ -73,11 +87,12 @@ class EventDirectTest extends TestCase
         $params = [];
         $query = [];
         if (!$setup["live"]) {
-            $params["id"] = "direct01";
+            $params["calendar_id"] = "direct01";
+            $params["id"] = "direct02";
         }
 
         $result = $client->direct([
-            "path" => "calendars/primary/events/{id}",
+            "path" => "calendars/{calendar_id}/events/{id}",
             "method" => "GET",
             "params" => $params,
             "query" => $query,

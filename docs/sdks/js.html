@@ -1,12 +1,23 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>JavaScript | Google Calendar Events API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>JavaScript | Calendar API</title><link rel="stylesheet" href="../assets/style.css"></head>
 <body><a class="skip" href="#content">Skip to content</a>
-<header class="site-header"><a class="site-title" href="../index.html">Google Calendar Events API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/gcal-sdk">voxgig-sdk/gcal-sdk</a></div></header>
+<header class="site-header"><a class="site-title" href="../index.html">Calendar API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/gcal-sdk">voxgig-sdk/gcal-sdk</a></div></header>
 <div class="site-notice" role="note"></div>
-<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Google Calendar Events API</a></details>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Calendar API</a></details>
 <details><summary>API</summary><a href="../api/index.html">API overview</a>
-<a href="../api/event.html">Event</a></details>
+<a href="../api/acl.html">Acl</a>
+<a href="../api/calendar.html">Calendar</a>
+<a href="../api/calendar_list.html">CalendarList</a>
+<a href="../api/channel.html">Channel</a>
+<a href="../api/color.html">Color</a>
+<a href="../api/event.html">Event</a>
+<a href="../api/free_busy.html">FreeBusy</a>
+<a href="../api/import.html">Import</a>
+<a href="../api/quick_add.html">QuickAdd</a>
+<a href="../api/setting.html">Setting</a>
+<a href="../api/stop.html">Stop</a>
+<a href="../api/watch.html">Watch</a></details>
 <details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
 <a href="../guides/first-call.html">Make your first API call</a>
 <a href="../guides/errors.html">Handle errors</a>
@@ -42,8 +53,52 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="../api/acl.html">Acl</a></td>
+<td><code>create</code>, <code>list</code>, <code>load</code>, <code>patch</code>, <code>remove</code>, <code>update</code></td>
+</tr>
+<tr>
+<td><a href="../api/calendar.html">Calendar</a></td>
+<td><code>create</code>, <code>load</code>, <code>patch</code>, <code>remove</code>, <code>update</code></td>
+</tr>
+<tr>
+<td><a href="../api/calendar_list.html">CalendarList</a></td>
+<td><code>create</code>, <code>list</code>, <code>load</code>, <code>patch</code>, <code>remove</code>, <code>update</code></td>
+</tr>
+<tr>
+<td><a href="../api/channel.html">Channel</a></td>
+<td><code>create</code></td>
+</tr>
+<tr>
+<td><a href="../api/color.html">Color</a></td>
+<td><code>load</code></td>
+</tr>
+<tr>
 <td><a href="../api/event.html">Event</a></td>
-<td><code>create</code>, <code>list</code>, <code>load</code>, <code>remove</code>, <code>update</code></td>
+<td><code>create</code>, <code>list</code>, <code>load</code>, <code>patch</code>, <code>remove</code>, <code>update</code></td>
+</tr>
+<tr>
+<td><a href="../api/free_busy.html">FreeBusy</a></td>
+<td><code>create</code></td>
+</tr>
+<tr>
+<td><a href="../api/import.html">Import</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../api/quick_add.html">QuickAdd</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../api/setting.html">Setting</a></td>
+<td><code>create</code>, <code>list</code>, <code>load</code></td>
+</tr>
+<tr>
+<td><a href="../api/stop.html">Stop</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="../api/watch.html">Watch</a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -76,7 +131,18 @@ const client = new GcalSDK({ apikey: process.env.GCAL_APIKEY })
     &quot;content-type&quot;: &quot;application/json&quot;
   },
   &quot;entity&quot;: {
-    &quot;event&quot;: {}
+    &quot;acl&quot;: {},
+    &quot;calendar&quot;: {},
+    &quot;calendar_list&quot;: {},
+    &quot;channel&quot;: {},
+    &quot;color&quot;: {},
+    &quot;event&quot;: {},
+    &quot;free_busy&quot;: {},
+    &quot;import&quot;: {},
+    &quot;quick_add&quot;: {},
+    &quot;setting&quot;: {},
+    &quot;stop&quot;: {},
+    &quot;watch&quot;: {}
   }
 }
 </code></pre>

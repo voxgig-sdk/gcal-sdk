@@ -81,6 +81,7 @@ class EventEntityTest extends TestCase
         $event_ref01_ent = $client->Event(null);
         $event_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.event"), "event_ref01"));
+        $event_ref01_data["calendar_id"] = $setup["idmap"]["calendar01"];
 
         $event_ref01_data_result = $event_ref01_ent->create($event_ref01_data, null);
         $event_ref01_data = Helpers::to_map(is_object($event_ref01_data_result) && method_exists($event_ref01_data_result, 'data_get') ? $event_ref01_data_result->data_get() : $event_ref01_data_result);
@@ -88,7 +89,10 @@ class EventEntityTest extends TestCase
         $this->assertNotNull($event_ref01_data["id"]);
 
         // LIST
-        $event_ref01_match = [];
+        $event_ref01_match = [
+            "calendar_id" => $setup["idmap"]["calendar01"],
+            "event_id" => $setup["idmap"]["event01"],
+        ];
 
         $event_ref01_list_result = $event_ref01_ent->list($event_ref01_match, null);
         $this->assertIsArray($event_ref01_list_result);
@@ -101,9 +105,10 @@ class EventEntityTest extends TestCase
         // UPDATE
         $event_ref01_data_up0_up = [
             "id" => $event_ref01_data["id"],
+            "calendar_id" => $setup["idmap"]["calendar_id"],
         ];
 
-        $event_ref01_markdef_up0_name = "created";
+        $event_ref01_markdef_up0_name = "accessRole";
         $event_ref01_markdef_up0_value = "Mark01-event_ref01_" . $setup["now"];
         $event_ref01_data_up0_up[$event_ref01_markdef_up0_name] = $event_ref01_markdef_up0_value;
 
@@ -129,7 +134,10 @@ class EventEntityTest extends TestCase
         $event_ref01_ent->remove($event_ref01_match_rm0, null);
 
         // LIST
-        $event_ref01_match_rt0 = [];
+        $event_ref01_match_rt0 = [
+            "calendar_id" => $setup["idmap"]["calendar01"],
+            "event_id" => $setup["idmap"]["event01"],
+        ];
 
         $event_ref01_list_rt0_result = $event_ref01_ent->list($event_ref01_match_rt0, null);
         $this->assertIsArray($event_ref01_list_rt0_result);
@@ -157,7 +165,7 @@ function event_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["event01", "event02", "event03"] as $k) {
+    foreach (["event01", "event02", "event03", "calendar01", "calendar02", "calendar03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 
@@ -178,6 +186,9 @@ function event_basic_setup($extra)
         $env["GCAL_TEST_EVENT_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
+    }
+    if (!isset($idmap_resolved["calendar_id"])) {
+        $idmap_resolved["calendar_id"] = $idmap_resolved["calendar01"];
     }
 
     if ($env["GCAL_TEST_LIVE"] === "TRUE") {

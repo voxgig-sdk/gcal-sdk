@@ -341,6 +341,96 @@ class GcalSDK
     }
 
 
+    private $_acl = null;
+
+    // Canonical facade: $client->Acl()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->acl()
+    // resolves here too.
+    public function Acl($data = null)
+    {
+        require_once __DIR__ . '/entity/acl_entity.php';
+        if ($data === null) {
+            if ($this->_acl === null) {
+                $this->_acl = new AclEntity($this, null);
+            }
+            return $this->_acl;
+        }
+        return new AclEntity($this, $data);
+    }
+
+
+    private $_calendar = null;
+
+    // Canonical facade: $client->Calendar()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->calendar()
+    // resolves here too.
+    public function Calendar($data = null)
+    {
+        require_once __DIR__ . '/entity/calendar_entity.php';
+        if ($data === null) {
+            if ($this->_calendar === null) {
+                $this->_calendar = new CalendarEntity($this, null);
+            }
+            return $this->_calendar;
+        }
+        return new CalendarEntity($this, $data);
+    }
+
+
+    private $_calendar_list = null;
+
+    // Canonical facade: $client->CalendarList()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->calendar_list()
+    // resolves here too.
+    public function CalendarList($data = null)
+    {
+        require_once __DIR__ . '/entity/calendar_list_entity.php';
+        if ($data === null) {
+            if ($this->_calendar_list === null) {
+                $this->_calendar_list = new CalendarListEntity($this, null);
+            }
+            return $this->_calendar_list;
+        }
+        return new CalendarListEntity($this, $data);
+    }
+
+
+    private $_channel = null;
+
+    // Canonical facade: $client->Channel()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->channel()
+    // resolves here too.
+    public function Channel($data = null)
+    {
+        require_once __DIR__ . '/entity/channel_entity.php';
+        if ($data === null) {
+            if ($this->_channel === null) {
+                $this->_channel = new ChannelEntity($this, null);
+            }
+            return $this->_channel;
+        }
+        return new ChannelEntity($this, $data);
+    }
+
+
+    private $_color = null;
+
+    // Canonical facade: $client->Color()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->color()
+    // resolves here too.
+    public function Color($data = null)
+    {
+        require_once __DIR__ . '/entity/color_entity.php';
+        if ($data === null) {
+            if ($this->_color === null) {
+                $this->_color = new ColorEntity($this, null);
+            }
+            return $this->_color;
+        }
+        return new ColorEntity($this, $data);
+    }
+
+
     private $_event = null;
 
     // Canonical facade: $client->Event()->list() / ->load(["id" => ...]).
@@ -356,6 +446,114 @@ class GcalSDK
             return $this->_event;
         }
         return new EventEntity($this, $data);
+    }
+
+
+    private $_free_busy = null;
+
+    // Canonical facade: $client->FreeBusy()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->free_busy()
+    // resolves here too.
+    public function FreeBusy($data = null)
+    {
+        require_once __DIR__ . '/entity/free_busy_entity.php';
+        if ($data === null) {
+            if ($this->_free_busy === null) {
+                $this->_free_busy = new FreeBusyEntity($this, null);
+            }
+            return $this->_free_busy;
+        }
+        return new FreeBusyEntity($this, $data);
+    }
+
+
+    private $_import = null;
+
+    // Canonical facade: $client->Import()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->import()
+    // resolves here too.
+    public function Import($data = null)
+    {
+        require_once __DIR__ . '/entity/import_entity.php';
+        if ($data === null) {
+            if ($this->_import === null) {
+                $this->_import = new ImportEntity($this, null);
+            }
+            return $this->_import;
+        }
+        return new ImportEntity($this, $data);
+    }
+
+
+    private $_quick_add = null;
+
+    // Canonical facade: $client->QuickAdd()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->quick_add()
+    // resolves here too.
+    public function QuickAdd($data = null)
+    {
+        require_once __DIR__ . '/entity/quick_add_entity.php';
+        if ($data === null) {
+            if ($this->_quick_add === null) {
+                $this->_quick_add = new QuickAddEntity($this, null);
+            }
+            return $this->_quick_add;
+        }
+        return new QuickAddEntity($this, $data);
+    }
+
+
+    private $_setting = null;
+
+    // Canonical facade: $client->Setting()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->setting()
+    // resolves here too.
+    public function Setting($data = null)
+    {
+        require_once __DIR__ . '/entity/setting_entity.php';
+        if ($data === null) {
+            if ($this->_setting === null) {
+                $this->_setting = new SettingEntity($this, null);
+            }
+            return $this->_setting;
+        }
+        return new SettingEntity($this, $data);
+    }
+
+
+    private $_stop = null;
+
+    // Canonical facade: $client->Stop()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->stop()
+    // resolves here too.
+    public function Stop($data = null)
+    {
+        require_once __DIR__ . '/entity/stop_entity.php';
+        if ($data === null) {
+            if ($this->_stop === null) {
+                $this->_stop = new StopEntity($this, null);
+            }
+            return $this->_stop;
+        }
+        return new StopEntity($this, $data);
+    }
+
+
+    private $_watch = null;
+
+    // Canonical facade: $client->Watch()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->watch()
+    // resolves here too.
+    public function Watch($data = null)
+    {
+        require_once __DIR__ . '/entity/watch_entity.php';
+        if ($data === null) {
+            if ($this->_watch === null) {
+                $this->_watch = new WatchEntity($this, null);
+            }
+            return $this->_watch;
+        }
+        return new WatchEntity($this, $data);
     }
 
 

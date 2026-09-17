@@ -1,0 +1,689 @@
+{
+  "existing": {
+    "setting": {
+      "SETTING00": {
+        "etag": "s28",
+        "id": "SETTING00",
+        "kind": "s2a",
+        "value": "s2b"
+      },
+      "SETTING01": {
+        "etag": "s50",
+        "id": "SETTING01",
+        "kind": "s52",
+        "value": "s53"
+      },
+      "SETTING02": {
+        "etag": "s78",
+        "id": "SETTING02",
+        "kind": "s7a",
+        "value": "s7b"
+      }
+    }
+  },
+  "new": {
+    "setting": {
+      "setting_ref01": {
+        "etag": "sa0",
+        "kind": "sa2",
+        "value": "sa3"
+      }
+    }
+  },
+  "requests": {
+    "POST /users/me/settings/watch": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "calendar.settings.watch",
+        "parameters": [
+          {
+            "description": "Data format for the response.",
+            "in": "query",
+            "name": "alt",
+            "schema": {
+              "enum": [
+                "json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Selector specifying which fields to include in a partial response.",
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+            "in": "query",
+            "name": "key",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "OAuth 2.0 token for the current user.",
+            "in": "query",
+            "name": "oauth_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Returns response with indentations and line breaks.",
+            "in": "query",
+            "name": "prettyPrint",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "An opaque string that represents a user for quota purposes. Must not exceed 40 characters.",
+            "in": "query",
+            "name": "quotaUser",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Deprecated. Please use quotaUser instead.",
+            "in": "query",
+            "name": "userIp",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned on one result page. By default the value is 100 entries. The page size can never be larger than 250 entries. Optional.",
+            "in": "query",
+            "name": "maxResults",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Token specifying which result page to return. Optional.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Token obtained from the nextSyncToken field returned on the last page of results from the previous list request. It makes the result of this list request contain only entries that have changed since then.\nIf the syncToken expires, the server will respond with a 410 GONE response code and the client should clear its storage and perform a full synchronization without any syncToken.\nLearn more about incremental synchronization.\nOptional. The default is to return all entries.",
+            "in": "query",
+            "name": "syncToken",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "address": {
+                    "description": "The address where notifications are delivered for this channel.",
+                    "type": "string"
+                  },
+                  "expiration": {
+                    "description": "Date and time of notification channel expiration, expressed as a Unix timestamp, in milliseconds. Optional.",
+                    "format": "int64",
+                    "type": "string"
+                  },
+                  "id": {
+                    "description": "A UUID or similar unique string that identifies this channel.",
+                    "type": "string"
+                  },
+                  "kind": {
+                    "default": "api#channel",
+                    "description": "Identifies this as a notification channel used to watch for changes to a resource, which is \"api#channel\".",
+                    "type": "string"
+                  },
+                  "params": {
+                    "additionalProperties": {
+                      "description": "Declares a new parameter by name.",
+                      "type": "string"
+                    },
+                    "description": "Additional parameters controlling delivery channel behavior. Optional.",
+                    "type": "object"
+                  },
+                  "payload": {
+                    "description": "A Boolean value to indicate whether payload is wanted. Optional.",
+                    "type": "boolean"
+                  },
+                  "resourceId": {
+                    "description": "An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.",
+                    "type": "string"
+                  },
+                  "resourceUri": {
+                    "description": "A version-specific identifier for the watched resource.",
+                    "type": "string"
+                  },
+                  "token": {
+                    "description": "An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.",
+                    "type": "string"
+                  },
+                  "type": {
+                    "description": "The type of delivery mechanism used for this channel. Valid values are \"web_hook\" (or \"webhook\"). Both values refer to a channel where Http requests are used to deliver messages.",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "address": {
+                      "description": "The address where notifications are delivered for this channel.",
+                      "type": "string"
+                    },
+                    "expiration": {
+                      "description": "Date and time of notification channel expiration, expressed as a Unix timestamp, in milliseconds. Optional.",
+                      "format": "int64",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "A UUID or similar unique string that identifies this channel.",
+                      "type": "string"
+                    },
+                    "kind": {
+                      "default": "api#channel",
+                      "description": "Identifies this as a notification channel used to watch for changes to a resource, which is \"api#channel\".",
+                      "type": "string"
+                    },
+                    "params": {
+                      "additionalProperties": {
+                        "description": "Declares a new parameter by name.",
+                        "type": "string"
+                      },
+                      "description": "Additional parameters controlling delivery channel behavior. Optional.",
+                      "type": "object"
+                    },
+                    "payload": {
+                      "description": "A Boolean value to indicate whether payload is wanted. Optional.",
+                      "type": "boolean"
+                    },
+                    "resourceId": {
+                      "description": "An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.",
+                      "type": "string"
+                    },
+                    "resourceUri": {
+                      "description": "A version-specific identifier for the watched resource.",
+                      "type": "string"
+                    },
+                    "token": {
+                      "description": "An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.",
+                      "type": "string"
+                    },
+                    "type": {
+                      "description": "The type of delivery mechanism used for this channel. Valid values are \"web_hook\" (or \"webhook\"). Both values refer to a channel where Http requests are used to deliver messages.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "security": [
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar"
+            ]
+          },
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar.readonly"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar.readonly"
+            ]
+          },
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar.settings.readonly"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar.settings.readonly"
+            ]
+          }
+        ],
+        "securitySchemes": {
+          "Oauth2": {
+            "description": "Oauth 2.0 implicit authentication",
+            "flows": {
+              "implicit": {
+                "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+                "scopes": {
+                  "https://www.googleapis.com/auth/calendar": "See, edit, share, and permanently delete all the calendars you can access using Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.events": "View and edit events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.events.readonly": "View events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.readonly": "See and download any calendar you can access using your Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.settings.readonly": "View your Calendar settings"
+                }
+              }
+            },
+            "type": "oauth2"
+          },
+          "Oauth2c": {
+            "description": "Oauth 2.0 authorizationCode authentication",
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+                "scopes": {
+                  "https://www.googleapis.com/auth/calendar": "See, edit, share, and permanently delete all the calendars you can access using Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.events": "View and edit events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.events.readonly": "View events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.readonly": "See and download any calendar you can access using your Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.settings.readonly": "View your Calendar settings"
+                },
+                "tokenUrl": "https://accounts.google.com/o/oauth2/token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "GET /users/me/settings": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "calendar.settings.list",
+        "parameters": [
+          {
+            "description": "Data format for the response.",
+            "in": "query",
+            "name": "alt",
+            "schema": {
+              "enum": [
+                "json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Selector specifying which fields to include in a partial response.",
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+            "in": "query",
+            "name": "key",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "OAuth 2.0 token for the current user.",
+            "in": "query",
+            "name": "oauth_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Returns response with indentations and line breaks.",
+            "in": "query",
+            "name": "prettyPrint",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "An opaque string that represents a user for quota purposes. Must not exceed 40 characters.",
+            "in": "query",
+            "name": "quotaUser",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Deprecated. Please use quotaUser instead.",
+            "in": "query",
+            "name": "userIp",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of entries returned on one result page. By default the value is 100 entries. The page size can never be larger than 250 entries. Optional.",
+            "in": "query",
+            "name": "maxResults",
+            "schema": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Token specifying which result page to return. Optional.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Token obtained from the nextSyncToken field returned on the last page of results from the previous list request. It makes the result of this list request contain only entries that have changed since then.\nIf the syncToken expires, the server will respond with a 410 GONE response code and the client should clear its storage and perform a full synchronization without any syncToken.\nLearn more about incremental synchronization.\nOptional. The default is to return all entries.",
+            "in": "query",
+            "name": "syncToken",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "etag": {
+                      "description": "Etag of the collection.",
+                      "type": "string"
+                    },
+                    "items": {
+                      "description": "List of user settings.",
+                      "items": {
+                        "properties": {
+                          "etag": {
+                            "description": "ETag of the resource.",
+                            "type": "string"
+                          },
+                          "id": {
+                            "description": "The id of the user setting.",
+                            "type": "string"
+                          },
+                          "kind": {
+                            "default": "calendar#setting",
+                            "description": "Type of the resource (\"calendar#setting\").",
+                            "type": "string"
+                          },
+                          "value": {
+                            "description": "Value of the user setting. The format of the value depends on the ID of the setting. It must always be a UTF-8 string of length up to 1024 characters.",
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "kind": {
+                      "default": "calendar#settings",
+                      "description": "Type of the collection (\"calendar#settings\").",
+                      "type": "string"
+                    },
+                    "nextPageToken": {
+                      "description": "Token used to access the next page of this result. Omitted if no further results are available, in which case nextSyncToken is provided.",
+                      "type": "string"
+                    },
+                    "nextSyncToken": {
+                      "description": "Token used at a later point in time to retrieve only the entries that have changed since this result was returned. Omitted if further results are available, in which case nextPageToken is provided.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "security": [
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar"
+            ]
+          },
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar.readonly"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar.readonly"
+            ]
+          },
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar.settings.readonly"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar.settings.readonly"
+            ]
+          }
+        ],
+        "securitySchemes": {
+          "Oauth2": {
+            "description": "Oauth 2.0 implicit authentication",
+            "flows": {
+              "implicit": {
+                "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+                "scopes": {
+                  "https://www.googleapis.com/auth/calendar": "See, edit, share, and permanently delete all the calendars you can access using Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.events": "View and edit events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.events.readonly": "View events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.readonly": "See and download any calendar you can access using your Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.settings.readonly": "View your Calendar settings"
+                }
+              }
+            },
+            "type": "oauth2"
+          },
+          "Oauth2c": {
+            "description": "Oauth 2.0 authorizationCode authentication",
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+                "scopes": {
+                  "https://www.googleapis.com/auth/calendar": "See, edit, share, and permanently delete all the calendars you can access using Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.events": "View and edit events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.events.readonly": "View events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.readonly": "See and download any calendar you can access using your Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.settings.readonly": "View your Calendar settings"
+                },
+                "tokenUrl": "https://accounts.google.com/o/oauth2/token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "GET /users/me/settings/{setting}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "calendar.settings.get",
+        "parameters": [
+          {
+            "description": "Data format for the response.",
+            "in": "query",
+            "name": "alt",
+            "schema": {
+              "enum": [
+                "json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Selector specifying which fields to include in a partial response.",
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+            "in": "query",
+            "name": "key",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "OAuth 2.0 token for the current user.",
+            "in": "query",
+            "name": "oauth_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Returns response with indentations and line breaks.",
+            "in": "query",
+            "name": "prettyPrint",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "An opaque string that represents a user for quota purposes. Must not exceed 40 characters.",
+            "in": "query",
+            "name": "quotaUser",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Deprecated. Please use quotaUser instead.",
+            "in": "query",
+            "name": "userIp",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The id of the user setting.",
+            "in": "path",
+            "name": "setting",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "etag": {
+                      "description": "ETag of the resource.",
+                      "type": "string"
+                    },
+                    "id": {
+                      "description": "The id of the user setting.",
+                      "type": "string"
+                    },
+                    "kind": {
+                      "default": "calendar#setting",
+                      "description": "Type of the resource (\"calendar#setting\").",
+                      "type": "string"
+                    },
+                    "value": {
+                      "description": "Value of the user setting. The format of the value depends on the ID of the setting. It must always be a UTF-8 string of length up to 1024 characters.",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "security": [
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar"
+            ]
+          },
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar.readonly"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar.readonly"
+            ]
+          },
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar.settings.readonly"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar.settings.readonly"
+            ]
+          }
+        ],
+        "securitySchemes": {
+          "Oauth2": {
+            "description": "Oauth 2.0 implicit authentication",
+            "flows": {
+              "implicit": {
+                "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+                "scopes": {
+                  "https://www.googleapis.com/auth/calendar": "See, edit, share, and permanently delete all the calendars you can access using Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.events": "View and edit events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.events.readonly": "View events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.readonly": "See and download any calendar you can access using your Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.settings.readonly": "View your Calendar settings"
+                }
+              }
+            },
+            "type": "oauth2"
+          },
+          "Oauth2c": {
+            "description": "Oauth 2.0 authorizationCode authentication",
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+                "scopes": {
+                  "https://www.googleapis.com/auth/calendar": "See, edit, share, and permanently delete all the calendars you can access using Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.events": "View and edit events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.events.readonly": "View events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.readonly": "See and download any calendar you can access using your Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.settings.readonly": "View your Calendar settings"
+                },
+                "tokenUrl": "https://accounts.google.com/o/oauth2/token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "operation"
+      }
+    }
+  }
+}

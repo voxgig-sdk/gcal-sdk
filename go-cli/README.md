@@ -19,17 +19,18 @@ make build
 export GCAL_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
-./gcal-cli list event
-./gcal-cli load 1 event            # {id:1} shorthand
-./gcal-cli load '{id:1}' event       # explicit match map
-./gcal-cli update '{name:"x"}' event
+./gcal-cli list acl
+./gcal-cli load 1 acl            # {id:1} shorthand
+./gcal-cli load '{id:1}' acl       # explicit match map
+./gcal-cli update '{name:"x"}' acl
+./gcal-cli list calendar
 
 # 5. Override the API base URL for a single call
-GCAL_BASE=https://api.example.com ./gcal-cli list event
+GCAL_BASE=https://api.example.com ./gcal-cli list acl
 
 # 6. No arguments -> interactive REPL
 ./gcal-cli
-gcal> list event
+gcal> list acl
 gcal> /quit
 ```
 
@@ -55,7 +56,7 @@ gcal> /quit
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/gcal-cli list event
+   ./dist/*/gcal-cli list acl
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -68,7 +69,7 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 ### List the records of an entity
 
 ```sh
-./gcal-cli list event
+./gcal-cli list acl
 ```
 
 `list <entity>` returns the first page of records. `<entity>` is a bareword —
@@ -77,8 +78,8 @@ it is auto-quoted as an boru atom, so no quotes are needed.
 ### Load a single record
 
 ```sh
-./gcal-cli load 1 event          # scalar shorthand for {id:1}
-./gcal-cli load '{id:1}' event     # explicit match map
+./gcal-cli load 1 acl          # scalar shorthand for {id:1}
+./gcal-cli load '{id:1}' acl     # explicit match map
 ```
 
 The query is either a **scalar** (`1`, treated as `{id:1}`) or a **match map**
@@ -87,7 +88,7 @@ The query is either a **scalar** (`1`, treated as `{id:1}`) or a **match map**
 ### Update a record
 
 ```sh
-./gcal-cli update '{id:1,name:"new"}' event
+./gcal-cli update '{id:1,name:"new"}' acl
 ```
 
 The match map carries both the selector and the new field values; the updated
@@ -100,7 +101,7 @@ Configuration is read from the environment — nothing is written to disk:
 ```sh
 export GCAL_APIKEY=sk_live_xxx            # API key
 export GCAL_BASE=https://api.example.com  # optional: override the API base URL
-./gcal-cli list event
+./gcal-cli list acl
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
@@ -112,7 +113,7 @@ evaluated as its own boru expression:
 
 ```text
 $ ./gcal-cli
-gcal> list event
+gcal> list acl
 gcal> /help
 gcal> /quit
 ```
@@ -127,7 +128,7 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 ### Discover the available entities
 
 `/help` in the REPL prints the full entity list, or see [Entities](#entities)
-below — this SDK exposes 1 entity.
+below — this SDK exposes 12 entities.
 
 ## Reference
 
@@ -141,7 +142,7 @@ The CLI registers these boru words, each bound to the SDK:
 | `load`   | `load <entity>` · `load <query> <entity>`     | A single record                |
 | `update` | `update <query> <entity>`                     | Update a record, return it     |
 
-- `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `event`).
+- `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `acl`).
 - `<query>` is either a **Map** (`{id:1}`) or a **Scalar** (`1`, treated as
   `{id:1}`). A scalar is always wrapped as `{id:<value>}`.
 
@@ -182,9 +183,9 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 ### Entities
 
-The 1 entity this SDK exposes (any is valid as `<entity>`):
+The 12 entities this SDK exposes (any is valid as `<entity>`):
 
-event
+acl calendar calendar_list channel color event free_busy import quick_add setting stop watch
 
 ## Explanation
 

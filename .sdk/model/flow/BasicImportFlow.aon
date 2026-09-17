@@ -1,0 +1,9 @@
+# BasicImportFlow
+
+main: kit: flow: BasicImportFlow:
+{
+  entity: "import",
+  kind: "basic",
+  name: "BasicImportFlow",
+  "key$": "BasicImportFlow"
+}

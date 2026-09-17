@@ -1,0 +1,18 @@
+# Entity: quick_add
+
+main: kit: entity: quick_add: {
+
+  alias: field: {}
+
+  name: "quick_add"
+  relations: {
+    ancestors: [
+      [
+        "calendar"
+      ]
+    ]
+  }
+
+
+
+}

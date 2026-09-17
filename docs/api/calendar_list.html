@@ -1,0 +1,1845 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CalendarList | Calendar API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">Calendar API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/gcal-sdk">voxgig-sdk/gcal-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Calendar API</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/acl.html">Acl</a>
+<a href="../api/calendar.html">Calendar</a>
+<a aria-current="page" href="../api/calendar_list.html">CalendarList</a><div class="nav-sections"><a class="nav-section" href="#post-usersmecalendarlistwatch">POST /users/me/calendarList/watch</a>
+<a class="nav-section" href="#post-usersmecalendarlist">POST /users/me/calendarList</a>
+<a class="nav-section" href="#get-usersmecalendarlist">GET /users/me/calendarList</a>
+<a class="nav-section" href="#get-usersmecalendarlistcalendarid">GET /users/me/calendarList/{calendarId}</a>
+<a class="nav-section" href="#patch-usersmecalendarlistcalendarid">PATCH /users/me/calendarList/{calendarId}</a>
+<a class="nav-section" href="#delete-usersmecalendarlistcalendarid">DELETE /users/me/calendarList/{calendarId}</a>
+<a class="nav-section" href="#put-usersmecalendarlistcalendarid">PUT /users/me/calendarList/{calendarId}</a></div>
+<a href="../api/channel.html">Channel</a>
+<a href="../api/color.html">Color</a>
+<a href="../api/event.html">Event</a>
+<a href="../api/free_busy.html">FreeBusy</a>
+<a href="../api/import.html">Import</a>
+<a href="../api/quick_add.html">QuickAdd</a>
+<a href="../api/setting.html">Setting</a>
+<a href="../api/stop.html">Stop</a>
+<a href="../api/watch.html">Watch</a></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/js.html">JavaScript</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="calendarlist">CalendarList</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-usersmecalendarlistwatch"><code>/users/me/calendarList/watch</code></a></td>
+<td><code>create</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-usersmecalendarlist"><code>/users/me/calendarList</code></a></td>
+<td><code>create</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-usersmecalendarlist"><code>/users/me/calendarList</code></a></td>
+<td><code>list</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-usersmecalendarlistcalendarid"><code>/users/me/calendarList/{calendarId}</code></a></td>
+<td><code>load</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td><a href="#patch-usersmecalendarlistcalendarid"><code>/users/me/calendarList/{calendarId}</code></a></td>
+<td><code>patch</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td><a href="#delete-usersmecalendarlistcalendarid"><code>/users/me/calendarList/{calendarId}</code></a></td>
+<td><code>remove</code></td>
+<td>Successful response</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><a href="#put-usersmecalendarlistcalendarid"><code>/users/me/calendarList/{calendarId}</code></a></td>
+<td><code>update</code></td>
+<td>Successful response</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accessRole</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The effective access role that the authenticated user has on the calendar.</td>
+</tr>
+<tr>
+<td><code>backgroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The main color of the calendar in the hexadecimal format &quot;#0088aa&quot;.</td>
+</tr>
+<tr>
+<td><code>colorId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The color of the calendar.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>defaultReminders</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>The default reminders that the authenticated user has for this calendar.</td>
+</tr>
+<tr>
+<td><code>deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether this calendar list entry has been deleted from the calendar list.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>foregroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The foreground color of the calendar in the hexadecimal format &quot;#ffffff&quot;.</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar has been hidden from the list.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendarListEntry&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text.</td>
+</tr>
+<tr>
+<td><code>notificationSettings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>The notifications that the authenticated user is receiving for this calendar.</td>
+</tr>
+<tr>
+<td><code>primary</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar is the primary calendar of the authenticated user.</td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar content shows up in the calendar UI.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar.</td>
+</tr>
+<tr>
+<td><code>summaryOverride</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The summary that the authenticated user has set for this calendar.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create">create</h2>
+<h3 id="post-usersmecalendarlistwatch" class="operation" data-method="post"><code>POST</code> /users/me/calendarList/watch</h3>
+<p>Operation ID: <code>calendar.calendarList.watch</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>maxResults</code> | <code>query</code> | <code>integer</code> | No | Maximum number of entries returned on one result page. By default the value is 100 entries. The page size can never be larger than 250 entries. Optional. |
+| <code>minAccessRole</code> | <code>query</code> | <code>enum: freeBusyReader, owner, reader, writer</code> | No | The minimum access role for the user in the returned entries. Optional. The default is no restriction. |
+| <code>pageToken</code> | <code>query</code> | <code>string</code> | No | Token specifying which result page to return. Optional. |
+| <code>showDeleted</code> | <code>query</code> | <code>boolean</code> | No | Whether to include deleted calendar list entries in the result. Optional. The default is False. |
+| <code>showHidden</code> | <code>query</code> | <code>boolean</code> | No | Whether to show hidden entries. Optional. The default is False. |
+| <code>syncToken</code> | <code>query</code> | <code>string</code> | No | Token obtained from the nextSyncToken field returned on the last page of results from the previous list request. It makes the result of this list request contain only entries that have changed since then. If only read-only fields such as calendar properties or ACLs have changed, the entry won't be returned. All entries deleted and hidden since the previous list request will always be in the result set and it is not allowed to set showDeleted neither showHidden to False. To ensure client state consistency minAccessRole query parameter cannot be specified together with nextSyncToken. If the syncToken expires, the server will respond with a 410 GONE response code and the client should clear its storage and perform a full synchronization without any syncToken. Learn more about incremental synchronization. Optional. The default is to return all entries. |</p>
+<h4 id="request-body">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>address</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The address where notifications are delivered for this channel.</td>
+</tr>
+<tr>
+<td><code>expiration</code></td>
+<td><code>string (int64)</code></td>
+<td>No</td>
+<td>Date and time of notification channel expiration, expressed as a Unix timestamp, in milliseconds. Optional.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A UUID or similar unique string that identifies this channel.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifies this as a notification channel used to watch for changes to a resource, which is &quot;api#channel&quot;.</td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Additional parameters controlling delivery channel behavior. Optional.</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>A Boolean value to indicate whether payload is wanted. Optional.</td>
+</tr>
+<tr>
+<td><code>resourceId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.</td>
+</tr>
+<tr>
+<td><code>resourceUri</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A version-specific identifier for the watched resource.</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of delivery mechanism used for this channel. Valid values are &quot;web_hook&quot; (or &quot;webhook&quot;). Both values refer to a channel where Http requests are used to deliver messages.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses">Responses</h4>
+<h5 id="200-successful-response" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>address</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The address where notifications are delivered for this channel.</td>
+</tr>
+<tr>
+<td><code>expiration</code></td>
+<td><code>string (int64)</code></td>
+<td>No</td>
+<td>Date and time of notification channel expiration, expressed as a Unix timestamp, in milliseconds. Optional.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A UUID or similar unique string that identifies this channel.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifies this as a notification channel used to watch for changes to a resource, which is &quot;api#channel&quot;.</td>
+</tr>
+<tr>
+<td><code>params</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Additional parameters controlling delivery channel behavior. Optional.</td>
+</tr>
+<tr>
+<td><code>payload</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>A Boolean value to indicate whether payload is wanted. Optional.</td>
+</tr>
+<tr>
+<td><code>resourceId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>An opaque ID that identifies the resource being watched on this channel. Stable across different API versions.</td>
+</tr>
+<tr>
+<td><code>resourceUri</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>A version-specific identifier for the watched resource.</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>An arbitrary string delivered to the target address with each notification delivered over this channel. Optional.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of delivery mechanism used for this channel. Valid values are &quot;web_hook&quot; (or &quot;webhook&quot;). Both values refer to a channel where Http requests are used to deliver messages.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-usersmecalendarlist" class="operation" data-method="post"><code>POST</code> /users/me/calendarList</h3>
+<p>Operation ID: <code>calendar.calendarList.insert</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-1">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>colorRgbFormat</code> | <code>query</code> | <code>boolean</code> | No | Whether to use the foregroundColor and backgroundColor fields to write the calendar colors (RGB). If this feature is used, the index-based colorId field will be set to the best matching option automatically. Optional. The default is False. |</p>
+<h4 id="request-body-1">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accessRole</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The effective access role that the authenticated user has on the calendar. Read-only. Possible values are: - &quot;freeBusyReader&quot; - Provides read access to free/busy information. - &quot;reader&quot; - Provides read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. - &quot;writer&quot; - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. - &quot;owner&quot; - Provides ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.</td>
+</tr>
+<tr>
+<td><code>backgroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The main color of the calendar in the hexadecimal format &quot;#0088aa&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>colorId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The color of the calendar. This is an ID referring to an entry in the calendar section of the colors definition (see the colors endpoint). This property is superseded by the backgroundColor and foregroundColor properties and can be ignored when using these properties. Optional.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>defaultReminders</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The default reminders that the authenticated user has for this calendar.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used by this reminder. Possible values are: - &quot;email&quot; - Reminders are sent via email. - &quot;popup&quot; - Reminders are sent via a UI popup. Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].minutes</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Number of minutes before the start of the event when the reminder should trigger. Valid values are between 0 and 40320 (4 weeks in minutes). Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether this calendar list entry has been deleted from the calendar list. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>foregroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The foreground color of the calendar in the hexadecimal format &quot;#ffffff&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar has been hidden from the list. Optional. The attribute is only returned when the calendar is hidden, in which case the value is true.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendarListEntry&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>notificationSettings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>The notifications that the authenticated user is receiving for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The list of notifications set for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used to deliver the notification. The possible value is: - &quot;email&quot; - Notifications are sent via email. Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of notification. Possible values are: - &quot;eventCreation&quot; - Notification sent when a new event is put on the calendar. - &quot;eventChange&quot; - Notification sent when an event is changed. - &quot;eventCancellation&quot; - Notification sent when an event is cancelled. - &quot;eventResponse&quot; - Notification sent when an attendee responds to the event invitation. - &quot;agenda&quot; - An agenda with the events of the day (sent out in the morning). Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>primary</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar is the primary calendar of the authenticated user. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar content shows up in the calendar UI. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar. Read-only.</td>
+</tr>
+<tr>
+<td><code>summaryOverride</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The summary that the authenticated user has set for this calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. Optional. Read-only.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-1">Responses</h4>
+<h5 id="200-successful-response-1" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accessRole</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The effective access role that the authenticated user has on the calendar. Read-only. Possible values are: - &quot;freeBusyReader&quot; - Provides read access to free/busy information. - &quot;reader&quot; - Provides read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. - &quot;writer&quot; - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. - &quot;owner&quot; - Provides ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.</td>
+</tr>
+<tr>
+<td><code>backgroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The main color of the calendar in the hexadecimal format &quot;#0088aa&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>colorId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The color of the calendar. This is an ID referring to an entry in the calendar section of the colors definition (see the colors endpoint). This property is superseded by the backgroundColor and foregroundColor properties and can be ignored when using these properties. Optional.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>defaultReminders</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The default reminders that the authenticated user has for this calendar.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used by this reminder. Possible values are: - &quot;email&quot; - Reminders are sent via email. - &quot;popup&quot; - Reminders are sent via a UI popup. Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].minutes</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Number of minutes before the start of the event when the reminder should trigger. Valid values are between 0 and 40320 (4 weeks in minutes). Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether this calendar list entry has been deleted from the calendar list. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>foregroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The foreground color of the calendar in the hexadecimal format &quot;#ffffff&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar has been hidden from the list. Optional. The attribute is only returned when the calendar is hidden, in which case the value is true.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendarListEntry&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>notificationSettings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>The notifications that the authenticated user is receiving for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The list of notifications set for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used to deliver the notification. The possible value is: - &quot;email&quot; - Notifications are sent via email. Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of notification. Possible values are: - &quot;eventCreation&quot; - Notification sent when a new event is put on the calendar. - &quot;eventChange&quot; - Notification sent when an event is changed. - &quot;eventCancellation&quot; - Notification sent when an event is cancelled. - &quot;eventResponse&quot; - Notification sent when an attendee responds to the event invitation. - &quot;agenda&quot; - An agenda with the events of the day (sent out in the morning). Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>primary</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar is the primary calendar of the authenticated user. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar content shows up in the calendar UI. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar. Read-only.</td>
+</tr>
+<tr>
+<td><code>summaryOverride</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The summary that the authenticated user has set for this calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. Optional. Read-only.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="list">list</h2>
+<h3 id="get-usersmecalendarlist" class="operation" data-method="get"><code>GET</code> /users/me/calendarList</h3>
+<p>Operation ID: <code>calendar.calendarList.list</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-2">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>maxResults</code> | <code>query</code> | <code>integer</code> | No | Maximum number of entries returned on one result page. By default the value is 100 entries. The page size can never be larger than 250 entries. Optional. |
+| <code>minAccessRole</code> | <code>query</code> | <code>enum: freeBusyReader, owner, reader, writer</code> | No | The minimum access role for the user in the returned entries. Optional. The default is no restriction. |
+| <code>pageToken</code> | <code>query</code> | <code>string</code> | No | Token specifying which result page to return. Optional. |
+| <code>showDeleted</code> | <code>query</code> | <code>boolean</code> | No | Whether to include deleted calendar list entries in the result. Optional. The default is False. |
+| <code>showHidden</code> | <code>query</code> | <code>boolean</code> | No | Whether to show hidden entries. Optional. The default is False. |
+| <code>syncToken</code> | <code>query</code> | <code>string</code> | No | Token obtained from the nextSyncToken field returned on the last page of results from the previous list request. It makes the result of this list request contain only entries that have changed since then. If only read-only fields such as calendar properties or ACLs have changed, the entry won't be returned. All entries deleted and hidden since the previous list request will always be in the result set and it is not allowed to set showDeleted neither showHidden to False. To ensure client state consistency minAccessRole query parameter cannot be specified together with nextSyncToken. If the syncToken expires, the server will respond with a 410 GONE response code and the client should clear its storage and perform a full synchronization without any syncToken. Learn more about incremental synchronization. Optional. The default is to return all entries. |</p>
+<h4 id="responses-2">Responses</h4>
+<h5 id="200-successful-response-2" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the collection.</td>
+</tr>
+<tr>
+<td><code>items</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>Calendars that are present on the user's calendar list.</td>
+</tr>
+<tr>
+<td><code>items[].accessRole</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The effective access role that the authenticated user has on the calendar. Read-only. Possible values are: - &quot;freeBusyReader&quot; - Provides read access to free/busy information. - &quot;reader&quot; - Provides read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. - &quot;writer&quot; - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. - &quot;owner&quot; - Provides ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.</td>
+</tr>
+<tr>
+<td><code>items[].backgroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The main color of the calendar in the hexadecimal format &quot;#0088aa&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>items[].colorId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The color of the calendar. This is an ID referring to an entry in the calendar section of the colors definition (see the colors endpoint). This property is superseded by the backgroundColor and foregroundColor properties and can be ignored when using these properties. Optional.</td>
+</tr>
+<tr>
+<td><code>items[].conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>items[].conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>items[].defaultReminders</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The default reminders that the authenticated user has for this calendar.</td>
+</tr>
+<tr>
+<td><code>items[].defaultReminders[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used by this reminder. Possible values are: - &quot;email&quot; - Reminders are sent via email. - &quot;popup&quot; - Reminders are sent via a UI popup. Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>items[].defaultReminders[].minutes</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Number of minutes before the start of the event when the reminder should trigger. Valid values are between 0 and 40320 (4 weeks in minutes). Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>items[].deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether this calendar list entry has been deleted from the calendar list. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>items[].description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>items[].etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>items[].foregroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The foreground color of the calendar in the hexadecimal format &quot;#ffffff&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>items[].hidden</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar has been hidden from the list. Optional. The attribute is only returned when the calendar is hidden, in which case the value is true.</td>
+</tr>
+<tr>
+<td><code>items[].id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar.</td>
+</tr>
+<tr>
+<td><code>items[].kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendarListEntry&quot;).</td>
+</tr>
+<tr>
+<td><code>items[].location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>items[].notificationSettings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>The notifications that the authenticated user is receiving for this calendar.</td>
+</tr>
+<tr>
+<td><code>items[].notificationSettings.notifications</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The list of notifications set for this calendar.</td>
+</tr>
+<tr>
+<td><code>items[].notificationSettings.notifications[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used to deliver the notification. The possible value is: - &quot;email&quot; - Notifications are sent via email. Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>items[].notificationSettings.notifications[].type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of notification. Possible values are: - &quot;eventCreation&quot; - Notification sent when a new event is put on the calendar. - &quot;eventChange&quot; - Notification sent when an event is changed. - &quot;eventCancellation&quot; - Notification sent when an event is cancelled. - &quot;eventResponse&quot; - Notification sent when an attendee responds to the event invitation. - &quot;agenda&quot; - An agenda with the events of the day (sent out in the morning). Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>items[].primary</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar is the primary calendar of the authenticated user. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>items[].selected</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar content shows up in the calendar UI. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>items[].summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar. Read-only.</td>
+</tr>
+<tr>
+<td><code>items[].summaryOverride</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The summary that the authenticated user has set for this calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>items[].timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the collection (&quot;calendar#calendarList&quot;).</td>
+</tr>
+<tr>
+<td><code>nextPageToken</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Token used to access the next page of this result. Omitted if no further results are available, in which case nextSyncToken is provided.</td>
+</tr>
+<tr>
+<td><code>nextSyncToken</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Token used at a later point in time to retrieve only the entries that have changed since this result was returned. Omitted if further results are available, in which case nextPageToken is provided.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="load">load</h2>
+<h3 id="get-usersmecalendarlistcalendarid" class="operation" data-method="get"><code>GET</code> /users/me/calendarList/{calendarId}</h3>
+<p>Operation ID: <code>calendar.calendarList.get</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-3">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>calendarId</code> | <code>path</code> | <code>string</code> | Yes | Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the &quot;primary&quot; keyword. |</p>
+<h4 id="responses-3">Responses</h4>
+<h5 id="200-successful-response-3" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accessRole</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The effective access role that the authenticated user has on the calendar. Read-only. Possible values are: - &quot;freeBusyReader&quot; - Provides read access to free/busy information. - &quot;reader&quot; - Provides read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. - &quot;writer&quot; - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. - &quot;owner&quot; - Provides ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.</td>
+</tr>
+<tr>
+<td><code>backgroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The main color of the calendar in the hexadecimal format &quot;#0088aa&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>colorId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The color of the calendar. This is an ID referring to an entry in the calendar section of the colors definition (see the colors endpoint). This property is superseded by the backgroundColor and foregroundColor properties and can be ignored when using these properties. Optional.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>defaultReminders</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The default reminders that the authenticated user has for this calendar.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used by this reminder. Possible values are: - &quot;email&quot; - Reminders are sent via email. - &quot;popup&quot; - Reminders are sent via a UI popup. Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].minutes</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Number of minutes before the start of the event when the reminder should trigger. Valid values are between 0 and 40320 (4 weeks in minutes). Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether this calendar list entry has been deleted from the calendar list. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>foregroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The foreground color of the calendar in the hexadecimal format &quot;#ffffff&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar has been hidden from the list. Optional. The attribute is only returned when the calendar is hidden, in which case the value is true.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendarListEntry&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>notificationSettings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>The notifications that the authenticated user is receiving for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The list of notifications set for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used to deliver the notification. The possible value is: - &quot;email&quot; - Notifications are sent via email. Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of notification. Possible values are: - &quot;eventCreation&quot; - Notification sent when a new event is put on the calendar. - &quot;eventChange&quot; - Notification sent when an event is changed. - &quot;eventCancellation&quot; - Notification sent when an event is cancelled. - &quot;eventResponse&quot; - Notification sent when an attendee responds to the event invitation. - &quot;agenda&quot; - An agenda with the events of the day (sent out in the morning). Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>primary</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar is the primary calendar of the authenticated user. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar content shows up in the calendar UI. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar. Read-only.</td>
+</tr>
+<tr>
+<td><code>summaryOverride</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The summary that the authenticated user has set for this calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. Optional. Read-only.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="patch">patch</h2>
+<h3 id="patch-usersmecalendarlistcalendarid" class="operation" data-method="patch"><code>PATCH</code> /users/me/calendarList/{calendarId}</h3>
+<p>Operation ID: <code>calendar.calendarList.patch</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-4">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>calendarId</code> | <code>path</code> | <code>string</code> | Yes | Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the &quot;primary&quot; keyword. |
+| <code>colorRgbFormat</code> | <code>query</code> | <code>boolean</code> | No | Whether to use the foregroundColor and backgroundColor fields to write the calendar colors (RGB). If this feature is used, the index-based colorId field will be set to the best matching option automatically. Optional. The default is False. |</p>
+<h4 id="request-body-2">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accessRole</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The effective access role that the authenticated user has on the calendar. Read-only. Possible values are: - &quot;freeBusyReader&quot; - Provides read access to free/busy information. - &quot;reader&quot; - Provides read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. - &quot;writer&quot; - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. - &quot;owner&quot; - Provides ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.</td>
+</tr>
+<tr>
+<td><code>backgroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The main color of the calendar in the hexadecimal format &quot;#0088aa&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>colorId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The color of the calendar. This is an ID referring to an entry in the calendar section of the colors definition (see the colors endpoint). This property is superseded by the backgroundColor and foregroundColor properties and can be ignored when using these properties. Optional.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>defaultReminders</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The default reminders that the authenticated user has for this calendar.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used by this reminder. Possible values are: - &quot;email&quot; - Reminders are sent via email. - &quot;popup&quot; - Reminders are sent via a UI popup. Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].minutes</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Number of minutes before the start of the event when the reminder should trigger. Valid values are between 0 and 40320 (4 weeks in minutes). Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether this calendar list entry has been deleted from the calendar list. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>foregroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The foreground color of the calendar in the hexadecimal format &quot;#ffffff&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar has been hidden from the list. Optional. The attribute is only returned when the calendar is hidden, in which case the value is true.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendarListEntry&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>notificationSettings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>The notifications that the authenticated user is receiving for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The list of notifications set for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used to deliver the notification. The possible value is: - &quot;email&quot; - Notifications are sent via email. Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of notification. Possible values are: - &quot;eventCreation&quot; - Notification sent when a new event is put on the calendar. - &quot;eventChange&quot; - Notification sent when an event is changed. - &quot;eventCancellation&quot; - Notification sent when an event is cancelled. - &quot;eventResponse&quot; - Notification sent when an attendee responds to the event invitation. - &quot;agenda&quot; - An agenda with the events of the day (sent out in the morning). Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>primary</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar is the primary calendar of the authenticated user. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar content shows up in the calendar UI. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar. Read-only.</td>
+</tr>
+<tr>
+<td><code>summaryOverride</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The summary that the authenticated user has set for this calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. Optional. Read-only.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-4">Responses</h4>
+<h5 id="200-successful-response-4" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accessRole</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The effective access role that the authenticated user has on the calendar. Read-only. Possible values are: - &quot;freeBusyReader&quot; - Provides read access to free/busy information. - &quot;reader&quot; - Provides read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. - &quot;writer&quot; - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. - &quot;owner&quot; - Provides ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.</td>
+</tr>
+<tr>
+<td><code>backgroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The main color of the calendar in the hexadecimal format &quot;#0088aa&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>colorId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The color of the calendar. This is an ID referring to an entry in the calendar section of the colors definition (see the colors endpoint). This property is superseded by the backgroundColor and foregroundColor properties and can be ignored when using these properties. Optional.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>defaultReminders</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The default reminders that the authenticated user has for this calendar.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used by this reminder. Possible values are: - &quot;email&quot; - Reminders are sent via email. - &quot;popup&quot; - Reminders are sent via a UI popup. Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].minutes</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Number of minutes before the start of the event when the reminder should trigger. Valid values are between 0 and 40320 (4 weeks in minutes). Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether this calendar list entry has been deleted from the calendar list. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>foregroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The foreground color of the calendar in the hexadecimal format &quot;#ffffff&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar has been hidden from the list. Optional. The attribute is only returned when the calendar is hidden, in which case the value is true.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendarListEntry&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>notificationSettings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>The notifications that the authenticated user is receiving for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The list of notifications set for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used to deliver the notification. The possible value is: - &quot;email&quot; - Notifications are sent via email. Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of notification. Possible values are: - &quot;eventCreation&quot; - Notification sent when a new event is put on the calendar. - &quot;eventChange&quot; - Notification sent when an event is changed. - &quot;eventCancellation&quot; - Notification sent when an event is cancelled. - &quot;eventResponse&quot; - Notification sent when an attendee responds to the event invitation. - &quot;agenda&quot; - An agenda with the events of the day (sent out in the morning). Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>primary</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar is the primary calendar of the authenticated user. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar content shows up in the calendar UI. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar. Read-only.</td>
+</tr>
+<tr>
+<td><code>summaryOverride</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The summary that the authenticated user has set for this calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. Optional. Read-only.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="remove">remove</h2>
+<h3 id="delete-usersmecalendarlistcalendarid" class="operation" data-method="delete"><code>DELETE</code> /users/me/calendarList/{calendarId}</h3>
+<p>Operation ID: <code>calendar.calendarList.delete</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-5">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>calendarId</code> | <code>path</code> | <code>string</code> | Yes | Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the &quot;primary&quot; keyword. |</p>
+<h4 id="responses-5">Responses</h4>
+<h5 id="200-successful-response-5" class="status" data-status="2xx">200: Successful response</h5>
+<h2 id="update">update</h2>
+<h3 id="put-usersmecalendarlistcalendarid" class="operation" data-method="put"><code>PUT</code> /users/me/calendarList/{calendarId}</h3>
+<p>Operation ID: <code>calendar.calendarList.update</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters-6">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |
+| <code>calendarId</code> | <code>path</code> | <code>string</code> | Yes | Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the &quot;primary&quot; keyword. |
+| <code>colorRgbFormat</code> | <code>query</code> | <code>boolean</code> | No | Whether to use the foregroundColor and backgroundColor fields to write the calendar colors (RGB). If this feature is used, the index-based colorId field will be set to the best matching option automatically. Optional. The default is False. |</p>
+<h4 id="request-body-3">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accessRole</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The effective access role that the authenticated user has on the calendar. Read-only. Possible values are: - &quot;freeBusyReader&quot; - Provides read access to free/busy information. - &quot;reader&quot; - Provides read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. - &quot;writer&quot; - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. - &quot;owner&quot; - Provides ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.</td>
+</tr>
+<tr>
+<td><code>backgroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The main color of the calendar in the hexadecimal format &quot;#0088aa&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>colorId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The color of the calendar. This is an ID referring to an entry in the calendar section of the colors definition (see the colors endpoint). This property is superseded by the backgroundColor and foregroundColor properties and can be ignored when using these properties. Optional.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>defaultReminders</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The default reminders that the authenticated user has for this calendar.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used by this reminder. Possible values are: - &quot;email&quot; - Reminders are sent via email. - &quot;popup&quot; - Reminders are sent via a UI popup. Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].minutes</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Number of minutes before the start of the event when the reminder should trigger. Valid values are between 0 and 40320 (4 weeks in minutes). Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether this calendar list entry has been deleted from the calendar list. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>foregroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The foreground color of the calendar in the hexadecimal format &quot;#ffffff&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar has been hidden from the list. Optional. The attribute is only returned when the calendar is hidden, in which case the value is true.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendarListEntry&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>notificationSettings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>The notifications that the authenticated user is receiving for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The list of notifications set for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used to deliver the notification. The possible value is: - &quot;email&quot; - Notifications are sent via email. Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of notification. Possible values are: - &quot;eventCreation&quot; - Notification sent when a new event is put on the calendar. - &quot;eventChange&quot; - Notification sent when an event is changed. - &quot;eventCancellation&quot; - Notification sent when an event is cancelled. - &quot;eventResponse&quot; - Notification sent when an attendee responds to the event invitation. - &quot;agenda&quot; - An agenda with the events of the day (sent out in the morning). Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>primary</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar is the primary calendar of the authenticated user. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar content shows up in the calendar UI. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar. Read-only.</td>
+</tr>
+<tr>
+<td><code>summaryOverride</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The summary that the authenticated user has set for this calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. Optional. Read-only.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses-6">Responses</h4>
+<h5 id="200-successful-response-6" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accessRole</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The effective access role that the authenticated user has on the calendar. Read-only. Possible values are: - &quot;freeBusyReader&quot; - Provides read access to free/busy information. - &quot;reader&quot; - Provides read access to the calendar. Private events will appear to users with reader access, but event details will be hidden. - &quot;writer&quot; - Provides read and write access to the calendar. Private events will appear to users with writer access, and event details will be visible. - &quot;owner&quot; - Provides ownership of the calendar. This role has all of the permissions of the writer role with the additional ability to see and manipulate ACLs.</td>
+</tr>
+<tr>
+<td><code>backgroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The main color of the calendar in the hexadecimal format &quot;#0088aa&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>colorId</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The color of the calendar. This is an ID referring to an entry in the calendar section of the colors definition (see the colors endpoint). This property is superseded by the backgroundColor and foregroundColor properties and can be ignored when using these properties. Optional.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Conferencing properties for this calendar, for example what types of conferences are allowed.</td>
+</tr>
+<tr>
+<td><code>conferenceProperties.allowedConferenceSolutionTypes</code></td>
+<td><code>array of string</code></td>
+<td>No</td>
+<td>The types of conference solutions that are supported for this calendar. The possible values are: - &quot;eventHangout&quot; - &quot;eventNamedHangout&quot; - &quot;hangoutsMeet&quot; Optional.</td>
+</tr>
+<tr>
+<td><code>defaultReminders</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The default reminders that the authenticated user has for this calendar.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used by this reminder. Possible values are: - &quot;email&quot; - Reminders are sent via email. - &quot;popup&quot; - Reminders are sent via a UI popup. Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>defaultReminders[].minutes</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Number of minutes before the start of the event when the reminder should trigger. Valid values are between 0 and 40320 (4 weeks in minutes). Required when adding a reminder.</td>
+</tr>
+<tr>
+<td><code>deleted</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether this calendar list entry has been deleted from the calendar list. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Description of the calendar. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>etag</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>ETag of the resource.</td>
+</tr>
+<tr>
+<td><code>foregroundColor</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The foreground color of the calendar in the hexadecimal format &quot;#ffffff&quot;. This property supersedes the index-based colorId property. To set or change this property, you need to specify colorRgbFormat=true in the parameters of the insert, update and patch methods. Optional.</td>
+</tr>
+<tr>
+<td><code>hidden</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar has been hidden from the list. Optional. The attribute is only returned when the calendar is hidden, in which case the value is true.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Identifier of the calendar.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#calendarListEntry&quot;).</td>
+</tr>
+<tr>
+<td><code>location</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Geographic location of the calendar as free-form text. Optional. Read-only.</td>
+</tr>
+<tr>
+<td><code>notificationSettings</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>The notifications that the authenticated user is receiving for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>The list of notifications set for this calendar.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].method</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The method used to deliver the notification. The possible value is: - &quot;email&quot; - Notifications are sent via email. Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>notificationSettings.notifications[].type</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The type of notification. Possible values are: - &quot;eventCreation&quot; - Notification sent when a new event is put on the calendar. - &quot;eventChange&quot; - Notification sent when an event is changed. - &quot;eventCancellation&quot; - Notification sent when an event is cancelled. - &quot;eventResponse&quot; - Notification sent when an attendee responds to the event invitation. - &quot;agenda&quot; - An agenda with the events of the day (sent out in the morning). Required when adding a notification.</td>
+</tr>
+<tr>
+<td><code>primary</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar is the primary calendar of the authenticated user. Read-only. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>selected</code></td>
+<td><code>boolean</code></td>
+<td>No</td>
+<td>Whether the calendar content shows up in the calendar UI. Optional. The default is False.</td>
+</tr>
+<tr>
+<td><code>summary</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Title of the calendar. Read-only.</td>
+</tr>
+<tr>
+<td><code>summaryOverride</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The summary that the authenticated user has set for this calendar. Optional.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The time zone of the calendar. Optional. Read-only.</td>
+</tr>
+</tbody>
+</table>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

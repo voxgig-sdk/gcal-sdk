@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Color | Calendar API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">Calendar API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/gcal-sdk">voxgig-sdk/gcal-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Calendar API</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/acl.html">Acl</a>
+<a href="../api/calendar.html">Calendar</a>
+<a href="../api/calendar_list.html">CalendarList</a>
+<a href="../api/channel.html">Channel</a>
+<a aria-current="page" href="../api/color.html">Color</a><div class="nav-sections"><a class="nav-section" href="#get-colors">GET /colors</a></div>
+<a href="../api/event.html">Event</a>
+<a href="../api/free_busy.html">FreeBusy</a>
+<a href="../api/import.html">Import</a>
+<a href="../api/quick_add.html">QuickAdd</a>
+<a href="../api/setting.html">Setting</a>
+<a href="../api/stop.html">Stop</a>
+<a href="../api/watch.html">Watch</a></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/js.html">JavaScript</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="color">Color</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td><a href="#get-colors"><code>/colors</code></a></td>
+<td><code>load</code></td>
+<td>Successful response</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>calendar</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>A global palette of calendar colors, mapping from the color ID to its definition.</td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>A global palette of event colors, mapping from the color ID to its definition.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#colors&quot;).</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Last modification time of the color palette (as a RFC3339 timestamp).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="load">load</h2>
+<h3 id="get-colors" class="operation" data-method="get"><code>GET</code> /colors</h3>
+<p>Operation ID: <code>calendar.colors.get</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |</p>
+<h4 id="responses">Responses</h4>
+<h5 id="200-successful-response" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>calendar</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>A global palette of calendar colors, mapping from the color ID to its definition. A calendarListEntry resource refers to one of these color IDs in its colorId field. Read-only.</td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>A global palette of event colors, mapping from the color ID to its definition. An event resource may refer to one of these color IDs in its colorId field. Read-only.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#colors&quot;).</td>
+</tr>
+<tr>
+<td><code>updated</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>Last modification time of the color palette (as a RFC3339 timestamp). Read-only.</td>
+</tr>
+</tbody>
+</table>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

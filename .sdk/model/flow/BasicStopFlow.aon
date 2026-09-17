@@ -1,0 +1,9 @@
+# BasicStopFlow
+
+main: kit: flow: BasicStopFlow:
+{
+  entity: "stop",
+  kind: "basic",
+  name: "BasicStopFlow",
+  "key$": "BasicStopFlow"
+}

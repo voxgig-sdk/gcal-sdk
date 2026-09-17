@@ -4,8 +4,8 @@
 
 The Python SDK for the Gcal API — an entity-oriented client following Pythonic conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Event()` — each
-carrying a small, uniform set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Acl()` — each
+carrying a small, uniform set of operations (`list`, `load`, `create`, `update`, `remove`, `patch`) instead of raw URL
 paths and query strings. You work with named resources and verbs, which
 keeps the cognitive load low.
 
@@ -39,28 +39,29 @@ client = GcalSDK({
 })
 ```
 
-### 2. List event records
+### 2. List acl records
 
 `list()` returns a `list` of records (each a `dict`) and raises on
 error — iterate it directly.
 
 ```python
 try:
-    events = client.Event().list()
-    for event in events:
-        print(event)
+    acls = client.Acl().list({"calendar_id": "example"})
+    for acl in acls:
+        print(acl)
 except Exception as err:
     print(f"list failed: {err}")
 ```
 
-### 3. Load an event
+### 3. Load an acl
 
+Acl is nested under calendar, so provide the `calendar_id`.
 `load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
-    event = client.Event().load({"id": "example_id"})
-    print(event)
+    acl = client.Acl().load({"calendar_id": "example_calendar_id", "id": "example_id"})
+    print(acl)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -69,13 +70,13 @@ except Exception as err:
 
 ```python
 # Create — returns the ENTITY (call data_get() for the record)
-created = client.Event().create({"created": "example_created", "description": "example_description"})
+created = client.Acl().create({"calendar_id": "example_calendar_id"})
 
 # Update — the created record's id is a plain dict key
-client.Event().update({"id": created.data_get()["id"], "created": "example_created", "description": "example_description"})
+client.Acl().update({"id": created.data_get()["id"], "calendar_id": "example_calendar_id", "alt": "example_alt"})
 
 # Remove
-client.Event().remove({"id": created.data_get()["id"]})
+client.Acl().remove({"id": created.data_get()["id"], "calendar_id": "example_calendar_id"})
 ```
 
 
@@ -85,10 +86,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    events = client.Event().list()
-    print(events)
+    calendar = client.Calendar().load({"id": "example_id"})
+    print(calendar)
 except Exception as err:
-    print(f"list failed: {err}")
+    print(f"load failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -154,8 +155,8 @@ client = GcalSDK.test()
 
 # Entity ops return the ENTITY and raises on error;
 # call data_get() for the record.
-event = client.Event().list()
-# event contains the mock response record
+calendar = client.Calendar().load({"id": "test01"})
+# calendar contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -233,7 +234,18 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
+| `Acl` | `(data) -> AclEntity` | Create an Acl entity instance. |
+| `Calendar` | `(data) -> CalendarEntity` | Create a Calendar entity instance. |
+| `CalendarList` | `(data) -> CalendarListEntity` | Create a CalendarList entity instance. |
+| `Channel` | `(data) -> ChannelEntity` | Create a Channel entity instance. |
+| `Color` | `(data) -> ColorEntity` | Create a Color entity instance. |
 | `Event` | `(data) -> EventEntity` | Create an Event entity instance. |
+| `FreeBusy` | `(data) -> FreeBusyEntity` | Create a FreeBusy entity instance. |
+| `Import` | `(data) -> ImportEntity` | Create an Import entity instance. |
+| `QuickAdd` | `(data) -> QuickAddEntity` | Create a QuickAdd entity instance. |
+| `Setting` | `(data) -> SettingEntity` | Create a Setting entity instance. |
+| `Stop` | `(data) -> StopEntity` | Create a Stop entity instance. |
+| `Watch` | `(data) -> WatchEntity` | Create a Watch entity instance. |
 
 ### Entity interface
 
@@ -273,28 +285,405 @@ On error, `ok` is `False` and `err` contains the error value.
 
 ### Entities
 
+#### Acl
+
+| Field | Description |
+| --- | --- |
+| `etag` | ETag of the resource. |
+| `id` | Identifier of the Access Control List (ACL) rule. |
+| `kind` | Type of the resource ("calendar#aclRule"). |
+| `role` | The role assigned to the scope. |
+| `scope` | The extent to which calendar access is granted by this ACL rule. |
+| `type` | The type of the scope. |
+| `value` | The email address of a user or group, or the name of a domain, depending on the scope type. |
+
+Operations: Create, List, Load, Patch, Remove, Update.
+
+API path: `/calendars/{calendarId}/acl/watch`
+
+#### Calendar
+
+| Field | Description |
+| --- | --- |
+| `allowedConferenceSolutionTypes` | The types of conference solutions that are supported for this calendar. |
+| `conferenceProperties` | Conferencing properties for this calendar, for example what types of conferences are allowed. |
+| `description` | Description of the calendar. |
+| `etag` | ETag of the resource. |
+| `id` | Identifier of the calendar. |
+| `kind` | Type of the resource ("calendar#calendar"). |
+| `location` | Geographic location of the calendar as free-form text. |
+| `summary` | Title of the calendar. |
+| `timeZone` | The time zone of the calendar. |
+
+Operations: Create, Load, Patch, Remove, Update.
+
+API path: `/calendars/{calendarId}/clear`
+
+#### CalendarList
+
+| Field | Description |
+| --- | --- |
+| `accessRole` | The effective access role that the authenticated user has on the calendar. |
+| `backgroundColor` | The main color of the calendar in the hexadecimal format "#0088aa". |
+| `colorId` | The color of the calendar. |
+| `conferenceProperties` | Conferencing properties for this calendar, for example what types of conferences are allowed. |
+| `defaultReminders` | The default reminders that the authenticated user has for this calendar. |
+| `deleted` | Whether this calendar list entry has been deleted from the calendar list. |
+| `description` | Description of the calendar. |
+| `etag` | ETag of the resource. |
+| `foregroundColor` | The foreground color of the calendar in the hexadecimal format "#ffffff". |
+| `hidden` | Whether the calendar has been hidden from the list. |
+| `id` | Identifier of the calendar. |
+| `kind` | Type of the resource ("calendar#calendarListEntry"). |
+| `location` | Geographic location of the calendar as free-form text. |
+| `notificationSettings` | The notifications that the authenticated user is receiving for this calendar. |
+| `primary` | Whether the calendar is the primary calendar of the authenticated user. |
+| `selected` | Whether the calendar content shows up in the calendar UI. |
+| `summary` | Title of the calendar. |
+| `summaryOverride` | The summary that the authenticated user has set for this calendar. |
+| `timeZone` | The time zone of the calendar. |
+
+Operations: Create, List, Load, Patch, Remove, Update.
+
+API path: `/users/me/calendarList/watch`
+
+#### Channel
+
+| Field | Description |
+| --- | --- |
+
+Operations: Create.
+
+API path: `/channels/stop`
+
+#### Color
+
+| Field | Description |
+| --- | --- |
+| `calendar` | A global palette of calendar colors, mapping from the color ID to its definition. |
+| `event` | A global palette of event colors, mapping from the color ID to its definition. |
+| `kind` | Type of the resource ("calendar#colors"). |
+| `updated` | Last modification time of the color palette (as a RFC3339 timestamp). |
+
+Operations: Load.
+
+API path: `/colors`
+
 #### Event
 
 | Field | Description |
 | --- | --- |
-| `created` |  |
-| `description` |  |
-| `end` |  |
-| `htmlLink` |  |
-| `id` |  |
-| `location` |  |
-| `start` |  |
-| `status` |  |
-| `summary` |  |
-| `updated` |  |
+| `accessRole` | The user's access role for this calendar. |
+| `anyoneCanAddSelf` | Whether anyone can invite themselves to the event (deprecated). |
+| `attachments` | File attachments for the event. |
+| `attendees` | The attendees of the event. |
+| `attendeesOmitted` | Whether attendees may have been omitted from the event's representation. |
+| `colorId` | The color of the event. |
+| `conferenceData` | The conference-related information, such as details of a Google Meet conference. |
+| `created` | Creation time of the event (as a RFC3339 timestamp). |
+| `creator` | The creator of the event. |
+| `defaultReminders` | The default reminders on the calendar for the authenticated user. |
+| `description` | Description of the event. |
+| `end` | The (exclusive) end time of the event. |
+| `endTimeUnspecified` | Whether the end time is actually unspecified. |
+| `etag` | ETag of the resource. |
+| `eventType` | Specific type of the event. |
+| `extendedProperties` | Extended properties of the event. |
+| `gadget` | A gadget that extends this event. |
+| `guestsCanInviteOthers` | Whether attendees other than the organizer can invite others to the event. |
+| `guestsCanModify` | Whether attendees other than the organizer can modify the event. |
+| `guestsCanSeeOtherGuests` | Whether attendees other than the organizer can see who the event's attendees are. |
+| `hangoutLink` | An absolute link to the Google Hangout associated with this event. |
+| `htmlLink` | An absolute link to this event in the Google Calendar Web UI. |
+| `iCalUID` | Event unique identifier as defined in RFC5545. |
+| `id` | Opaque identifier of the event. |
+| `items` | List of events on the calendar. |
+| `kind` | Type of the resource ("calendar#event"). |
+| `location` | Geographic location of the event as free-form text. |
+| `locked` | Whether this is a locked event copy where no changes can be made to the main event fields "summary", "description", "location", "start", "end" or "recurrence". |
+| `nextPageToken` | Token used to access the next page of this result. |
+| `nextSyncToken` | Token used at a later point in time to retrieve only the entries that have changed since this result was returned. |
+| `organizer` | The organizer of the event. |
+| `originalStartTime` | For an instance of a recurring event, this is the time at which this event would start according to the recurrence data in the recurring event identified by recurringEventId. |
+| `privateCopy` | If set to True, Event propagation is disabled. |
+| `recurrence` | List of RRULE, EXRULE, RDATE and EXDATE lines for a recurring event, as specified in RFC5545. |
+| `recurringEventId` | For an instance of a recurring event, this is the id of the recurring event to which this instance belongs. |
+| `reminders` | Information about the event's reminders for the authenticated user. |
+| `sequence` | Sequence number as per iCalendar. |
+| `source` | Source from which the event was created. |
+| `start` | The (inclusive) start time of the event. |
+| `status` | Status of the event. |
+| `summary` | Title of the event. |
+| `timeZone` | The time zone of the calendar. |
+| `transparency` | Whether the event blocks time on the calendar. |
+| `updated` | Last modification time of the event (as a RFC3339 timestamp). |
+| `visibility` | Visibility of the event. |
+| `workingLocationProperties` | Developer Preview: Working Location event data. |
 
-Operations: Create, List, Load, Remove, Update.
+Operations: Create, List, Load, Patch, Remove, Update.
 
-API path: `/calendars/primary/events`
+API path: `/calendars/{calendarId}/events/watch`
+
+#### FreeBusy
+
+| Field | Description |
+| --- | --- |
+| `calendarExpansionMax` | Maximal number of calendars for which FreeBusy information is to be provided. |
+| `calendars` | List of free/busy information for calendars. |
+| `groupExpansionMax` | Maximal number of calendar identifiers to be provided for a single group. |
+| `groups` | Expansion of groups. |
+| `items` | List of calendars and/or groups to query. |
+| `kind` | Type of the resource ("calendar#freeBusy"). |
+| `timeMax` | The end of the interval. |
+| `timeMin` | The start of the interval. |
+| `timeZone` | Time zone used in the response. |
+
+Operations: Create.
+
+API path: `/freeBusy`
+
+#### Import
+
+| Field | Description |
+| --- | --- |
+
+Operations: .
+
+API path: ``
+
+#### QuickAdd
+
+| Field | Description |
+| --- | --- |
+
+Operations: .
+
+API path: ``
+
+#### Setting
+
+| Field | Description |
+| --- | --- |
+| `etag` | ETag of the resource. |
+| `id` | The id of the user setting. |
+| `kind` | Type of the resource ("calendar#setting"). |
+| `value` | Value of the user setting. |
+
+Operations: Create, List, Load.
+
+API path: `/users/me/settings/watch`
+
+#### Stop
+
+| Field | Description |
+| --- | --- |
+
+Operations: .
+
+API path: ``
+
+#### Watch
+
+| Field | Description |
+| --- | --- |
+
+Operations: .
+
+API path: ``
 
 
 
 ## Entities
+
+
+### Acl
+
+Create an instance: `acl = client.Acl()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `etag` | `str` | ETag of the resource. |
+| `id` | `str` | Identifier of the Access Control List (ACL) rule. |
+| `kind` | `str` | Type of the resource ("calendar#aclRule"). |
+| `role` | `str` | The role assigned to the scope. |
+| `scope` | `dict` | The extent to which calendar access is granted by this ACL rule. |
+| `type` | `str` | The type of the scope. |
+| `value` | `str` | The email address of a user or group, or the name of a domain, depending on the scope type. |
+
+#### Example: Load
+
+```python
+acl = client.Acl().load({"id": "acl_id", "calendar_id": "calendar_id"})
+```
+
+#### Example: List
+
+```python
+acls = client.Acl().list({"calendar_id": "example"})
+```
+
+#### Example: Create
+
+```python
+acl = client.Acl().create({
+    "calendar_id": "example_calendar_id",  # str
+})
+```
+
+
+### Calendar
+
+Create an instance: `calendar = client.Calendar()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+| `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `allowedConferenceSolutionTypes` | `list` | The types of conference solutions that are supported for this calendar. |
+| `conferenceProperties` | `dict` | Conferencing properties for this calendar, for example what types of conferences are allowed. |
+| `description` | `str` | Description of the calendar. |
+| `etag` | `str` | ETag of the resource. |
+| `id` | `str` | Identifier of the calendar. |
+| `kind` | `str` | Type of the resource ("calendar#calendar"). |
+| `location` | `str` | Geographic location of the calendar as free-form text. |
+| `summary` | `str` | Title of the calendar. |
+| `timeZone` | `str` | The time zone of the calendar. |
+
+#### Example: Load
+
+```python
+calendar = client.Calendar().load({"id": "calendar_id"})
+```
+
+#### Example: Create
+
+```python
+calendar = client.Calendar().create({
+})
+```
+
+
+### CalendarList
+
+Create an instance: `calendar_list = client.CalendarList()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
+| `remove(match)` | Remove the matching entity. |
+| `update(data)` | Update an existing entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `accessRole` | `str` | The effective access role that the authenticated user has on the calendar. |
+| `backgroundColor` | `str` | The main color of the calendar in the hexadecimal format "#0088aa". |
+| `colorId` | `str` | The color of the calendar. |
+| `conferenceProperties` | `dict` | Conferencing properties for this calendar, for example what types of conferences are allowed. |
+| `defaultReminders` | `list` | The default reminders that the authenticated user has for this calendar. |
+| `deleted` | `bool` | Whether this calendar list entry has been deleted from the calendar list. |
+| `description` | `str` | Description of the calendar. |
+| `etag` | `str` | ETag of the resource. |
+| `foregroundColor` | `str` | The foreground color of the calendar in the hexadecimal format "#ffffff". |
+| `hidden` | `bool` | Whether the calendar has been hidden from the list. |
+| `id` | `str` | Identifier of the calendar. |
+| `kind` | `str` | Type of the resource ("calendar#calendarListEntry"). |
+| `location` | `str` | Geographic location of the calendar as free-form text. |
+| `notificationSettings` | `dict` | The notifications that the authenticated user is receiving for this calendar. |
+| `primary` | `bool` | Whether the calendar is the primary calendar of the authenticated user. |
+| `selected` | `bool` | Whether the calendar content shows up in the calendar UI. |
+| `summary` | `str` | Title of the calendar. |
+| `summaryOverride` | `str` | The summary that the authenticated user has set for this calendar. |
+| `timeZone` | `str` | The time zone of the calendar. |
+
+#### Example: Load
+
+```python
+calendar_list = client.CalendarList().load({"id": "calendar_list_id"})
+```
+
+#### Example: List
+
+```python
+calendar_lists = client.CalendarList().list()
+```
+
+#### Example: Create
+
+```python
+calendar_list = client.CalendarList().create({
+})
+```
+
+
+### Channel
+
+Create an instance: `channel = client.Channel()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+
+#### Example: Create
+
+```python
+channel = client.Channel().create({
+})
+```
+
+
+### Color
+
+Create an instance: `color = client.Color()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `load(match)` | Load a single entity by match criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `calendar` | `dict` | A global palette of calendar colors, mapping from the color ID to its definition. |
+| `event` | `dict` | A global palette of event colors, mapping from the color ID to its definition. |
+| `kind` | `str` | Type of the resource ("calendar#colors"). |
+| `updated` | `str` | Last modification time of the color palette (as a RFC3339 timestamp). |
+
+#### Example: Load
+
+```python
+color = client.Color().load()
+```
 
 
 ### Event
@@ -315,35 +704,165 @@ Create an instance: `event = client.Event()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created` | `str` |  |
-| `description` | `str` |  |
-| `end` | `dict` |  |
-| `htmlLink` | `str` |  |
-| `id` | `str` |  |
-| `location` | `str` |  |
-| `start` | `dict` |  |
-| `status` | `str` |  |
-| `summary` | `str` |  |
-| `updated` | `str` |  |
+| `accessRole` | `str` | The user's access role for this calendar. |
+| `anyoneCanAddSelf` | `bool` | Whether anyone can invite themselves to the event (deprecated). |
+| `attachments` | `list` | File attachments for the event. |
+| `attendees` | `list` | The attendees of the event. |
+| `attendeesOmitted` | `bool` | Whether attendees may have been omitted from the event's representation. |
+| `colorId` | `str` | The color of the event. |
+| `conferenceData` | `dict` | The conference-related information, such as details of a Google Meet conference. |
+| `created` | `str` | Creation time of the event (as a RFC3339 timestamp). |
+| `creator` | `dict` | The creator of the event. |
+| `defaultReminders` | `list` | The default reminders on the calendar for the authenticated user. |
+| `description` | `str` | Description of the event. |
+| `end` | `dict` | The (exclusive) end time of the event. |
+| `endTimeUnspecified` | `bool` | Whether the end time is actually unspecified. |
+| `etag` | `str` | ETag of the resource. |
+| `eventType` | `str` | Specific type of the event. |
+| `extendedProperties` | `dict` | Extended properties of the event. |
+| `gadget` | `dict` | A gadget that extends this event. |
+| `guestsCanInviteOthers` | `bool` | Whether attendees other than the organizer can invite others to the event. |
+| `guestsCanModify` | `bool` | Whether attendees other than the organizer can modify the event. |
+| `guestsCanSeeOtherGuests` | `bool` | Whether attendees other than the organizer can see who the event's attendees are. |
+| `hangoutLink` | `str` | An absolute link to the Google Hangout associated with this event. |
+| `htmlLink` | `str` | An absolute link to this event in the Google Calendar Web UI. |
+| `iCalUID` | `str` | Event unique identifier as defined in RFC5545. |
+| `id` | `str` | Opaque identifier of the event. |
+| `items` | `list` | List of events on the calendar. |
+| `kind` | `str` | Type of the resource ("calendar#event"). |
+| `location` | `str` | Geographic location of the event as free-form text. |
+| `locked` | `bool` | Whether this is a locked event copy where no changes can be made to the main event fields "summary", "description", "location", "start", "end" or "recurrence". |
+| `nextPageToken` | `str` | Token used to access the next page of this result. |
+| `nextSyncToken` | `str` | Token used at a later point in time to retrieve only the entries that have changed since this result was returned. |
+| `organizer` | `dict` | The organizer of the event. |
+| `originalStartTime` | `dict` | For an instance of a recurring event, this is the time at which this event would start according to the recurrence data in the recurring event identified by recurringEventId. |
+| `privateCopy` | `bool` | If set to True, Event propagation is disabled. |
+| `recurrence` | `list` | List of RRULE, EXRULE, RDATE and EXDATE lines for a recurring event, as specified in RFC5545. |
+| `recurringEventId` | `str` | For an instance of a recurring event, this is the id of the recurring event to which this instance belongs. |
+| `reminders` | `dict` | Information about the event's reminders for the authenticated user. |
+| `sequence` | `int` | Sequence number as per iCalendar. |
+| `source` | `dict` | Source from which the event was created. |
+| `start` | `dict` | The (inclusive) start time of the event. |
+| `status` | `str` | Status of the event. |
+| `summary` | `str` | Title of the event. |
+| `timeZone` | `str` | The time zone of the calendar. |
+| `transparency` | `str` | Whether the event blocks time on the calendar. |
+| `updated` | `str` | Last modification time of the event (as a RFC3339 timestamp). |
+| `visibility` | `str` | Visibility of the event. |
+| `workingLocationProperties` | `dict` | Developer Preview: Working Location event data. |
 
 #### Example: Load
 
 ```python
-event = client.Event().load({"id": "event_id"})
+event = client.Event().load({"id": "event_id", "calendar_id": "calendar_id"})
 ```
 
 #### Example: List
 
 ```python
-events = client.Event().list()
+events = client.Event().list({"calendar_id": "example"})
 ```
 
 #### Example: Create
 
 ```python
 event = client.Event().create({
+    "calendar_id": "example_calendar_id",  # str
 })
 ```
+
+
+### FreeBusy
+
+Create an instance: `free_busy = client.FreeBusy()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `calendarExpansionMax` | `int` | Maximal number of calendars for which FreeBusy information is to be provided. |
+| `calendars` | `dict` | List of free/busy information for calendars. |
+| `groupExpansionMax` | `int` | Maximal number of calendar identifiers to be provided for a single group. |
+| `groups` | `dict` | Expansion of groups. |
+| `items` | `list` | List of calendars and/or groups to query. |
+| `kind` | `str` | Type of the resource ("calendar#freeBusy"). |
+| `timeMax` | `str` | The end of the interval. |
+| `timeMin` | `str` | The start of the interval. |
+| `timeZone` | `str` | Time zone used in the response. |
+
+#### Example: Create
+
+```python
+free_busy = client.FreeBusy().create({
+})
+```
+
+
+### Import
+
+Create an instance: `import_ = client.Import()`
+
+
+### QuickAdd
+
+Create an instance: `quick_add = client.QuickAdd()`
+
+
+### Setting
+
+Create an instance: `setting = client.Setting()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `create(data)` | Create a new entity with the given data. |
+| `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `etag` | `str` | ETag of the resource. |
+| `id` | `str` | The id of the user setting. |
+| `kind` | `str` | Type of the resource ("calendar#setting"). |
+| `value` | `str` | Value of the user setting. |
+
+#### Example: Load
+
+```python
+setting = client.Setting().load({"id": "setting_id"})
+```
+
+#### Example: List
+
+```python
+settings = client.Setting().list()
+```
+
+#### Example: Create
+
+```python
+setting = client.Setting().create({
+})
+```
+
+
+### Stop
+
+Create an instance: `stop = client.Stop()`
+
+
+### Watch
+
+Create an instance: `watch = client.Watch()`
 
 ## Features
 
@@ -547,6 +1066,7 @@ Use `helpers.to_map()` to safely validate that a value is a dict.
 py/
 ├── gcal_sdk.py         -- Main SDK module
 ├── config.py                    -- Configuration
+├── schema.py                    -- Generated option + entity specs
 ├── features.py                  -- Feature factory
 ├── core/                        -- Core types and context
 ├── entity/                      -- Entity implementations
@@ -560,15 +1080,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-event = client.Event()
-event.list()
+calendar = client.Calendar()
+calendar.load({"id": "example_id"})
 
-# event.data_get() now returns the event data from the last list
-# event.match_get() returns the last match criteria
+# calendar.data_get() now returns the calendar data from the last load
+# calendar.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

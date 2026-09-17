@@ -1,0 +1,15 @@
+{
+  "existing": {
+    "import": {
+      "IMPORT00": {},
+      "IMPORT01": {},
+      "IMPORT02": {}
+    }
+  },
+  "new": {
+    "import": {
+      "import_ref01": {}
+    }
+  },
+  "requests": {}
+}

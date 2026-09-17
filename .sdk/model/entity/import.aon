@@ -1,0 +1,18 @@
+# Entity: import
+
+main: kit: entity: import: {
+
+  alias: field: {}
+
+  name: "import"
+  relations: {
+    ancestors: [
+      [
+        "calendar"
+      ]
+    ]
+  }
+
+
+
+}

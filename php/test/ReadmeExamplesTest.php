@@ -40,7 +40,18 @@ class ReadmeExamplesTest extends TestCase
 
     // Entity accessor (\$client->Name()) => fixture storage key (lowercase name).
     private const ENTITIES = [
+        "Acl" => "acl",
+        "Calendar" => "calendar",
+        "CalendarList" => "calendar_list",
+        "Channel" => "channel",
+        "Color" => "color",
         "Event" => "event",
+        "FreeBusy" => "free_busy",
+        "Import" => "import",
+        "QuickAdd" => "quick_add",
+        "Setting" => "setting",
+        "Stop" => "stop",
+        "Watch" => "watch",
     ];
 
     // Documented SDK method names — used only to recognise the NARROW

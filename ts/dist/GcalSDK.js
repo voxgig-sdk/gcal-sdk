@@ -2,7 +2,18 @@
 // Gcal Ts SDK
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SDK = exports.GcalSDK = exports.GcalEntityBase = exports.BaseFeature = exports.config = exports.stdutil = void 0;
+const AclEntity_1 = require("./entity/AclEntity");
+const CalendarEntity_1 = require("./entity/CalendarEntity");
+const CalendarListEntity_1 = require("./entity/CalendarListEntity");
+const ChannelEntity_1 = require("./entity/ChannelEntity");
+const ColorEntity_1 = require("./entity/ColorEntity");
 const EventEntity_1 = require("./entity/EventEntity");
+const FreeBusyEntity_1 = require("./entity/FreeBusyEntity");
+const ImportEntity_1 = require("./entity/ImportEntity");
+const QuickAddEntity_1 = require("./entity/QuickAddEntity");
+const SettingEntity_1 = require("./entity/SettingEntity");
+const StopEntity_1 = require("./entity/StopEntity");
+const WatchEntity_1 = require("./entity/WatchEntity");
 const node_util_1 = require("node:util");
 const Config_1 = require("./Config");
 Object.defineProperty(exports, "config", { enumerable: true, get: function () { return Config_1.config; } });
@@ -225,12 +236,89 @@ class GcalSDK {
         }
         return res;
     }
+    // Entity access: `client.Acl().list()` / `client.Acl().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Acl(entopts) {
+        const self = this;
+        return new AclEntity_1.AclEntity(self, entopts);
+    }
+    // Entity access: `client.Calendar().list()` / `client.Calendar().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Calendar(entopts) {
+        const self = this;
+        return new CalendarEntity_1.CalendarEntity(self, entopts);
+    }
+    // Entity access: `client.CalendarList().list()` / `client.CalendarList().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    CalendarList(entopts) {
+        const self = this;
+        return new CalendarListEntity_1.CalendarListEntity(self, entopts);
+    }
+    // Entity access: `client.Channel().list()` / `client.Channel().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Channel(entopts) {
+        const self = this;
+        return new ChannelEntity_1.ChannelEntity(self, entopts);
+    }
+    // Entity access: `client.Color().list()` / `client.Color().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Color(entopts) {
+        const self = this;
+        return new ColorEntity_1.ColorEntity(self, entopts);
+    }
     // Entity access: `client.Event().list()` / `client.Event().load({ id })`.
     // The argument is the entity OPTIONS object (passed to the entity
     // constructor as entopts), not initial entity data.
     Event(entopts) {
         const self = this;
         return new EventEntity_1.EventEntity(self, entopts);
+    }
+    // Entity access: `client.FreeBusy().list()` / `client.FreeBusy().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    FreeBusy(entopts) {
+        const self = this;
+        return new FreeBusyEntity_1.FreeBusyEntity(self, entopts);
+    }
+    // Entity access: `client.Import().list()` / `client.Import().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Import(entopts) {
+        const self = this;
+        return new ImportEntity_1.ImportEntity(self, entopts);
+    }
+    // Entity access: `client.QuickAdd().list()` / `client.QuickAdd().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    QuickAdd(entopts) {
+        const self = this;
+        return new QuickAddEntity_1.QuickAddEntity(self, entopts);
+    }
+    // Entity access: `client.Setting().list()` / `client.Setting().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Setting(entopts) {
+        const self = this;
+        return new SettingEntity_1.SettingEntity(self, entopts);
+    }
+    // Entity access: `client.Stop().list()` / `client.Stop().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Stop(entopts) {
+        const self = this;
+        return new StopEntity_1.StopEntity(self, entopts);
+    }
+    // Entity access: `client.Watch().list()` / `client.Watch().load({ id })`.
+    // The argument is the entity OPTIONS object (passed to the entity
+    // constructor as entopts), not initial entity data.
+    Watch(entopts) {
+        const self = this;
+        return new WatchEntity_1.WatchEntity(self, entopts);
     }
     static test(testoptsarg, sdkoptsarg) {
         const struct = stdutil.struct;

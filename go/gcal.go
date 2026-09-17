@@ -53,8 +53,41 @@ func init() {
 	core.NewTimeoutFeatureFunc = func() core.Feature {
 		return feature.NewTimeoutFeature()
 	}
+	core.NewAclEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewAclEntity(client, entopts)
+	}
+	core.NewCalendarEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewCalendarEntity(client, entopts)
+	}
+	core.NewCalendarListEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewCalendarListEntity(client, entopts)
+	}
+	core.NewChannelEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewChannelEntity(client, entopts)
+	}
+	core.NewColorEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewColorEntity(client, entopts)
+	}
 	core.NewEventEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
 		return entity.NewEventEntity(client, entopts)
+	}
+	core.NewFreeBusyEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewFreeBusyEntity(client, entopts)
+	}
+	core.NewImportEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewImportEntity(client, entopts)
+	}
+	core.NewQuickAddEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewQuickAddEntity(client, entopts)
+	}
+	core.NewSettingEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewSettingEntity(client, entopts)
+	}
+	core.NewStopEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewStopEntity(client, entopts)
+	}
+	core.NewWatchEntityFunc = func(client *core.GcalSDK, entopts map[string]any) core.GcalEntity {
+		return entity.NewWatchEntity(client, entopts)
 	}
 }
 

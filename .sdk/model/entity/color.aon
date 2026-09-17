@@ -1,0 +1,129 @@
+# Entity: color
+
+main: kit: entity: color: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "calendar"
+      req: false
+      short: "A global palette of calendar colors, mapping from the color ID to its definition."
+      type: "`$OBJECT`"
+    }
+    {
+      name: "event"
+      req: false
+      short: "A global palette of event colors, mapping from the color ID to its definition."
+      type: "`$OBJECT`"
+    }
+    {
+      name: "kind"
+      req: false
+      short: "Type of the resource (\"calendar#colors\")."
+      type: "`$STRING`"
+    }
+    {
+      format: "date-time"
+      name: "updated"
+      req: false
+      short: "Last modification time of the color palette (as a RFC3339 timestamp)."
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "color"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "alt"
+                orig: "alt"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "field"
+                orig: "field"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "oauth_token"
+                orig: "oauth_token"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "pretty_print"
+                orig: "pretty_print"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                kind: "query"
+                name: "quota_user"
+                orig: "quota_user"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "user_ip"
+                orig: "user_ip"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          contract: {
+            id: "GET /colors"
+            json: "{\"operationId\":\"calendar.colors.get\",\"parameters\":[{\"description\":\"Data format for the response.\",\"in\":\"query\",\"name\":\"alt\",\"schema\":{\"enum\":[\"json\"],\"type\":\"string\"}},{\"description\":\"Selector specifying which fields to include in a partial response.\",\"in\":\"query\",\"name\":\"fields\",\"schema\":{\"type\":\"string\"}},{\"description\":\"API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.\",\"in\":\"query\",\"name\":\"key\",\"schema\":{\"type\":\"string\"}},{\"description\":\"OAuth 2.0 token for the current user.\",\"in\":\"query\",\"name\":\"oauth_token\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Returns response with indentations and line breaks.\",\"in\":\"query\",\"name\":\"prettyPrint\",\"schema\":{\"type\":\"boolean\"}},{\"description\":\"An opaque string that represents a user for quota purposes. Must not exceed 40 characters.\",\"in\":\"query\",\"name\":\"quotaUser\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Deprecated. Please use quotaUser instead.\",\"in\":\"query\",\"name\":\"userIp\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"calendar\":{\"additionalProperties\":{\"description\":\"A calendar color definition.\",\"properties\":{\"background\":{\"description\":\"The background color associated with this color definition.\",\"type\":\"string\"},\"foreground\":{\"description\":\"The foreground color that can be used to write on top of a background with 'background' color.\",\"type\":\"string\"}},\"type\":\"object\"},\"description\":\"A global palette of calendar colors, mapping from the color ID to its definition. A calendarListEntry resource refers to one of these color IDs in its colorId field. Read-only.\",\"type\":\"object\"},\"event\":{\"additionalProperties\":{\"description\":\"An event color definition.\",\"properties\":{\"background\":{\"description\":\"The background color associated with this color definition.\",\"type\":\"string\"},\"foreground\":{\"description\":\"The foreground color that can be used to write on top of a background with 'background' color.\",\"type\":\"string\"}},\"type\":\"object\"},\"description\":\"A global palette of event colors, mapping from the color ID to its definition. An event resource may refer to one of these color IDs in its colorId field. Read-only.\",\"type\":\"object\"},\"kind\":{\"default\":\"calendar#colors\",\"description\":\"Type of the resource (\\\"calendar#colors\\\").\",\"type\":\"string\"},\"updated\":{\"description\":\"Last modification time of the color palette (as a RFC3339 timestamp). Read-only.\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"security\":[{\"Oauth2\":[\"https://www.googleapis.com/auth/calendar\"],\"Oauth2c\":[\"https://www.googleapis.com/auth/calendar\"]},{\"Oauth2\":[\"https://www.googleapis.com/auth/calendar.readonly\"],\"Oauth2c\":[\"https://www.googleapis.com/auth/calendar.readonly\"]}],\"securitySchemes\":{\"Oauth2\":{\"description\":\"Oauth 2.0 implicit authentication\",\"flows\":{\"implicit\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"}}},\"type\":\"oauth2\"},\"Oauth2c\":{\"description\":\"Oauth 2.0 authorizationCode authentication\",\"flows\":{\"authorizationCode\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"},\"tokenUrl\":\"https://accounts.google.com/o/oauth2/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"operation\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "GET"
+          orig: "/colors"
+          segments: [
+            {
+              lit: "colors"
+            }
+          ]
+          select: {
+            exist: [
+              "alt"
+              "field"
+              "key"
+              "oauth_token"
+              "pretty_print"
+              "quota_user"
+              "user_ip"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

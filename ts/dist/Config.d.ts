@@ -125,27 +125,980 @@ declare class Config {
             "content-type": string;
         };
         entity: {
+            acl: {};
+            calendar: {};
+            calendar_list: {};
+            channel: {};
+            color: {};
             event: {};
+            free_busy: {};
+            import: {};
+            quick_add: {};
+            setting: {};
+            stop: {};
+            watch: {};
         };
     };
     entity: {
+        acl: {
+            fields: {
+                name: string;
+                short: string;
+                type: string;
+            }[];
+            id: {
+                field: string;
+                name: string;
+            };
+            name: string;
+            op: {
+                create: {
+                    input: string;
+                    name: string;
+                    points: ({
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            $action: string;
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    } | {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                            $action?: undefined;
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    })[];
+                };
+                list: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                load: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                ruleId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                patch: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                ruleId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                remove: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                ruleId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                update: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                ruleId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+            };
+            relations: {
+                ancestors: string[][];
+            };
+        };
+        calendar: {
+            fields: {
+                name: string;
+                short: string;
+                type: string;
+            }[];
+            id: {
+                field: string;
+                name: string;
+            };
+            name: string;
+            op: {
+                create: {
+                    input: string;
+                    name: string;
+                    points: ({
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            $action: string;
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    } | {
+                        args: {
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                            params?: undefined;
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        segments: {
+                            lit: string;
+                        }[];
+                        select: {
+                            exist: string[];
+                            $action?: undefined;
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                        rename?: undefined;
+                    })[];
+                };
+                load: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                patch: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                remove: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                update: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+            };
+            relations: {
+                ancestors: never[];
+            };
+        };
+        calendar_list: {
+            fields: {
+                name: string;
+                short: string;
+                type: string;
+            }[];
+            id: {
+                field: string;
+                name: string;
+            };
+            name: string;
+            op: {
+                create: {
+                    input: string;
+                    name: string;
+                    points: ({
+                        args: {
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        segments: {
+                            lit: string;
+                        }[];
+                        select: {
+                            $action: string;
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    } | {
+                        args: {
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        segments: {
+                            lit: string;
+                        }[];
+                        select: {
+                            exist: string[];
+                            $action?: undefined;
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    })[];
+                };
+                list: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        segments: {
+                            lit: string;
+                        }[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                load: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                patch: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                remove: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                update: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+            };
+            relations: {
+                ancestors: never[];
+            };
+        };
+        channel: {
+            fields: never[];
+            name: string;
+            op: {
+                create: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        segments: {
+                            lit: string;
+                        }[];
+                        select: {
+                            $action: string;
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+            };
+            relations: {
+                ancestors: never[];
+            };
+        };
+        color: {
+            fields: ({
+                name: string;
+                short: string;
+                type: string;
+                format?: undefined;
+            } | {
+                format: string;
+                name: string;
+                short: string;
+                type: string;
+            })[];
+            name: string;
+            op: {
+                load: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        segments: {
+                            lit: string;
+                        }[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+            };
+            relations: {
+                ancestors: never[];
+            };
+        };
         event: {
             fields: ({
                 name: string;
+                short: string;
                 type: string;
-                op?: undefined;
+                format?: undefined;
             } | {
+                format: string;
                 name: string;
-                op: {
-                    create: {
-                        req: boolean;
-                        type: string;
-                    };
-                    update: {
-                        req: boolean;
-                        type: string;
-                    };
-                };
+                short: string;
                 type: string;
             })[];
             id: {
@@ -157,15 +1110,514 @@ declare class Config {
                 create: {
                     input: string;
                     name: string;
+                    points: ({
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                eventId?: undefined;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                            $action?: undefined;
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    } | {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: ({
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                                reqd?: undefined;
+                            } | {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            })[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                eventId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            $action: string;
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    } | {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: ({
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                                reqd?: undefined;
+                            } | {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            })[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                eventId?: undefined;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            $action: string;
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    })[];
+                };
+                list: {
+                    input: string;
+                    name: string;
+                    points: ({
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                eventId?: undefined;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                            $action?: undefined;
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    } | {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                eventId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            $action: string;
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    })[];
+                };
+                load: {
+                    input: string;
+                    name: string;
                     points: {
-                        args: {};
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                eventId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                patch: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                eventId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                remove: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                eventId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+                update: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            params: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                reqd: boolean;
+                                type: string;
+                            }[];
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        rename: {
+                            param: {
+                                calendarId: string;
+                                eventId: string;
+                            };
+                        };
+                        segments: ({
+                            lit: string;
+                            var?: undefined;
+                        } | {
+                            var: string;
+                            lit?: undefined;
+                        })[];
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+            };
+            relations: {
+                ancestors: string[][];
+            };
+        };
+        free_busy: {
+            fields: ({
+                format: string;
+                name: string;
+                short: string;
+                type: string;
+            } | {
+                name: string;
+                short: string;
+                type: string;
+                format?: undefined;
+            })[];
+            name: string;
+            op: {
+                create: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
                         kind: string;
                         method: string;
                         orig: string;
                         segments: {
                             lit: string;
                         }[];
-                        select: {};
+                        select: {
+                            exist: string[];
+                        };
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        parts: string[];
+                    }[];
+                };
+            };
+            relations: {
+                ancestors: never[];
+            };
+        };
+        import: {
+            fields: never[];
+            name: string;
+            op: {};
+            relations: {
+                ancestors: string[][];
+            };
+        };
+        quick_add: {
+            fields: never[];
+            name: string;
+            op: {};
+            relations: {
+                ancestors: string[][];
+            };
+        };
+        setting: {
+            fields: {
+                name: string;
+                short: string;
+                type: string;
+            }[];
+            id: {
+                field: string;
+                name: string;
+            };
+            name: string;
+            op: {
+                create: {
+                    input: string;
+                    name: string;
+                    points: {
+                        args: {
+                            query: {
+                                kind: string;
+                                name: string;
+                                orig: string;
+                                type: string;
+                            }[];
+                        };
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        segments: {
+                            lit: string;
+                        }[];
+                        select: {
+                            $action: string;
+                            exist: string[];
+                        };
                         transform: {
                             req: string;
                             res: string;
@@ -213,42 +1665,10 @@ declare class Config {
                                 reqd: boolean;
                                 type: string;
                             }[];
-                        };
-                        kind: string;
-                        method: string;
-                        orig: string;
-                        rename: {
-                            param: {
-                                eventId: string;
-                            };
-                        };
-                        segments: ({
-                            lit: string;
-                            var?: undefined;
-                        } | {
-                            var: string;
-                            lit?: undefined;
-                        })[];
-                        select: {
-                            exist: string[];
-                        };
-                        transform: {
-                            req: string;
-                            res: string;
-                        };
-                        parts: string[];
-                    }[];
-                };
-                remove: {
-                    input: string;
-                    name: string;
-                    points: {
-                        args: {
-                            params: {
+                            query: {
                                 kind: string;
                                 name: string;
                                 orig: string;
-                                reqd: boolean;
                                 type: string;
                             }[];
                         };
@@ -257,45 +1677,7 @@ declare class Config {
                         orig: string;
                         rename: {
                             param: {
-                                eventId: string;
-                            };
-                        };
-                        segments: ({
-                            lit: string;
-                            var?: undefined;
-                        } | {
-                            var: string;
-                            lit?: undefined;
-                        })[];
-                        select: {
-                            exist: string[];
-                        };
-                        transform: {
-                            req: string;
-                            res: string;
-                        };
-                        parts: string[];
-                    }[];
-                };
-                update: {
-                    input: string;
-                    name: string;
-                    points: {
-                        args: {
-                            params: {
-                                kind: string;
-                                name: string;
-                                orig: string;
-                                reqd: boolean;
-                                type: string;
-                            }[];
-                        };
-                        kind: string;
-                        method: string;
-                        orig: string;
-                        rename: {
-                            param: {
-                                eventId: string;
+                                setting: string;
                             };
                         };
                         segments: ({
@@ -318,6 +1700,22 @@ declare class Config {
             };
             relations: {
                 ancestors: never[];
+            };
+        };
+        stop: {
+            fields: never[];
+            name: string;
+            op: {};
+            relations: {
+                ancestors: never[];
+            };
+        };
+        watch: {
+            fields: never[];
+            name: string;
+            op: {};
+            relations: {
+                ancestors: string[][];
             };
         };
     };

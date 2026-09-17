@@ -36,14 +36,18 @@ const utility_1 = require("../../utility");
         const setup = directSetup({ id: 'direct01' });
         if ((0, utility_1.maybeSkipControl)(t, 'direct', 'direct-load-event', setup.live))
             return;
+        if ((0, utility_1.skipIfMissingIds)(t, setup, ["calendar01"]))
+            return;
         const { client, calls } = setup;
         const params = {};
         const query = {};
         if (setup.live) {
             const listResult = await client.direct({
-                path: 'calendars/primary/events',
+                path: 'calendars/{calendar_id}/events',
                 method: 'GET',
-                params: {},
+                params: {
+                    calendar_id: setup.idmap['calendar01'],
+                },
             });
             (0, node_assert_1.default)(listResult.ok && listResult.status >= 200 && listResult.status < 300, 'Live list discovery failed');
             const listArr = unwrapListData(listResult.data);
@@ -55,12 +59,14 @@ const utility_1 = require("../../utility");
                 throw new Error('Live load blocked: discovery returned no usable identity');
             }
             params.id = candidateId;
+            params.calendar_id = setup.idmap['calendar01'];
         }
         else {
-            params.id = 'direct01';
+            params.calendar_id = 'direct01';
+            params.id = 'direct02';
         }
         const result = await client.direct({
-            path: 'calendars/primary/events/{id}',
+            path: 'calendars/{calendar_id}/events/{id}',
             method: 'GET',
             params,
             query,
@@ -86,6 +92,7 @@ const utility_1 = require("../../utility");
             (0, node_assert_1.default)(calls.length === 1);
             (0, node_assert_1.default)(calls[0].init.method === 'GET');
             (0, node_assert_1.default)(calls[0].url.includes('direct01'));
+            (0, node_assert_1.default)(calls[0].url.includes('direct02'));
         }
     });
     (0, node_test_1.test)('direct-list-event', async (t) => {
@@ -96,11 +103,19 @@ const utility_1 = require("../../utility");
         const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }]);
         if ((0, utility_1.maybeSkipControl)(t, 'direct', 'direct-list-event', setup.live))
             return;
+        if ((0, utility_1.skipIfMissingIds)(t, setup, ["calendar01"]))
+            return;
         const { client, calls } = setup;
         const params = {};
         const query = {};
+        if (setup.live) {
+            params.calendar_id = setup.idmap['calendar01'];
+        }
+        else {
+            params.calendar_id = 'direct01';
+        }
         const result = await client.direct({
-            path: 'calendars/primary/events',
+            path: 'calendars/{calendar_id}/events',
             method: 'GET',
             params,
             query,
@@ -127,6 +142,7 @@ const utility_1 = require("../../utility");
             (0, node_assert_1.default)(listArr.length === 2);
             (0, node_assert_1.default)(calls.length === 1);
             (0, node_assert_1.default)(calls[0].init.method === 'GET');
+            (0, node_assert_1.default)(calls[0].url.includes('direct01'));
         }
     });
 });

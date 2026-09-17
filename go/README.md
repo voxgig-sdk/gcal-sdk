@@ -4,7 +4,7 @@
 
 The Golang SDK for the Gcal API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client.Event(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Update`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client.Acl(nil)` — each with the same small set of operations (`List`, `Load`, `Create`, `Update`, `Remove`, `Patch`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Also generated from this model: `go-cli`, `go-mcp`, `js`, `lua`, `php`, `py`, `ts` — see
 > the [top-level README](../README.md).
@@ -53,38 +53,38 @@ func main() {
         "apikey": os.Getenv("GCAL_APIKEY"),
     })
 
-    // List event records — the value is the array of records itself.
-    events, err := client.Event(nil).List(nil, nil)
+    // List acl records — the value is the array of records itself.
+    acls, err := client.Acl(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-    for _, item := range events.([]any) {
+    for _, item := range acls.([]any) {
         fmt.Println(item)
     }
 
-    // Load a single event — the value is the loaded record.
-    event, err := client.Event(nil).Load(map[string]any{"id": "example_id"}, nil)
+    // Load a single acl — the value is the loaded record.
+    acl, err := client.Acl(nil).Load(map[string]any{"id": "example_id", "calendar_id": "example_calendar_id"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(event)
+    fmt.Println(acl)
 
-    // Create a event.
-    created, err := client.Event(nil).Create(map[string]any{"created": "example_created", "description": "example_description"}, nil)
+    // Create a acl.
+    created, err := client.Acl(nil).Create(map[string]any{"calendar_id": "example_calendar_id"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(created)
 
-    // Update a event.
-    updated, err := client.Event(nil).Update(map[string]any{"id": "example_id", "created": "example_created", "description": "example_description"}, nil)
+    // Update a acl.
+    updated, err := client.Acl(nil).Update(map[string]any{"id": "example_id", "calendar_id": "example_calendar_id", "alt": "example_alt"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(updated)
 
-    // Remove a event.
-    removed, err := client.Event(nil).Remove(map[string]any{"id": "example_id"}, nil)
+    // Remove a acl.
+    removed, err := client.Acl(nil).Remove(map[string]any{"id": "example_id", "calendar_id": "example_calendar_id"}, nil)
     if err != nil {
         panic(err)
     }
@@ -99,12 +99,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-events, err := client.Event(nil).List(nil, nil)
+calendar, err := client.Calendar(nil).Load(map[string]any{"id": "example_id"}, nil)
 if err != nil {
     // handle err
     return
 }
-_ = events
+_ = calendar
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -168,13 +168,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-event, err := client.Event(nil).List(
-    nil, nil,
+calendar, err := client.Calendar(nil).Load(
+    map[string]any{"id": "test01"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(event) // the returned mock data
+fmt.Println(calendar) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -253,7 +253,18 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `GetUtility` | `() *Utility` | Copy of the SDK utility object. |
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
+| `Acl` | `(data map[string]any) GcalEntity` | Create an Acl entity instance. |
+| `Calendar` | `(data map[string]any) GcalEntity` | Create a Calendar entity instance. |
+| `CalendarList` | `(data map[string]any) GcalEntity` | Create a CalendarList entity instance. |
+| `Channel` | `(data map[string]any) GcalEntity` | Create a Channel entity instance. |
+| `Color` | `(data map[string]any) GcalEntity` | Create a Color entity instance. |
 | `Event` | `(data map[string]any) GcalEntity` | Create an Event entity instance. |
+| `FreeBusy` | `(data map[string]any) GcalEntity` | Create a FreeBusy entity instance. |
+| `Import` | `(data map[string]any) GcalEntity` | Create an Import entity instance. |
+| `QuickAdd` | `(data map[string]any) GcalEntity` | Create a QuickAdd entity instance. |
+| `Setting` | `(data map[string]any) GcalEntity` | Create a Setting entity instance. |
+| `Stop` | `(data map[string]any) GcalEntity` | Create a Stop entity instance. |
+| `Watch` | `(data map[string]any) GcalEntity` | Create a Watch entity instance. |
 
 ### Entity interface (GcalEntity)
 
@@ -285,37 +296,454 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    event, err := client.Event(nil).List(map[string]any{/* fields */}, nil)
+    acl, err := client.Acl(nil).List(map[string]any{/* fields */}, nil)
     if err != nil { /* handle */ }
-    // event is the returned record
+    // acl is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
+#### Acl
+
+| Field | Description |
+| --- | --- |
+| `"etag"` | ETag of the resource. |
+| `"id"` | Identifier of the Access Control List (ACL) rule. |
+| `"kind"` | Type of the resource ("calendar#aclRule"). |
+| `"role"` | The role assigned to the scope. |
+| `"scope"` | The extent to which calendar access is granted by this ACL rule. |
+| `"type"` | The type of the scope. |
+| `"value"` | The email address of a user or group, or the name of a domain, depending on the scope type. |
+
+Operations: Create, List, Load, Patch, Remove, Update.
+
+API path: `/calendars/{calendarId}/acl/watch`
+
+#### Calendar
+
+| Field | Description |
+| --- | --- |
+| `"allowedConferenceSolutionTypes"` | The types of conference solutions that are supported for this calendar. |
+| `"conferenceProperties"` | Conferencing properties for this calendar, for example what types of conferences are allowed. |
+| `"description"` | Description of the calendar. |
+| `"etag"` | ETag of the resource. |
+| `"id"` | Identifier of the calendar. |
+| `"kind"` | Type of the resource ("calendar#calendar"). |
+| `"location"` | Geographic location of the calendar as free-form text. |
+| `"summary"` | Title of the calendar. |
+| `"timeZone"` | The time zone of the calendar. |
+
+Operations: Create, Load, Patch, Remove, Update.
+
+API path: `/calendars/{calendarId}/clear`
+
+#### CalendarList
+
+| Field | Description |
+| --- | --- |
+| `"accessRole"` | The effective access role that the authenticated user has on the calendar. |
+| `"backgroundColor"` | The main color of the calendar in the hexadecimal format "#0088aa". |
+| `"colorId"` | The color of the calendar. |
+| `"conferenceProperties"` | Conferencing properties for this calendar, for example what types of conferences are allowed. |
+| `"defaultReminders"` | The default reminders that the authenticated user has for this calendar. |
+| `"deleted"` | Whether this calendar list entry has been deleted from the calendar list. |
+| `"description"` | Description of the calendar. |
+| `"etag"` | ETag of the resource. |
+| `"foregroundColor"` | The foreground color of the calendar in the hexadecimal format "#ffffff". |
+| `"hidden"` | Whether the calendar has been hidden from the list. |
+| `"id"` | Identifier of the calendar. |
+| `"kind"` | Type of the resource ("calendar#calendarListEntry"). |
+| `"location"` | Geographic location of the calendar as free-form text. |
+| `"notificationSettings"` | The notifications that the authenticated user is receiving for this calendar. |
+| `"primary"` | Whether the calendar is the primary calendar of the authenticated user. |
+| `"selected"` | Whether the calendar content shows up in the calendar UI. |
+| `"summary"` | Title of the calendar. |
+| `"summaryOverride"` | The summary that the authenticated user has set for this calendar. |
+| `"timeZone"` | The time zone of the calendar. |
+
+Operations: Create, List, Load, Patch, Remove, Update.
+
+API path: `/users/me/calendarList/watch`
+
+#### Channel
+
+| Field | Description |
+| --- | --- |
+
+Operations: Create.
+
+API path: `/channels/stop`
+
+#### Color
+
+| Field | Description |
+| --- | --- |
+| `"calendar"` | A global palette of calendar colors, mapping from the color ID to its definition. |
+| `"event"` | A global palette of event colors, mapping from the color ID to its definition. |
+| `"kind"` | Type of the resource ("calendar#colors"). |
+| `"updated"` | Last modification time of the color palette (as a RFC3339 timestamp). |
+
+Operations: Load.
+
+API path: `/colors`
+
 #### Event
 
 | Field | Description |
 | --- | --- |
-| `"created"` |  |
-| `"description"` |  |
-| `"end"` |  |
-| `"htmlLink"` |  |
-| `"id"` |  |
-| `"location"` |  |
-| `"start"` |  |
-| `"status"` |  |
-| `"summary"` |  |
-| `"updated"` |  |
+| `"accessRole"` | The user's access role for this calendar. |
+| `"anyoneCanAddSelf"` | Whether anyone can invite themselves to the event (deprecated). |
+| `"attachments"` | File attachments for the event. |
+| `"attendees"` | The attendees of the event. |
+| `"attendeesOmitted"` | Whether attendees may have been omitted from the event's representation. |
+| `"colorId"` | The color of the event. |
+| `"conferenceData"` | The conference-related information, such as details of a Google Meet conference. |
+| `"created"` | Creation time of the event (as a RFC3339 timestamp). |
+| `"creator"` | The creator of the event. |
+| `"defaultReminders"` | The default reminders on the calendar for the authenticated user. |
+| `"description"` | Description of the event. |
+| `"end"` | The (exclusive) end time of the event. |
+| `"endTimeUnspecified"` | Whether the end time is actually unspecified. |
+| `"etag"` | ETag of the resource. |
+| `"eventType"` | Specific type of the event. |
+| `"extendedProperties"` | Extended properties of the event. |
+| `"gadget"` | A gadget that extends this event. |
+| `"guestsCanInviteOthers"` | Whether attendees other than the organizer can invite others to the event. |
+| `"guestsCanModify"` | Whether attendees other than the organizer can modify the event. |
+| `"guestsCanSeeOtherGuests"` | Whether attendees other than the organizer can see who the event's attendees are. |
+| `"hangoutLink"` | An absolute link to the Google Hangout associated with this event. |
+| `"htmlLink"` | An absolute link to this event in the Google Calendar Web UI. |
+| `"iCalUID"` | Event unique identifier as defined in RFC5545. |
+| `"id"` | Opaque identifier of the event. |
+| `"items"` | List of events on the calendar. |
+| `"kind"` | Type of the resource ("calendar#event"). |
+| `"location"` | Geographic location of the event as free-form text. |
+| `"locked"` | Whether this is a locked event copy where no changes can be made to the main event fields "summary", "description", "location", "start", "end" or "recurrence". |
+| `"nextPageToken"` | Token used to access the next page of this result. |
+| `"nextSyncToken"` | Token used at a later point in time to retrieve only the entries that have changed since this result was returned. |
+| `"organizer"` | The organizer of the event. |
+| `"originalStartTime"` | For an instance of a recurring event, this is the time at which this event would start according to the recurrence data in the recurring event identified by recurringEventId. |
+| `"privateCopy"` | If set to True, Event propagation is disabled. |
+| `"recurrence"` | List of RRULE, EXRULE, RDATE and EXDATE lines for a recurring event, as specified in RFC5545. |
+| `"recurringEventId"` | For an instance of a recurring event, this is the id of the recurring event to which this instance belongs. |
+| `"reminders"` | Information about the event's reminders for the authenticated user. |
+| `"sequence"` | Sequence number as per iCalendar. |
+| `"source"` | Source from which the event was created. |
+| `"start"` | The (inclusive) start time of the event. |
+| `"status"` | Status of the event. |
+| `"summary"` | Title of the event. |
+| `"timeZone"` | The time zone of the calendar. |
+| `"transparency"` | Whether the event blocks time on the calendar. |
+| `"updated"` | Last modification time of the event (as a RFC3339 timestamp). |
+| `"visibility"` | Visibility of the event. |
+| `"workingLocationProperties"` | Developer Preview: Working Location event data. |
 
-Operations: Create, List, Load, Remove, Update.
+Operations: Create, List, Load, Patch, Remove, Update.
 
-API path: `/calendars/primary/events`
+API path: `/calendars/{calendarId}/events/watch`
+
+#### FreeBusy
+
+| Field | Description |
+| --- | --- |
+| `"calendarExpansionMax"` | Maximal number of calendars for which FreeBusy information is to be provided. |
+| `"calendars"` | List of free/busy information for calendars. |
+| `"groupExpansionMax"` | Maximal number of calendar identifiers to be provided for a single group. |
+| `"groups"` | Expansion of groups. |
+| `"items"` | List of calendars and/or groups to query. |
+| `"kind"` | Type of the resource ("calendar#freeBusy"). |
+| `"timeMax"` | The end of the interval. |
+| `"timeMin"` | The start of the interval. |
+| `"timeZone"` | Time zone used in the response. |
+
+Operations: Create.
+
+API path: `/freeBusy`
+
+#### Import
+
+| Field | Description |
+| --- | --- |
+
+Operations: .
+
+API path: ``
+
+#### QuickAdd
+
+| Field | Description |
+| --- | --- |
+
+Operations: .
+
+API path: ``
+
+#### Setting
+
+| Field | Description |
+| --- | --- |
+| `"etag"` | ETag of the resource. |
+| `"id"` | The id of the user setting. |
+| `"kind"` | Type of the resource ("calendar#setting"). |
+| `"value"` | Value of the user setting. |
+
+Operations: Create, List, Load.
+
+API path: `/users/me/settings/watch`
+
+#### Stop
+
+| Field | Description |
+| --- | --- |
+
+Operations: .
+
+API path: ``
+
+#### Watch
+
+| Field | Description |
+| --- | --- |
+
+Operations: .
+
+API path: ``
 
 
 
 ## Entities
+
+
+### Acl
+
+Create an instance: `acl := client.Acl(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `List(match, ctrl)` | List entities matching the criteria. |
+| `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
+| `Update(data, ctrl)` | Update an existing entity. |
+| `Remove(match, ctrl)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `etag` | `string` | ETag of the resource. |
+| `id` | `string` | Identifier of the Access Control List (ACL) rule. |
+| `kind` | `string` | Type of the resource ("calendar#aclRule"). |
+| `role` | `string` | The role assigned to the scope. |
+| `scope` | `map[string]any` | The extent to which calendar access is granted by this ACL rule. |
+| `type` | `string` | The type of the scope. |
+| `value` | `string` | The email address of a user or group, or the name of a domain, depending on the scope type. |
+
+#### Example: Load
+
+```go
+acl, err := client.Acl(nil).Load(map[string]any{"id": "acl_id", "calendar_id": "calendar_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(acl) // the loaded record
+```
+
+#### Example: List
+
+```go
+acls, err := client.Acl(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(acls) // the array of records
+```
+
+#### Example: Create
+
+```go
+result, err := client.Acl(nil).Create(map[string]any{
+    "calendar_id": "example_calendar_id",
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
+
+
+### Calendar
+
+Create an instance: `calendar := client.Calendar(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
+| `Update(data, ctrl)` | Update an existing entity. |
+| `Remove(match, ctrl)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `allowedConferenceSolutionTypes` | `[]any` | The types of conference solutions that are supported for this calendar. |
+| `conferenceProperties` | `map[string]any` | Conferencing properties for this calendar, for example what types of conferences are allowed. |
+| `description` | `string` | Description of the calendar. |
+| `etag` | `string` | ETag of the resource. |
+| `id` | `string` | Identifier of the calendar. |
+| `kind` | `string` | Type of the resource ("calendar#calendar"). |
+| `location` | `string` | Geographic location of the calendar as free-form text. |
+| `summary` | `string` | Title of the calendar. |
+| `timeZone` | `string` | The time zone of the calendar. |
+
+#### Example: Load
+
+```go
+calendar, err := client.Calendar(nil).Load(map[string]any{"id": "calendar_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(calendar) // the loaded record
+```
+
+#### Example: Create
+
+```go
+result, err := client.Calendar(nil).Create(map[string]any{
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
+
+
+### CalendarList
+
+Create an instance: `calendarList := client.CalendarList(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `List(match, ctrl)` | List entities matching the criteria. |
+| `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
+| `Update(data, ctrl)` | Update an existing entity. |
+| `Remove(match, ctrl)` | Remove the matching entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `accessRole` | `string` | The effective access role that the authenticated user has on the calendar. |
+| `backgroundColor` | `string` | The main color of the calendar in the hexadecimal format "#0088aa". |
+| `colorId` | `string` | The color of the calendar. |
+| `conferenceProperties` | `map[string]any` | Conferencing properties for this calendar, for example what types of conferences are allowed. |
+| `defaultReminders` | `[]any` | The default reminders that the authenticated user has for this calendar. |
+| `deleted` | `bool` | Whether this calendar list entry has been deleted from the calendar list. |
+| `description` | `string` | Description of the calendar. |
+| `etag` | `string` | ETag of the resource. |
+| `foregroundColor` | `string` | The foreground color of the calendar in the hexadecimal format "#ffffff". |
+| `hidden` | `bool` | Whether the calendar has been hidden from the list. |
+| `id` | `string` | Identifier of the calendar. |
+| `kind` | `string` | Type of the resource ("calendar#calendarListEntry"). |
+| `location` | `string` | Geographic location of the calendar as free-form text. |
+| `notificationSettings` | `map[string]any` | The notifications that the authenticated user is receiving for this calendar. |
+| `primary` | `bool` | Whether the calendar is the primary calendar of the authenticated user. |
+| `selected` | `bool` | Whether the calendar content shows up in the calendar UI. |
+| `summary` | `string` | Title of the calendar. |
+| `summaryOverride` | `string` | The summary that the authenticated user has set for this calendar. |
+| `timeZone` | `string` | The time zone of the calendar. |
+
+#### Example: Load
+
+```go
+calendarList, err := client.CalendarList(nil).Load(map[string]any{"id": "calendar_list_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(calendarList) // the loaded record
+```
+
+#### Example: List
+
+```go
+calendarLists, err := client.CalendarList(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(calendarLists) // the array of records
+```
+
+#### Example: Create
+
+```go
+result, err := client.CalendarList(nil).Create(map[string]any{
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
+
+
+### Channel
+
+Create an instance: `channel := client.Channel(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
+
+#### Example: Create
+
+```go
+result, err := client.Channel(nil).Create(map[string]any{
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
+
+
+### Color
+
+Create an instance: `color := client.Color(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `Load(match, ctrl)` | Load a single entity by match criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `calendar` | `map[string]any` | A global palette of calendar colors, mapping from the color ID to its definition. |
+| `event` | `map[string]any` | A global palette of event colors, mapping from the color ID to its definition. |
+| `kind` | `string` | Type of the resource ("calendar#colors"). |
+| `updated` | `string` | Last modification time of the color palette (as a RFC3339 timestamp). |
+
+#### Example: Load
+
+```go
+color, err := client.Color(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(color) // the loaded record
+```
 
 
 ### Event
@@ -336,21 +764,57 @@ Create an instance: `event := client.Event(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created` | `string` |  |
-| `description` | `string` |  |
-| `end` | `map[string]any` |  |
-| `htmlLink` | `string` |  |
-| `id` | `string` |  |
-| `location` | `string` |  |
-| `start` | `map[string]any` |  |
-| `status` | `string` |  |
-| `summary` | `string` |  |
-| `updated` | `string` |  |
+| `accessRole` | `string` | The user's access role for this calendar. |
+| `anyoneCanAddSelf` | `bool` | Whether anyone can invite themselves to the event (deprecated). |
+| `attachments` | `[]any` | File attachments for the event. |
+| `attendees` | `[]any` | The attendees of the event. |
+| `attendeesOmitted` | `bool` | Whether attendees may have been omitted from the event's representation. |
+| `colorId` | `string` | The color of the event. |
+| `conferenceData` | `map[string]any` | The conference-related information, such as details of a Google Meet conference. |
+| `created` | `string` | Creation time of the event (as a RFC3339 timestamp). |
+| `creator` | `map[string]any` | The creator of the event. |
+| `defaultReminders` | `[]any` | The default reminders on the calendar for the authenticated user. |
+| `description` | `string` | Description of the event. |
+| `end` | `map[string]any` | The (exclusive) end time of the event. |
+| `endTimeUnspecified` | `bool` | Whether the end time is actually unspecified. |
+| `etag` | `string` | ETag of the resource. |
+| `eventType` | `string` | Specific type of the event. |
+| `extendedProperties` | `map[string]any` | Extended properties of the event. |
+| `gadget` | `map[string]any` | A gadget that extends this event. |
+| `guestsCanInviteOthers` | `bool` | Whether attendees other than the organizer can invite others to the event. |
+| `guestsCanModify` | `bool` | Whether attendees other than the organizer can modify the event. |
+| `guestsCanSeeOtherGuests` | `bool` | Whether attendees other than the organizer can see who the event's attendees are. |
+| `hangoutLink` | `string` | An absolute link to the Google Hangout associated with this event. |
+| `htmlLink` | `string` | An absolute link to this event in the Google Calendar Web UI. |
+| `iCalUID` | `string` | Event unique identifier as defined in RFC5545. |
+| `id` | `string` | Opaque identifier of the event. |
+| `items` | `[]any` | List of events on the calendar. |
+| `kind` | `string` | Type of the resource ("calendar#event"). |
+| `location` | `string` | Geographic location of the event as free-form text. |
+| `locked` | `bool` | Whether this is a locked event copy where no changes can be made to the main event fields "summary", "description", "location", "start", "end" or "recurrence". |
+| `nextPageToken` | `string` | Token used to access the next page of this result. |
+| `nextSyncToken` | `string` | Token used at a later point in time to retrieve only the entries that have changed since this result was returned. |
+| `organizer` | `map[string]any` | The organizer of the event. |
+| `originalStartTime` | `map[string]any` | For an instance of a recurring event, this is the time at which this event would start according to the recurrence data in the recurring event identified by recurringEventId. |
+| `privateCopy` | `bool` | If set to True, Event propagation is disabled. |
+| `recurrence` | `[]any` | List of RRULE, EXRULE, RDATE and EXDATE lines for a recurring event, as specified in RFC5545. |
+| `recurringEventId` | `string` | For an instance of a recurring event, this is the id of the recurring event to which this instance belongs. |
+| `reminders` | `map[string]any` | Information about the event's reminders for the authenticated user. |
+| `sequence` | `int` | Sequence number as per iCalendar. |
+| `source` | `map[string]any` | Source from which the event was created. |
+| `start` | `map[string]any` | The (inclusive) start time of the event. |
+| `status` | `string` | Status of the event. |
+| `summary` | `string` | Title of the event. |
+| `timeZone` | `string` | The time zone of the calendar. |
+| `transparency` | `string` | Whether the event blocks time on the calendar. |
+| `updated` | `string` | Last modification time of the event (as a RFC3339 timestamp). |
+| `visibility` | `string` | Visibility of the event. |
+| `workingLocationProperties` | `map[string]any` | Developer Preview: Working Location event data. |
 
 #### Example: Load
 
 ```go
-event, err := client.Event(nil).Load(map[string]any{"id": "event_id"}, nil)
+event, err := client.Event(nil).Load(map[string]any{"id": "event_id", "calendar_id": "calendar_id"}, nil)
 if err != nil {
     panic(err)
 }
@@ -371,12 +835,122 @@ fmt.Println(events) // the array of records
 
 ```go
 result, err := client.Event(nil).Create(map[string]any{
+    "calendar_id": "example_calendar_id",
 }, nil)
 if err != nil {
     panic(err)
 }
 fmt.Println(result)
 ```
+
+
+### FreeBusy
+
+Create an instance: `freeBusy := client.FreeBusy(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `calendarExpansionMax` | `int` | Maximal number of calendars for which FreeBusy information is to be provided. |
+| `calendars` | `map[string]any` | List of free/busy information for calendars. |
+| `groupExpansionMax` | `int` | Maximal number of calendar identifiers to be provided for a single group. |
+| `groups` | `map[string]any` | Expansion of groups. |
+| `items` | `[]any` | List of calendars and/or groups to query. |
+| `kind` | `string` | Type of the resource ("calendar#freeBusy"). |
+| `timeMax` | `string` | The end of the interval. |
+| `timeMin` | `string` | The start of the interval. |
+| `timeZone` | `string` | Time zone used in the response. |
+
+#### Example: Create
+
+```go
+result, err := client.FreeBusy(nil).Create(map[string]any{
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
+
+
+### Import
+
+Create an instance: `import_ := client.Import(nil)`
+
+
+### QuickAdd
+
+Create an instance: `quickAdd := client.QuickAdd(nil)`
+
+
+### Setting
+
+Create an instance: `setting := client.Setting(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `List(match, ctrl)` | List entities matching the criteria. |
+| `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `etag` | `string` | ETag of the resource. |
+| `id` | `string` | The id of the user setting. |
+| `kind` | `string` | Type of the resource ("calendar#setting"). |
+| `value` | `string` | Value of the user setting. |
+
+#### Example: Load
+
+```go
+setting, err := client.Setting(nil).Load(map[string]any{"id": "setting_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(setting) // the loaded record
+```
+
+#### Example: List
+
+```go
+settings, err := client.Setting(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(settings) // the array of records
+```
+
+#### Example: Create
+
+```go
+result, err := client.Setting(nil).Create(map[string]any{
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
+
+
+### Stop
+
+Create an instance: `stop := client.Stop(nil)`
+
+
+### Watch
+
+Create an instance: `watch := client.Watch(nil)`
 
 ## Features
 
@@ -591,15 +1165,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `List`, the entity
+Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-event := client.Event(nil)
-event.List(nil, nil)
+calendar := client.Calendar(nil)
+calendar.Load(map[string]any{"id": "example_id"}, nil)
 
-// event.Data() now returns the event data from the last list
-// event.Match() returns the last match criteria
+// calendar.Data() now returns the calendar data from the last load
+// calendar.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

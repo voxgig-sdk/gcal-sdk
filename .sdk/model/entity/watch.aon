@@ -1,0 +1,18 @@
+# Entity: watch
+
+main: kit: entity: watch: {
+
+  alias: field: {}
+
+  name: "watch"
+  relations: {
+    ancestors: [
+      [
+        "calendar"
+      ]
+    ]
+  }
+
+
+
+}

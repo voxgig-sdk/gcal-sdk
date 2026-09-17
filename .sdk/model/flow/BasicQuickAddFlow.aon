@@ -1,0 +1,9 @@
+# BasicQuickAddFlow
+
+main: kit: flow: BasicQuickAddFlow:
+{
+  entity: "quick_add",
+  kind: "basic",
+  name: "BasicQuickAddFlow",
+  "key$": "BasicQuickAddFlow"
+}

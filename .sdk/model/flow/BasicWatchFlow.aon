@@ -1,0 +1,9 @@
+# BasicWatchFlow
+
+main: kit: flow: BasicWatchFlow:
+{
+  entity: "watch",
+  kind: "basic",
+  name: "BasicWatchFlow",
+  "key$": "BasicWatchFlow"
+}

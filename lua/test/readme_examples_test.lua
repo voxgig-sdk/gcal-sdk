@@ -20,7 +20,7 @@ local SDK_MODULE = "gcal_sdk"
 -- A test-mode client seeded with a fixture for every entity. The constructor
 -- of each runnable snippet is rewritten to this form so the offline mock has
 -- data to return.
-local TEST_SEED = '{ entity = { ["event"] = { ["test01"] = { id = "test01" } } } }'
+local TEST_SEED = '{ entity = { ["acl"] = { ["test01"] = { id = "test01" } }, ["calendar"] = { ["test01"] = { id = "test01" } }, ["calendar_list"] = { ["test01"] = { id = "test01" } }, ["channel"] = { ["test01"] = { id = "test01" } }, ["color"] = { ["test01"] = { id = "test01" } }, ["event"] = { ["test01"] = { id = "test01" } }, ["free_busy"] = { ["test01"] = { id = "test01" } }, ["import"] = { ["test01"] = { id = "test01" } }, ["quick_add"] = { ["test01"] = { id = "test01" } }, ["setting"] = { ["test01"] = { id = "test01" } }, ["stop"] = { ["test01"] = { id = "test01" } }, ["watch"] = { ["test01"] = { id = "test01" } } } }'
 local TEST_CTOR = "sdk.test(" .. TEST_SEED .. ")"
 
 local function script_dir()

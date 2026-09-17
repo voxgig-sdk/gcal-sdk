@@ -1,3 +1,14 @@
 # Entity Models
 
-@"event.aon"
+@"./acl.aon"
+@"./calendar.aon"
+@"./calendar_list.aon"
+@"./channel.aon"
+@"./color.aon"
+@"./event.aon"
+@"./free_busy.aon"
+@"./import.aon"
+@"./quick_add.aon"
+@"./setting.aon"
+@"./stop.aon"
+@"./watch.aon"

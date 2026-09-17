@@ -353,6 +353,76 @@ end
 
 
 
+-- Idiomatic facade: client:Acl():list() / client:Acl():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:Acl(data)
+  local EntityMod = require("entity.acl_entity")
+  if data == nil then
+    if self._acl == nil then
+      self._acl = EntityMod.new(self, nil)
+    end
+    return self._acl
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:Calendar():list() / client:Calendar():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:Calendar(data)
+  local EntityMod = require("entity.calendar_entity")
+  if data == nil then
+    if self._calendar == nil then
+      self._calendar = EntityMod.new(self, nil)
+    end
+    return self._calendar
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:CalendarList():list() / client:CalendarList():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:CalendarList(data)
+  local EntityMod = require("entity.calendar_list_entity")
+  if data == nil then
+    if self._calendar_list == nil then
+      self._calendar_list = EntityMod.new(self, nil)
+    end
+    return self._calendar_list
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:Channel():list() / client:Channel():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:Channel(data)
+  local EntityMod = require("entity.channel_entity")
+  if data == nil then
+    if self._channel == nil then
+      self._channel = EntityMod.new(self, nil)
+    end
+    return self._channel
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:Color():list() / client:Color():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:Color(data)
+  local EntityMod = require("entity.color_entity")
+  if data == nil then
+    if self._color == nil then
+      self._color = EntityMod.new(self, nil)
+    end
+    return self._color
+  end
+  return EntityMod.new(self, data)
+end
+
+
 -- Idiomatic facade: client:Event():list() / client:Event():load({ id = ... })
 -- Entity access is capitalised (PascalCase) for parity with the other SDKs.
 function GcalSDK:Event(data)
@@ -362,6 +432,90 @@ function GcalSDK:Event(data)
       self._event = EntityMod.new(self, nil)
     end
     return self._event
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:FreeBusy():list() / client:FreeBusy():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:FreeBusy(data)
+  local EntityMod = require("entity.free_busy_entity")
+  if data == nil then
+    if self._free_busy == nil then
+      self._free_busy = EntityMod.new(self, nil)
+    end
+    return self._free_busy
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:Import():list() / client:Import():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:Import(data)
+  local EntityMod = require("entity.import_entity")
+  if data == nil then
+    if self._import == nil then
+      self._import = EntityMod.new(self, nil)
+    end
+    return self._import
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:QuickAdd():list() / client:QuickAdd():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:QuickAdd(data)
+  local EntityMod = require("entity.quick_add_entity")
+  if data == nil then
+    if self._quick_add == nil then
+      self._quick_add = EntityMod.new(self, nil)
+    end
+    return self._quick_add
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:Setting():list() / client:Setting():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:Setting(data)
+  local EntityMod = require("entity.setting_entity")
+  if data == nil then
+    if self._setting == nil then
+      self._setting = EntityMod.new(self, nil)
+    end
+    return self._setting
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:Stop():list() / client:Stop():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:Stop(data)
+  local EntityMod = require("entity.stop_entity")
+  if data == nil then
+    if self._stop == nil then
+      self._stop = EntityMod.new(self, nil)
+    end
+    return self._stop
+  end
+  return EntityMod.new(self, data)
+end
+
+
+-- Idiomatic facade: client:Watch():list() / client:Watch():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GcalSDK:Watch(data)
+  local EntityMod = require("entity.watch_entity")
+  if data == nil then
+    if self._watch == nil then
+      self._watch = EntityMod.new(self, nil)
+    end
+    return self._watch
   end
   return EntityMod.new(self, data)
 end

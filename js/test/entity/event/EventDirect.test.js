@@ -42,10 +42,10 @@ describe('EventDirect', async () => {
     const params = {}
     if (setup.live) {
       const listResult = await client.direct({
-        path: 'calendars/primary/events',
+        path: 'calendars/{calendar_id}/events',
         method: 'GET',
         params: {
-
+        calendar_id: setup.idmap['calendar01'],
         },
       })
       assert(listResult.ok === true)
@@ -54,13 +54,14 @@ describe('EventDirect', async () => {
         throw new Error('Live load blocked: discovery returned no usable entities')
       }
       params.id = listData[0].id
-
+      params.calendar_id = setup.idmap['calendar01']
     } else {
-      params.id = 'direct01'
+      params.calendar_id = 'direct01'
+      params.id = 'direct02'
     }
 
     const result = await client.direct({
-      path: 'calendars/primary/events/{id}',
+      path: 'calendars/{calendar_id}/events/{id}',
       method: 'GET',
       params,
     })
@@ -74,6 +75,7 @@ describe('EventDirect', async () => {
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
       assert(calls[0].url.includes('direct01'))
+      assert(calls[0].url.includes('direct02'))
     }
   })
 
@@ -83,9 +85,14 @@ describe('EventDirect', async () => {
     const { client, calls } = setup
 
     const params = {}
+    if (setup.live) {
+      params.calendar_id = setup.idmap['calendar01']
+    } else {
+      params.calendar_id = 'direct01'
+    }
 
     const result = await client.direct({
-      path: 'calendars/primary/events',
+      path: 'calendars/{calendar_id}/events',
       method: 'GET',
       params,
     })
@@ -98,6 +105,7 @@ describe('EventDirect', async () => {
       assert(result.data.length === 2)
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
+      assert(calls[0].url.includes('direct01'))
     }
   })
 

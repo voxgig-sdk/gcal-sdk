@@ -79,6 +79,7 @@ describe("EventEntity", function()
     local event_ref01_ent = client:Event(nil)
     local event_ref01_data = helpers.to_map(vs.getprop(
       vs.getpath(setup.data, "new.event"), "event_ref01"))
+    event_ref01_data["calendar_id"] = setup.idmap["calendar01"]
 
     local event_ref01_data_result, err = event_ref01_ent:create(event_ref01_data, nil)
     assert.is_nil(err)
@@ -87,7 +88,10 @@ describe("EventEntity", function()
     assert.is_not_nil(event_ref01_data["id"])
 
     -- LIST
-    local event_ref01_match = {}
+    local event_ref01_match = {
+      ["calendar_id"] = setup.idmap["calendar01"],
+      ["event_id"] = setup.idmap["event01"],
+    }
 
     local event_ref01_list_result, err = event_ref01_ent:list(event_ref01_match, nil)
     assert.is_nil(err)
@@ -101,9 +105,10 @@ describe("EventEntity", function()
     -- UPDATE
     local event_ref01_data_up0_up = {
       id = event_ref01_data["id"],
+      ["calendar_id"] = setup.idmap["calendar_id"],
     }
 
-    local event_ref01_markdef_up0_name = "created"
+    local event_ref01_markdef_up0_name = "accessRole"
     local event_ref01_markdef_up0_value = "Mark01-event_ref01_" .. tostring(setup.now)
     event_ref01_data_up0_up[event_ref01_markdef_up0_name] = event_ref01_markdef_up0_value
 
@@ -132,7 +137,10 @@ describe("EventEntity", function()
     assert.is_nil(err)
 
     -- LIST
-    local event_ref01_match_rt0 = {}
+    local event_ref01_match_rt0 = {
+      ["calendar_id"] = setup.idmap["calendar01"],
+      ["event_id"] = setup.idmap["event01"],
+    }
 
     local event_ref01_list_rt0_result, err = event_ref01_ent:list(event_ref01_match_rt0, nil)
     assert.is_nil(err)
@@ -166,7 +174,7 @@ function event_basic_setup(extra)
 
   -- Generate idmap via transform.
   local idmap = vs.transform(
-    { "event01", "event02", "event03" },
+    { "event01", "event02", "event03", "calendar01", "calendar02", "calendar03" },
     {
       ["`$PACK`"] = { "", {
         ["`$KEY`"] = "`$COPY`",
@@ -192,6 +200,9 @@ function event_basic_setup(extra)
     env["GCAL_TEST_EVENT_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
+  end
+  if idmap_resolved["calendar_id"] == nil then
+    idmap_resolved["calendar_id"] = idmap_resolved["calendar01"]
   end
 
   if env["GCAL_TEST_LIVE"] == "TRUE" then

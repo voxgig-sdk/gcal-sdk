@@ -1,3 +1,14 @@
 # Flows
 
-@"BasicEventFlow.aon"
+@"./BasicAclFlow.aon"
+@"./BasicCalendarFlow.aon"
+@"./BasicCalendarListFlow.aon"
+@"./BasicChannelFlow.aon"
+@"./BasicColorFlow.aon"
+@"./BasicEventFlow.aon"
+@"./BasicFreeBusyFlow.aon"
+@"./BasicImportFlow.aon"
+@"./BasicQuickAddFlow.aon"
+@"./BasicSettingFlow.aon"
+@"./BasicStopFlow.aon"
+@"./BasicWatchFlow.aon"

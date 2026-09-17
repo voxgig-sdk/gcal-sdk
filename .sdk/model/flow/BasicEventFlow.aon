@@ -11,10 +11,19 @@ main: kit: flow: BasicEventFlow:
         ref: "event_ref01"
       }
 
+      match: {
+        calendar_id: "calendar01"
+      }
+
       op: "create"
     }
 
     {
+      match: {
+        calendar_id: "calendar01",
+        event_id: "event01"
+      }
+
       op: "list",
       valid: [
         {
@@ -27,11 +36,15 @@ main: kit: flow: BasicEventFlow:
     }
 
     {
+      data: {
+        calendar_id: "calendar01"
+      }
+
       input: {
         ref: "event_ref01",
         srcdatavar: "event_ref01_data",
         suffix: "_up0",
-        textfield: "created"
+        textfield: "accessRole"
       }
 
       op: "update",
@@ -53,6 +66,7 @@ main: kit: flow: BasicEventFlow:
       }
 
       match: {
+        calendar_id: "calendar01",
         id: "event01"
       }
 
@@ -74,6 +88,7 @@ main: kit: flow: BasicEventFlow:
       }
 
       match: {
+        calendar_id: "calendar01",
         id: "event01"
       }
 
@@ -83,6 +98,11 @@ main: kit: flow: BasicEventFlow:
     {
       input: {
         suffix: "_rt0"
+      }
+
+      match: {
+        calendar_id: "calendar01",
+        event_id: "event01"
       }
 
       op: "list",

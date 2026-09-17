@@ -1,0 +1,18 @@
+# BasicFreeBusyFlow
+
+main: kit: flow: BasicFreeBusyFlow:
+{
+  entity: "free_busy",
+  kind: "basic",
+  name: "BasicFreeBusyFlow",
+  step: [
+    {
+      input: {
+        ref: "free_busy_ref01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicFreeBusyFlow"
+}

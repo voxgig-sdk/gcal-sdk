@@ -307,10 +307,76 @@ class GcalSDK:
         return res
 
 
+    def Acl(self, data=None) -> "AclEntity":
+        """Entity factory: client.Acl().list() / client.Acl().load({"id": ...})."""
+        from gcal_sdk.entity.acl_entity import AclEntity
+        return AclEntity(self, data)
+
+
+    def Calendar(self, data=None) -> "CalendarEntity":
+        """Entity factory: client.Calendar().list() / client.Calendar().load({"id": ...})."""
+        from gcal_sdk.entity.calendar_entity import CalendarEntity
+        return CalendarEntity(self, data)
+
+
+    def CalendarList(self, data=None) -> "CalendarListEntity":
+        """Entity factory: client.CalendarList().list() / client.CalendarList().load({"id": ...})."""
+        from gcal_sdk.entity.calendar_list_entity import CalendarListEntity
+        return CalendarListEntity(self, data)
+
+
+    def Channel(self, data=None) -> "ChannelEntity":
+        """Entity factory: client.Channel().list() / client.Channel().load({"id": ...})."""
+        from gcal_sdk.entity.channel_entity import ChannelEntity
+        return ChannelEntity(self, data)
+
+
+    def Color(self, data=None) -> "ColorEntity":
+        """Entity factory: client.Color().list() / client.Color().load({"id": ...})."""
+        from gcal_sdk.entity.color_entity import ColorEntity
+        return ColorEntity(self, data)
+
+
     def Event(self, data=None) -> "EventEntity":
         """Entity factory: client.Event().list() / client.Event().load({"id": ...})."""
         from gcal_sdk.entity.event_entity import EventEntity
         return EventEntity(self, data)
+
+
+    def FreeBusy(self, data=None) -> "FreeBusyEntity":
+        """Entity factory: client.FreeBusy().list() / client.FreeBusy().load({"id": ...})."""
+        from gcal_sdk.entity.free_busy_entity import FreeBusyEntity
+        return FreeBusyEntity(self, data)
+
+
+    def Import(self, data=None) -> "ImportEntity":
+        """Entity factory: client.Import().list() / client.Import().load({"id": ...})."""
+        from gcal_sdk.entity.import_entity import ImportEntity
+        return ImportEntity(self, data)
+
+
+    def QuickAdd(self, data=None) -> "QuickAddEntity":
+        """Entity factory: client.QuickAdd().list() / client.QuickAdd().load({"id": ...})."""
+        from gcal_sdk.entity.quick_add_entity import QuickAddEntity
+        return QuickAddEntity(self, data)
+
+
+    def Setting(self, data=None) -> "SettingEntity":
+        """Entity factory: client.Setting().list() / client.Setting().load({"id": ...})."""
+        from gcal_sdk.entity.setting_entity import SettingEntity
+        return SettingEntity(self, data)
+
+
+    def Stop(self, data=None) -> "StopEntity":
+        """Entity factory: client.Stop().list() / client.Stop().load({"id": ...})."""
+        from gcal_sdk.entity.stop_entity import StopEntity
+        return StopEntity(self, data)
+
+
+    def Watch(self, data=None) -> "WatchEntity":
+        """Entity factory: client.Watch().list() / client.Watch().load({"id": ...})."""
+        from gcal_sdk.entity.watch_entity import WatchEntity
+        return WatchEntity(self, data)
 
 
 
@@ -340,4 +406,15 @@ class GcalSDK:
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from gcal_sdk.entity.acl_entity import AclEntity
+    from gcal_sdk.entity.calendar_entity import CalendarEntity
+    from gcal_sdk.entity.calendar_list_entity import CalendarListEntity
+    from gcal_sdk.entity.channel_entity import ChannelEntity
+    from gcal_sdk.entity.color_entity import ColorEntity
     from gcal_sdk.entity.event_entity import EventEntity
+    from gcal_sdk.entity.free_busy_entity import FreeBusyEntity
+    from gcal_sdk.entity.import_entity import ImportEntity
+    from gcal_sdk.entity.quick_add_entity import QuickAddEntity
+    from gcal_sdk.entity.setting_entity import SettingEntity
+    from gcal_sdk.entity.stop_entity import StopEntity
+    from gcal_sdk.entity.watch_entity import WatchEntity

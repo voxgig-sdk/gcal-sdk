@@ -27,13 +27,27 @@ func TestEventDirect(t *testing.T) {
 			t.Skip(_reason)
 			return
 		}
+		if setup.live {
+			for _, _liveKey := range []string{"calendar01"} {
+				if v := setup.idmap[_liveKey]; v == nil {
+					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
+					return
+				}
+			}
+		}
 		client := setup.client
 
+		params := map[string]any{}
+		if setup.live {
+			params["calendar_id"] = setup.idmap["calendar01"]
+		} else {
+			params["calendar_id"] = "direct01"
+		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "calendars/primary/events",
+			"path":   "calendars/{calendar_id}/events",
 			"method": "GET",
-			"params": map[string]any{},
+			"params": params,
 		})
 		if setup.live {
 			// Live-mode leniency is a model decision
@@ -74,6 +88,17 @@ func TestEventDirect(t *testing.T) {
 			if len(*setup.calls) != 1 {
 				t.Fatalf("expected 1 call, got %d", len(*setup.calls))
 			}
+			call := (*setup.calls)[0]
+			if initMap, ok := call["init"].(map[string]any); ok {
+				if initMap["method"] != "GET" {
+					t.Fatalf("expected method GET, got %v", initMap["method"])
+				}
+			}
+			if url, ok := call["url"].(string); ok {
+				if !strings.Contains(url, "direct01") {
+					t.Fatalf("expected url to contain direct01, got %v", url)
+				}
+			}
 		}
 	})
 
@@ -90,14 +115,23 @@ func TestEventDirect(t *testing.T) {
 			t.Skip(_reason)
 			return
 		}
+		if setup.live {
+			for _, _liveKey := range []string{"calendar01"} {
+				if v := setup.idmap[_liveKey]; v == nil {
+					t.Skipf("live test needs %s via *_ENTID env var (synthetic IDs only)", _liveKey)
+					return
+				}
+			}
+		}
 		client := setup.client
 
 		params := map[string]any{}
 		query := map[string]any{}
 		if setup.live {
 			listParams := map[string]any{}
+			listParams["calendar_id"] = setup.idmap["calendar01"]
 			listResult, listErr := client.Direct(map[string]any{
-				"path":   "calendars/primary/events",
+				"path":   "calendars/{calendar_id}/events",
 				"method": "GET",
 				"params": listParams,
 			})
@@ -115,12 +149,14 @@ func TestEventDirect(t *testing.T) {
 			}
 			firstEnt := core.ToMapAny(listData[0])
 			params["id"] = firstEnt["id"]
+			params["calendar_id"] = setup.idmap["calendar01"]
 		} else {
-			params["id"] = "direct01"
+			params["calendar_id"] = "direct01"
+			params["id"] = "direct02"
 		}
 
 		result, err := client.Direct(map[string]any{
-			"path":   "calendars/primary/events/{id}",
+			"path":   "calendars/{calendar_id}/events/{id}",
 			"method": "GET",
 			"params": params,
 			"query":  query,
@@ -174,6 +210,9 @@ func TestEventDirect(t *testing.T) {
 			if url, ok := call["url"].(string); ok {
 				if !strings.Contains(url, "direct01") {
 					t.Fatalf("expected url to contain direct01, got %v", url)
+				}
+				if !strings.Contains(url, "direct02") {
+					t.Fatalf("expected url to contain direct02, got %v", url)
 				}
 			}
 		}

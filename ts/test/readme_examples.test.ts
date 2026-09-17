@@ -37,7 +37,7 @@ const SDK_NAME = 'GcalSDK'
 
 // A fixture for every entity, so list()/load() resolve offline with no
 // network. Snippet client construction is rewritten to seed this.
-const TEST_SEED = {"entity":{"event":{"test01":{"id":"test01"}}}}
+const TEST_SEED = {"entity":{"acl":{"test01":{"id":"test01"}},"calendar":{"test01":{"id":"test01"}},"calendar_list":{"test01":{"id":"test01"}},"channel":{"test01":{"id":"test01"}},"color":{"test01":{"id":"test01"}},"event":{"test01":{"id":"test01"}},"free_busy":{"test01":{"id":"test01"}},"import":{"test01":{"id":"test01"}},"quick_add":{"test01":{"id":"test01"}},"setting":{"test01":{"id":"test01"}},"stop":{"test01":{"id":"test01"}},"watch":{"test01":{"id":"test01"}}}}
 const SEED_ARG = JSON.stringify(TEST_SEED)
 const SEEDED_CTOR = SDK_NAME + '.test(' + SEED_ARG + ')'
 

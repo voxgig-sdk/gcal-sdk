@@ -102,6 +102,7 @@ func TestEventEntity(t *testing.T) {
 		eventRef01Ent := client.Event(nil)
 		eventRef01Data := core.ToMapAny(vs.GetProp(
 			vs.GetPath(setup.data, []any{"new", "event"}), "event_ref01"))
+		eventRef01Data["calendar_id"] = setup.idmap["calendar01"]
 
 		eventRef01DataResult, err := eventRef01Ent.Create(eventRef01Data, nil)
 		if err != nil {
@@ -116,7 +117,10 @@ func TestEventEntity(t *testing.T) {
 		}
 
 		// LIST
-		eventRef01Match := map[string]any{}
+		eventRef01Match := map[string]any{
+			"calendar_id": setup.idmap["calendar01"],
+			"event_id": setup.idmap["event01"],
+		}
 
 		eventRef01ListResult, err := eventRef01Ent.List(eventRef01Match, nil)
 		if err != nil {
@@ -135,9 +139,10 @@ func TestEventEntity(t *testing.T) {
 		// UPDATE
 		eventRef01DataUp0Up := map[string]any{
 			"id": eventRef01Data["id"],
+			"calendar_id": setup.idmap["calendar_id"],
 		}
 
-		eventRef01MarkdefUp0Name := "created"
+		eventRef01MarkdefUp0Name := "accessRole"
 		eventRef01MarkdefUp0Value := fmt.Sprintf("Mark01-event_ref01_%d", setup.now)
 		eventRef01DataUp0Up[eventRef01MarkdefUp0Name] = eventRef01MarkdefUp0Value
 
@@ -182,7 +187,10 @@ func TestEventEntity(t *testing.T) {
 		}
 
 		// LIST
-		eventRef01MatchRt0 := map[string]any{}
+		eventRef01MatchRt0 := map[string]any{
+			"calendar_id": setup.idmap["calendar01"],
+			"event_id": setup.idmap["event01"],
+		}
 
 		eventRef01ListRt0Result, err := eventRef01Ent.List(eventRef01MatchRt0, nil)
 		if err != nil {
@@ -226,7 +234,7 @@ func eventBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"event01", "event02", "event03"},
+		[]any{"event01", "event02", "event03", "calendar01", "calendar02", "calendar03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",
@@ -251,6 +259,10 @@ func eventBasicSetup(extra map[string]any) *entityTestSetup {
 	idmapResolved := core.ToMapAny(env["GCAL_TEST_EVENT_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
+	}
+	// Add calendar_id alias for update test.
+	if idmapResolved["calendar_id"] == nil {
+		idmapResolved["calendar_id"] = idmapResolved["calendar01"]
 	}
 
 	if env["GCAL_TEST_LIVE"] == "TRUE" {

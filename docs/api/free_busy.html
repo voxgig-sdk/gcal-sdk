@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>FreeBusy | Calendar API</title><link rel="stylesheet" href="../assets/style.css"></head>
+<body><a class="skip" href="#content">Skip to content</a>
+<header class="site-header"><a class="site-title" href="../index.html">Calendar API<span>SDK documentation</span></a><div class="site-links"><a class="repo-link" href="https://github.com/voxgig-sdk/gcal-sdk">voxgig-sdk/gcal-sdk</a></div></header>
+<div class="site-notice" role="note"></div>
+<div class="shell"><nav class="site-nav" aria-label="Documentation"><div class="search"><label for="search">Search documentation</label><input id="search" type="search" data-base="../" placeholder="Find a guide or reference"><div id="results" aria-live="polite"></div></div><details><summary>Overview</summary><a href="../index.html">Calendar API</a></details>
+<details open><summary>API</summary><a href="../api/index.html">API overview</a>
+<a href="../api/acl.html">Acl</a>
+<a href="../api/calendar.html">Calendar</a>
+<a href="../api/calendar_list.html">CalendarList</a>
+<a href="../api/channel.html">Channel</a>
+<a href="../api/color.html">Color</a>
+<a href="../api/event.html">Event</a>
+<a aria-current="page" href="../api/free_busy.html">FreeBusy</a><div class="nav-sections"><a class="nav-section" href="#post-freebusy">POST /freeBusy</a></div>
+<a href="../api/import.html">Import</a>
+<a href="../api/quick_add.html">QuickAdd</a>
+<a href="../api/setting.html">Setting</a>
+<a href="../api/stop.html">Stop</a>
+<a href="../api/watch.html">Watch</a></details>
+<details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
+<a href="../guides/first-call.html">Make your first API call</a>
+<a href="../guides/errors.html">Handle errors</a>
+<a href="../guides/concepts.html">Entities, SDKs, and tools</a></details>
+<details><summary>SDKs</summary><a href="../sdks/go.html">Golang</a>
+<a href="../sdks/js.html">JavaScript</a>
+<a href="../sdks/lua.html">Lua</a>
+<a href="../sdks/php.html">PHP</a>
+<a href="../sdks/py.html">Python</a>
+<a href="../sdks/ts.html">TypeScript</a></details>
+<details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
+<a href="../tools/go-mcp.html">Go MCP server</a></details>
+<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
+<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
+<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
+<a href="../features/paging.html">Pagination signals for list operations</a>
+<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
+<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
+<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
+<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="freebusy">FreeBusy</h1>
+<h2 id="operations">Operations</h2>
+<p>Every route this entity exposes. Each route links to its own reference on this page.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Route</th>
+<th>SDK operation</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><a href="#post-freebusy"><code>/freeBusy</code></a></td>
+<td><code>create</code></td>
+<td>Successful response</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fields">Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>calendarExpansionMax</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>Maximal number of calendars for which FreeBusy information is to be provided.</td>
+</tr>
+<tr>
+<td><code>calendars</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>List of free/busy information for calendars.</td>
+</tr>
+<tr>
+<td><code>groupExpansionMax</code></td>
+<td><code>integer</code></td>
+<td>No</td>
+<td>Maximal number of calendar identifiers to be provided for a single group.</td>
+</tr>
+<tr>
+<td><code>groups</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Expansion of groups.</td>
+</tr>
+<tr>
+<td><code>items</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td>List of calendars and/or groups to query.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#freeBusy&quot;).</td>
+</tr>
+<tr>
+<td><code>timeMax</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The end of the interval.</td>
+</tr>
+<tr>
+<td><code>timeMin</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The start of the interval.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Time zone used in the response.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create">create</h2>
+<h3 id="post-freebusy" class="operation" data-method="post"><code>POST</code> /freeBusy</h3>
+<p>Operation ID: <code>calendar.freebusy.query</code>.</p>
+<p>Authentication: oauth2 (<code>Oauth2</code>) or oauth2 (<code>Oauth2c</code>).</p>
+<h4 id="parameters">Parameters</h4>
+<p>| Parameter | In | Type | Required | Description |
+| --- | --- | --- | --- |
+| <code>alt</code> | <code>query</code> | <code>enum: json</code> | No | Data format for the response. |
+| <code>fields</code> | <code>query</code> | <code>string</code> | No | Selector specifying which fields to include in a partial response. |
+| <code>key</code> | <code>query</code> | <code>string</code> | No | API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. |
+| <code>oauth_token</code> | <code>query</code> | <code>string</code> | No | OAuth 2.0 token for the current user. |
+| <code>prettyPrint</code> | <code>query</code> | <code>boolean</code> | No | Returns response with indentations and line breaks. |
+| <code>quotaUser</code> | <code>query</code> | <code>string</code> | No | An opaque string that represents a user for quota purposes. Must not exceed 40 characters. |
+| <code>userIp</code> | <code>query</code> | <code>string</code> | No | Deprecated. Please use quotaUser instead. |</p>
+<h4 id="request-body">Request body</h4>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>calendarExpansionMax</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Maximal number of calendars for which FreeBusy information is to be provided. Optional. Maximum value is 50.</td>
+</tr>
+<tr>
+<td><code>groupExpansionMax</code></td>
+<td><code>integer (int32)</code></td>
+<td>No</td>
+<td>Maximal number of calendar identifiers to be provided for a single group. Optional. An error is returned for a group with more members than this value. Maximum value is 100.</td>
+</tr>
+<tr>
+<td><code>items</code></td>
+<td><code>array of object</code></td>
+<td>No</td>
+<td>List of calendars and/or groups to query.</td>
+</tr>
+<tr>
+<td><code>items[].id</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>The identifier of a calendar or a group.</td>
+</tr>
+<tr>
+<td><code>timeMax</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>The end of the interval for the query formatted as per RFC3339.</td>
+</tr>
+<tr>
+<td><code>timeMin</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>The start of the interval for the query formatted as per RFC3339.</td>
+</tr>
+<tr>
+<td><code>timeZone</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Time zone used in the response. Optional. The default is UTC.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="responses">Responses</h4>
+<h5 id="200-successful-response" class="status" data-status="2xx">200: Successful response</h5>
+<p><code>application/json</code></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>calendars</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>List of free/busy information for calendars.</td>
+</tr>
+<tr>
+<td><code>groups</code></td>
+<td><code>object</code></td>
+<td>No</td>
+<td>Expansion of groups.</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td>Type of the resource (&quot;calendar#freeBusy&quot;).</td>
+</tr>
+<tr>
+<td><code>timeMax</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>The end of the interval.</td>
+</tr>
+<tr>
+<td><code>timeMin</code></td>
+<td><code>string (date-time)</code></td>
+<td>No</td>
+<td>The start of the interval.</td>
+</tr>
+</tbody>
+</table>
+</main></div>
+<script src="../assets/search.js" defer></script></body></html>

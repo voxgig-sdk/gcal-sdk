@@ -77,13 +77,17 @@ class TestEventEntity:
         event_ref01_ent = client.Event(None)
         event_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.event"), "event_ref01"))
+        event_ref01_data["calendar_id"] = setup["idmap"]["calendar01"]
 
         event_ref01_data = helpers.to_map(runner.entity_data(event_ref01_ent.create(event_ref01_data, None)))
         assert event_ref01_data is not None
         assert event_ref01_data["id"] is not None
 
         # LIST
-        event_ref01_match = {}
+        event_ref01_match = {
+            "calendar_id": setup["idmap"]["calendar01"],
+            "event_id": setup["idmap"]["event01"],
+        }
 
         event_ref01_list_result = event_ref01_ent.list(event_ref01_match, None)
         assert isinstance(event_ref01_list_result, list)
@@ -96,9 +100,10 @@ class TestEventEntity:
         # UPDATE
         event_ref01_data_up0_up = {
             "id": event_ref01_data["id"],
+            "calendar_id": setup["idmap"]["calendar_id"],
         }
 
-        event_ref01_markdef_up0_name = "created"
+        event_ref01_markdef_up0_name = "accessRole"
         event_ref01_markdef_up0_value = "Mark01-event_ref01_" + str(setup["now"])
         event_ref01_data_up0_up[event_ref01_markdef_up0_name] = event_ref01_markdef_up0_value
 
@@ -123,7 +128,10 @@ class TestEventEntity:
         event_ref01_ent.remove(event_ref01_match_rm0, None)
 
         # LIST
-        event_ref01_match_rt0 = {}
+        event_ref01_match_rt0 = {
+            "calendar_id": setup["idmap"]["calendar01"],
+            "event_id": setup["idmap"]["event01"],
+        }
 
         event_ref01_list_rt0_result = event_ref01_ent.list(event_ref01_match_rt0, None)
         assert isinstance(event_ref01_list_rt0_result, list)
@@ -151,7 +159,7 @@ def _event_basic_setup(extra):
 
     # Generate idmap via transform.
     idmap = vs.transform(
-        ["event01", "event02", "event03"],
+        ["event01", "event02", "event03", "calendar01", "calendar02", "calendar03"],
         {
             "`$PACK`": ["", {
                 "`$KEY`": "`$COPY`",
@@ -178,6 +186,8 @@ def _event_basic_setup(extra):
         env.get("GCAL_TEST_EVENT_ENTID"))
     if idmap_resolved is None:
         idmap_resolved = helpers.to_map(idmap)
+    if idmap_resolved.get("calendar_id") is None:
+        idmap_resolved["calendar_id"] = idmap_resolved.get("calendar01")
 
     if env.get("GCAL_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([

@@ -1,0 +1,692 @@
+# Entity: calendar
+
+main: kit: entity: calendar: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "allowedConferenceSolutionTypes"
+      req: false
+      short: "The types of conference solutions that are supported for this calendar."
+      type: "`$ARRAY`"
+    }
+    {
+      name: "conferenceProperties"
+      req: false
+      short: "Conferencing properties for this calendar, for example what types of conferences are allowed."
+      type: "`$OBJECT`"
+    }
+    {
+      name: "description"
+      req: false
+      short: "Description of the calendar."
+      type: "`$STRING`"
+    }
+    {
+      name: "etag"
+      req: false
+      short: "ETag of the resource."
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      short: "Identifier of the calendar."
+      type: "`$STRING`"
+    }
+    {
+      name: "kind"
+      req: false
+      short: "Type of the resource (\"calendar#calendar\")."
+      type: "`$STRING`"
+    }
+    {
+      name: "location"
+      req: false
+      short: "Geographic location of the calendar as free-form text."
+      type: "`$STRING`"
+    }
+    {
+      name: "summary"
+      req: false
+      short: "Title of the calendar."
+      type: "`$STRING`"
+    }
+    {
+      name: "timeZone"
+      req: false
+      short: "The time zone of the calendar."
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "calendar"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "calendar_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "alt"
+                orig: "alt"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "field"
+                orig: "field"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "oauth_token"
+                orig: "oauth_token"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "pretty_print"
+                orig: "pretty_print"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                kind: "query"
+                name: "quota_user"
+                orig: "quota_user"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "user_ip"
+                orig: "user_ip"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          contract: {
+            id: "POST /calendars/{calendarId}/clear"
+            json: "{\"operationId\":\"calendar.calendars.clear\",\"parameters\":[{\"description\":\"Data format for the response.\",\"in\":\"query\",\"name\":\"alt\",\"schema\":{\"enum\":[\"json\"],\"type\":\"string\"}},{\"description\":\"Selector specifying which fields to include in a partial response.\",\"in\":\"query\",\"name\":\"fields\",\"schema\":{\"type\":\"string\"}},{\"description\":\"API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.\",\"in\":\"query\",\"name\":\"key\",\"schema\":{\"type\":\"string\"}},{\"description\":\"OAuth 2.0 token for the current user.\",\"in\":\"query\",\"name\":\"oauth_token\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Returns response with indentations and line breaks.\",\"in\":\"query\",\"name\":\"prettyPrint\",\"schema\":{\"type\":\"boolean\"}},{\"description\":\"An opaque string that represents a user for quota purposes. Must not exceed 40 characters.\",\"in\":\"query\",\"name\":\"quotaUser\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Deprecated. Please use quotaUser instead.\",\"in\":\"query\",\"name\":\"userIp\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the \\\"primary\\\" keyword.\",\"in\":\"path\",\"name\":\"calendarId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"description\":\"Successful response\"}},\"security\":[{\"Oauth2\":[\"https://www.googleapis.com/auth/calendar\"],\"Oauth2c\":[\"https://www.googleapis.com/auth/calendar\"]}],\"securitySchemes\":{\"Oauth2\":{\"description\":\"Oauth 2.0 implicit authentication\",\"flows\":{\"implicit\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"}}},\"type\":\"oauth2\"},\"Oauth2c\":{\"description\":\"Oauth 2.0 authorizationCode authentication\",\"flows\":{\"authorizationCode\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"},\"tokenUrl\":\"https://accounts.google.com/o/oauth2/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"operation\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "POST"
+          orig: "/calendars/{calendarId}/clear"
+          rename: {
+            param: {
+              calendarId: "id"
+            }
+          }
+          segments: [
+            {
+              lit: "calendars"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "clear"
+            }
+          ]
+          select: {
+            "$action": "clear"
+            exist: [
+              "alt"
+              "field"
+              "id"
+              "key"
+              "oauth_token"
+              "pretty_print"
+              "quota_user"
+              "user_ip"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "alt"
+                orig: "alt"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "field"
+                orig: "field"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "oauth_token"
+                orig: "oauth_token"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "pretty_print"
+                orig: "pretty_print"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                kind: "query"
+                name: "quota_user"
+                orig: "quota_user"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "user_ip"
+                orig: "user_ip"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          contract: {
+            id: "POST /calendars"
+            json: "{\"operationId\":\"calendar.calendars.insert\",\"parameters\":[{\"description\":\"Data format for the response.\",\"in\":\"query\",\"name\":\"alt\",\"schema\":{\"enum\":[\"json\"],\"type\":\"string\"}},{\"description\":\"Selector specifying which fields to include in a partial response.\",\"in\":\"query\",\"name\":\"fields\",\"schema\":{\"type\":\"string\"}},{\"description\":\"API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.\",\"in\":\"query\",\"name\":\"key\",\"schema\":{\"type\":\"string\"}},{\"description\":\"OAuth 2.0 token for the current user.\",\"in\":\"query\",\"name\":\"oauth_token\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Returns response with indentations and line breaks.\",\"in\":\"query\",\"name\":\"prettyPrint\",\"schema\":{\"type\":\"boolean\"}},{\"description\":\"An opaque string that represents a user for quota purposes. Must not exceed 40 characters.\",\"in\":\"query\",\"name\":\"quotaUser\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Deprecated. Please use quotaUser instead.\",\"in\":\"query\",\"name\":\"userIp\",\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"conferenceProperties\":{\"description\":\"Conferencing properties for this calendar, for example what types of conferences are allowed.\",\"properties\":{\"allowedConferenceSolutionTypes\":{\"description\":\"The types of conference solutions that are supported for this calendar.\\nThe possible values are:  \\n- \\\"eventHangout\\\" \\n- \\\"eventNamedHangout\\\" \\n- \\\"hangoutsMeet\\\"  Optional.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"},\"description\":{\"description\":\"Description of the calendar. Optional.\",\"type\":\"string\"},\"etag\":{\"description\":\"ETag of the resource.\",\"type\":\"string\"},\"id\":{\"description\":\"Identifier of the calendar. To retrieve IDs call the calendarList.list() method.\",\"type\":\"string\"},\"kind\":{\"default\":\"calendar#calendar\",\"description\":\"Type of the resource (\\\"calendar#calendar\\\").\",\"type\":\"string\"},\"location\":{\"description\":\"Geographic location of the calendar as free-form text. Optional.\",\"type\":\"string\"},\"summary\":{\"description\":\"Title of the calendar.\",\"type\":\"string\"},\"timeZone\":{\"description\":\"The time zone of the calendar. (Formatted as an IANA Time Zone Database name, e.g. \\\"Europe/Zurich\\\".) Optional.\",\"type\":\"string\"}},\"type\":\"object\"}}}},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"conferenceProperties\":{\"description\":\"Conferencing properties for this calendar, for example what types of conferences are allowed.\",\"properties\":{\"allowedConferenceSolutionTypes\":{\"description\":\"The types of conference solutions that are supported for this calendar.\\nThe possible values are:  \\n- \\\"eventHangout\\\" \\n- \\\"eventNamedHangout\\\" \\n- \\\"hangoutsMeet\\\"  Optional.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"},\"description\":{\"description\":\"Description of the calendar. Optional.\",\"type\":\"string\"},\"etag\":{\"description\":\"ETag of the resource.\",\"type\":\"string\"},\"id\":{\"description\":\"Identifier of the calendar. To retrieve IDs call the calendarList.list() method.\",\"type\":\"string\"},\"kind\":{\"default\":\"calendar#calendar\",\"description\":\"Type of the resource (\\\"calendar#calendar\\\").\",\"type\":\"string\"},\"location\":{\"description\":\"Geographic location of the calendar as free-form text. Optional.\",\"type\":\"string\"},\"summary\":{\"description\":\"Title of the calendar.\",\"type\":\"string\"},\"timeZone\":{\"description\":\"The time zone of the calendar. (Formatted as an IANA Time Zone Database name, e.g. \\\"Europe/Zurich\\\".) Optional.\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"security\":[{\"Oauth2\":[\"https://www.googleapis.com/auth/calendar\"],\"Oauth2c\":[\"https://www.googleapis.com/auth/calendar\"]}],\"securitySchemes\":{\"Oauth2\":{\"description\":\"Oauth 2.0 implicit authentication\",\"flows\":{\"implicit\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"}}},\"type\":\"oauth2\"},\"Oauth2c\":{\"description\":\"Oauth 2.0 authorizationCode authentication\",\"flows\":{\"authorizationCode\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"},\"tokenUrl\":\"https://accounts.google.com/o/oauth2/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"operation\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "POST"
+          orig: "/calendars"
+          segments: [
+            {
+              lit: "calendars"
+            }
+          ]
+          select: {
+            exist: [
+              "alt"
+              "field"
+              "key"
+              "oauth_token"
+              "pretty_print"
+              "quota_user"
+              "user_ip"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.conferenceProperties`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "calendar_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "alt"
+                orig: "alt"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "field"
+                orig: "field"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "oauth_token"
+                orig: "oauth_token"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "pretty_print"
+                orig: "pretty_print"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                kind: "query"
+                name: "quota_user"
+                orig: "quota_user"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "user_ip"
+                orig: "user_ip"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          contract: {
+            id: "GET /calendars/{calendarId}"
+            json: "{\"operationId\":\"calendar.calendars.get\",\"parameters\":[{\"description\":\"Data format for the response.\",\"in\":\"query\",\"name\":\"alt\",\"schema\":{\"enum\":[\"json\"],\"type\":\"string\"}},{\"description\":\"Selector specifying which fields to include in a partial response.\",\"in\":\"query\",\"name\":\"fields\",\"schema\":{\"type\":\"string\"}},{\"description\":\"API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.\",\"in\":\"query\",\"name\":\"key\",\"schema\":{\"type\":\"string\"}},{\"description\":\"OAuth 2.0 token for the current user.\",\"in\":\"query\",\"name\":\"oauth_token\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Returns response with indentations and line breaks.\",\"in\":\"query\",\"name\":\"prettyPrint\",\"schema\":{\"type\":\"boolean\"}},{\"description\":\"An opaque string that represents a user for quota purposes. Must not exceed 40 characters.\",\"in\":\"query\",\"name\":\"quotaUser\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Deprecated. Please use quotaUser instead.\",\"in\":\"query\",\"name\":\"userIp\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the \\\"primary\\\" keyword.\",\"in\":\"path\",\"name\":\"calendarId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"conferenceProperties\":{\"description\":\"Conferencing properties for this calendar, for example what types of conferences are allowed.\",\"properties\":{\"allowedConferenceSolutionTypes\":{\"description\":\"The types of conference solutions that are supported for this calendar.\\nThe possible values are:  \\n- \\\"eventHangout\\\" \\n- \\\"eventNamedHangout\\\" \\n- \\\"hangoutsMeet\\\"  Optional.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"},\"description\":{\"description\":\"Description of the calendar. Optional.\",\"type\":\"string\"},\"etag\":{\"description\":\"ETag of the resource.\",\"type\":\"string\"},\"id\":{\"description\":\"Identifier of the calendar. To retrieve IDs call the calendarList.list() method.\",\"type\":\"string\"},\"kind\":{\"default\":\"calendar#calendar\",\"description\":\"Type of the resource (\\\"calendar#calendar\\\").\",\"type\":\"string\"},\"location\":{\"description\":\"Geographic location of the calendar as free-form text. Optional.\",\"type\":\"string\"},\"summary\":{\"description\":\"Title of the calendar.\",\"type\":\"string\"},\"timeZone\":{\"description\":\"The time zone of the calendar. (Formatted as an IANA Time Zone Database name, e.g. \\\"Europe/Zurich\\\".) Optional.\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"security\":[{\"Oauth2\":[\"https://www.googleapis.com/auth/calendar\"],\"Oauth2c\":[\"https://www.googleapis.com/auth/calendar\"]},{\"Oauth2\":[\"https://www.googleapis.com/auth/calendar.readonly\"],\"Oauth2c\":[\"https://www.googleapis.com/auth/calendar.readonly\"]}],\"securitySchemes\":{\"Oauth2\":{\"description\":\"Oauth 2.0 implicit authentication\",\"flows\":{\"implicit\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"}}},\"type\":\"oauth2\"},\"Oauth2c\":{\"description\":\"Oauth 2.0 authorizationCode authentication\",\"flows\":{\"authorizationCode\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"},\"tokenUrl\":\"https://accounts.google.com/o/oauth2/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"operation\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "GET"
+          orig: "/calendars/{calendarId}"
+          rename: {
+            param: {
+              calendarId: "id"
+            }
+          }
+          segments: [
+            {
+              lit: "calendars"
+            }
+            {
+              var: "id"
+            }
+          ]
+          select: {
+            exist: [
+              "alt"
+              "field"
+              "id"
+              "key"
+              "oauth_token"
+              "pretty_print"
+              "quota_user"
+              "user_ip"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.conferenceProperties`"
+          }
+        }
+      ]
+    }
+    patch: {
+      name: "patch"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "calendar_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "alt"
+                orig: "alt"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "field"
+                orig: "field"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "oauth_token"
+                orig: "oauth_token"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "pretty_print"
+                orig: "pretty_print"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                kind: "query"
+                name: "quota_user"
+                orig: "quota_user"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "user_ip"
+                orig: "user_ip"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          contract: {
+            id: "PATCH /calendars/{calendarId}"
+            json: "{\"operationId\":\"calendar.calendars.patch\",\"parameters\":[{\"description\":\"Data format for the response.\",\"in\":\"query\",\"name\":\"alt\",\"schema\":{\"enum\":[\"json\"],\"type\":\"string\"}},{\"description\":\"Selector specifying which fields to include in a partial response.\",\"in\":\"query\",\"name\":\"fields\",\"schema\":{\"type\":\"string\"}},{\"description\":\"API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.\",\"in\":\"query\",\"name\":\"key\",\"schema\":{\"type\":\"string\"}},{\"description\":\"OAuth 2.0 token for the current user.\",\"in\":\"query\",\"name\":\"oauth_token\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Returns response with indentations and line breaks.\",\"in\":\"query\",\"name\":\"prettyPrint\",\"schema\":{\"type\":\"boolean\"}},{\"description\":\"An opaque string that represents a user for quota purposes. Must not exceed 40 characters.\",\"in\":\"query\",\"name\":\"quotaUser\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Deprecated. Please use quotaUser instead.\",\"in\":\"query\",\"name\":\"userIp\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the \\\"primary\\\" keyword.\",\"in\":\"path\",\"name\":\"calendarId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"conferenceProperties\":{\"description\":\"Conferencing properties for this calendar, for example what types of conferences are allowed.\",\"properties\":{\"allowedConferenceSolutionTypes\":{\"description\":\"The types of conference solutions that are supported for this calendar.\\nThe possible values are:  \\n- \\\"eventHangout\\\" \\n- \\\"eventNamedHangout\\\" \\n- \\\"hangoutsMeet\\\"  Optional.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"},\"description\":{\"description\":\"Description of the calendar. Optional.\",\"type\":\"string\"},\"etag\":{\"description\":\"ETag of the resource.\",\"type\":\"string\"},\"id\":{\"description\":\"Identifier of the calendar. To retrieve IDs call the calendarList.list() method.\",\"type\":\"string\"},\"kind\":{\"default\":\"calendar#calendar\",\"description\":\"Type of the resource (\\\"calendar#calendar\\\").\",\"type\":\"string\"},\"location\":{\"description\":\"Geographic location of the calendar as free-form text. Optional.\",\"type\":\"string\"},\"summary\":{\"description\":\"Title of the calendar.\",\"type\":\"string\"},\"timeZone\":{\"description\":\"The time zone of the calendar. (Formatted as an IANA Time Zone Database name, e.g. \\\"Europe/Zurich\\\".) Optional.\",\"type\":\"string\"}},\"type\":\"object\"}}}},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"conferenceProperties\":{\"description\":\"Conferencing properties for this calendar, for example what types of conferences are allowed.\",\"properties\":{\"allowedConferenceSolutionTypes\":{\"description\":\"The types of conference solutions that are supported for this calendar.\\nThe possible values are:  \\n- \\\"eventHangout\\\" \\n- \\\"eventNamedHangout\\\" \\n- \\\"hangoutsMeet\\\"  Optional.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"},\"description\":{\"description\":\"Description of the calendar. Optional.\",\"type\":\"string\"},\"etag\":{\"description\":\"ETag of the resource.\",\"type\":\"string\"},\"id\":{\"description\":\"Identifier of the calendar. To retrieve IDs call the calendarList.list() method.\",\"type\":\"string\"},\"kind\":{\"default\":\"calendar#calendar\",\"description\":\"Type of the resource (\\\"calendar#calendar\\\").\",\"type\":\"string\"},\"location\":{\"description\":\"Geographic location of the calendar as free-form text. Optional.\",\"type\":\"string\"},\"summary\":{\"description\":\"Title of the calendar.\",\"type\":\"string\"},\"timeZone\":{\"description\":\"The time zone of the calendar. (Formatted as an IANA Time Zone Database name, e.g. \\\"Europe/Zurich\\\".) Optional.\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"security\":[{\"Oauth2\":[\"https://www.googleapis.com/auth/calendar\"],\"Oauth2c\":[\"https://www.googleapis.com/auth/calendar\"]}],\"securitySchemes\":{\"Oauth2\":{\"description\":\"Oauth 2.0 implicit authentication\",\"flows\":{\"implicit\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"}}},\"type\":\"oauth2\"},\"Oauth2c\":{\"description\":\"Oauth 2.0 authorizationCode authentication\",\"flows\":{\"authorizationCode\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"},\"tokenUrl\":\"https://accounts.google.com/o/oauth2/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"operation\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "PATCH"
+          orig: "/calendars/{calendarId}"
+          rename: {
+            param: {
+              calendarId: "id"
+            }
+          }
+          segments: [
+            {
+              lit: "calendars"
+            }
+            {
+              var: "id"
+            }
+          ]
+          select: {
+            exist: [
+              "alt"
+              "field"
+              "id"
+              "key"
+              "oauth_token"
+              "pretty_print"
+              "quota_user"
+              "user_ip"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.conferenceProperties`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "calendar_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "alt"
+                orig: "alt"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "field"
+                orig: "field"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "oauth_token"
+                orig: "oauth_token"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "pretty_print"
+                orig: "pretty_print"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                kind: "query"
+                name: "quota_user"
+                orig: "quota_user"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "user_ip"
+                orig: "user_ip"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          contract: {
+            id: "DELETE /calendars/{calendarId}"
+            json: "{\"operationId\":\"calendar.calendars.delete\",\"parameters\":[{\"description\":\"Data format for the response.\",\"in\":\"query\",\"name\":\"alt\",\"schema\":{\"enum\":[\"json\"],\"type\":\"string\"}},{\"description\":\"Selector specifying which fields to include in a partial response.\",\"in\":\"query\",\"name\":\"fields\",\"schema\":{\"type\":\"string\"}},{\"description\":\"API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.\",\"in\":\"query\",\"name\":\"key\",\"schema\":{\"type\":\"string\"}},{\"description\":\"OAuth 2.0 token for the current user.\",\"in\":\"query\",\"name\":\"oauth_token\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Returns response with indentations and line breaks.\",\"in\":\"query\",\"name\":\"prettyPrint\",\"schema\":{\"type\":\"boolean\"}},{\"description\":\"An opaque string that represents a user for quota purposes. Must not exceed 40 characters.\",\"in\":\"query\",\"name\":\"quotaUser\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Deprecated. Please use quotaUser instead.\",\"in\":\"query\",\"name\":\"userIp\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the \\\"primary\\\" keyword.\",\"in\":\"path\",\"name\":\"calendarId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"description\":\"Successful response\"}},\"security\":[{\"Oauth2\":[\"https://www.googleapis.com/auth/calendar\"],\"Oauth2c\":[\"https://www.googleapis.com/auth/calendar\"]}],\"securitySchemes\":{\"Oauth2\":{\"description\":\"Oauth 2.0 implicit authentication\",\"flows\":{\"implicit\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"}}},\"type\":\"oauth2\"},\"Oauth2c\":{\"description\":\"Oauth 2.0 authorizationCode authentication\",\"flows\":{\"authorizationCode\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"},\"tokenUrl\":\"https://accounts.google.com/o/oauth2/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"operation\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "DELETE"
+          orig: "/calendars/{calendarId}"
+          rename: {
+            param: {
+              calendarId: "id"
+            }
+          }
+          segments: [
+            {
+              lit: "calendars"
+            }
+            {
+              var: "id"
+            }
+          ]
+          select: {
+            exist: [
+              "alt"
+              "field"
+              "id"
+              "key"
+              "oauth_token"
+              "pretty_print"
+              "quota_user"
+              "user_ip"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "calendar_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                kind: "query"
+                name: "alt"
+                orig: "alt"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "field"
+                orig: "field"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "key"
+                orig: "key"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "oauth_token"
+                orig: "oauth_token"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "pretty_print"
+                orig: "pretty_print"
+                reqd: false
+                type: "`$BOOLEAN`"
+              }
+              {
+                kind: "query"
+                name: "quota_user"
+                orig: "quota_user"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "user_ip"
+                orig: "user_ip"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          contract: {
+            id: "PUT /calendars/{calendarId}"
+            json: "{\"operationId\":\"calendar.calendars.update\",\"parameters\":[{\"description\":\"Data format for the response.\",\"in\":\"query\",\"name\":\"alt\",\"schema\":{\"enum\":[\"json\"],\"type\":\"string\"}},{\"description\":\"Selector specifying which fields to include in a partial response.\",\"in\":\"query\",\"name\":\"fields\",\"schema\":{\"type\":\"string\"}},{\"description\":\"API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.\",\"in\":\"query\",\"name\":\"key\",\"schema\":{\"type\":\"string\"}},{\"description\":\"OAuth 2.0 token for the current user.\",\"in\":\"query\",\"name\":\"oauth_token\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Returns response with indentations and line breaks.\",\"in\":\"query\",\"name\":\"prettyPrint\",\"schema\":{\"type\":\"boolean\"}},{\"description\":\"An opaque string that represents a user for quota purposes. Must not exceed 40 characters.\",\"in\":\"query\",\"name\":\"quotaUser\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Deprecated. Please use quotaUser instead.\",\"in\":\"query\",\"name\":\"userIp\",\"schema\":{\"type\":\"string\"}},{\"description\":\"Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the \\\"primary\\\" keyword.\",\"in\":\"path\",\"name\":\"calendarId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"conferenceProperties\":{\"description\":\"Conferencing properties for this calendar, for example what types of conferences are allowed.\",\"properties\":{\"allowedConferenceSolutionTypes\":{\"description\":\"The types of conference solutions that are supported for this calendar.\\nThe possible values are:  \\n- \\\"eventHangout\\\" \\n- \\\"eventNamedHangout\\\" \\n- \\\"hangoutsMeet\\\"  Optional.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"},\"description\":{\"description\":\"Description of the calendar. Optional.\",\"type\":\"string\"},\"etag\":{\"description\":\"ETag of the resource.\",\"type\":\"string\"},\"id\":{\"description\":\"Identifier of the calendar. To retrieve IDs call the calendarList.list() method.\",\"type\":\"string\"},\"kind\":{\"default\":\"calendar#calendar\",\"description\":\"Type of the resource (\\\"calendar#calendar\\\").\",\"type\":\"string\"},\"location\":{\"description\":\"Geographic location of the calendar as free-form text. Optional.\",\"type\":\"string\"},\"summary\":{\"description\":\"Title of the calendar.\",\"type\":\"string\"},\"timeZone\":{\"description\":\"The time zone of the calendar. (Formatted as an IANA Time Zone Database name, e.g. \\\"Europe/Zurich\\\".) Optional.\",\"type\":\"string\"}},\"type\":\"object\"}}}},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"conferenceProperties\":{\"description\":\"Conferencing properties for this calendar, for example what types of conferences are allowed.\",\"properties\":{\"allowedConferenceSolutionTypes\":{\"description\":\"The types of conference solutions that are supported for this calendar.\\nThe possible values are:  \\n- \\\"eventHangout\\\" \\n- \\\"eventNamedHangout\\\" \\n- \\\"hangoutsMeet\\\"  Optional.\",\"items\":{\"type\":\"string\"},\"type\":\"array\"}},\"type\":\"object\"},\"description\":{\"description\":\"Description of the calendar. Optional.\",\"type\":\"string\"},\"etag\":{\"description\":\"ETag of the resource.\",\"type\":\"string\"},\"id\":{\"description\":\"Identifier of the calendar. To retrieve IDs call the calendarList.list() method.\",\"type\":\"string\"},\"kind\":{\"default\":\"calendar#calendar\",\"description\":\"Type of the resource (\\\"calendar#calendar\\\").\",\"type\":\"string\"},\"location\":{\"description\":\"Geographic location of the calendar as free-form text. Optional.\",\"type\":\"string\"},\"summary\":{\"description\":\"Title of the calendar.\",\"type\":\"string\"},\"timeZone\":{\"description\":\"The time zone of the calendar. (Formatted as an IANA Time Zone Database name, e.g. \\\"Europe/Zurich\\\".) Optional.\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"}},\"security\":[{\"Oauth2\":[\"https://www.googleapis.com/auth/calendar\"],\"Oauth2c\":[\"https://www.googleapis.com/auth/calendar\"]}],\"securitySchemes\":{\"Oauth2\":{\"description\":\"Oauth 2.0 implicit authentication\",\"flows\":{\"implicit\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"}}},\"type\":\"oauth2\"},\"Oauth2c\":{\"description\":\"Oauth 2.0 authorizationCode authentication\",\"flows\":{\"authorizationCode\":{\"authorizationUrl\":\"https://accounts.google.com/o/oauth2/auth\",\"scopes\":{\"https://www.googleapis.com/auth/calendar\":\"See, edit, share, and permanently delete all the calendars you can access using Google Calendar\",\"https://www.googleapis.com/auth/calendar.events\":\"View and edit events on all your calendars\",\"https://www.googleapis.com/auth/calendar.events.readonly\":\"View events on all your calendars\",\"https://www.googleapis.com/auth/calendar.readonly\":\"See and download any calendar you can access using your Google Calendar\",\"https://www.googleapis.com/auth/calendar.settings.readonly\":\"View your Calendar settings\"},\"tokenUrl\":\"https://accounts.google.com/o/oauth2/token\"}},\"type\":\"oauth2\"}},\"securitySource\":\"operation\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "PUT"
+          orig: "/calendars/{calendarId}"
+          rename: {
+            param: {
+              calendarId: "id"
+            }
+          }
+          segments: [
+            {
+              lit: "calendars"
+            }
+            {
+              var: "id"
+            }
+          ]
+          select: {
+            exist: [
+              "alt"
+              "field"
+              "id"
+              "key"
+              "oauth_token"
+              "pretty_print"
+              "quota_user"
+              "user_ip"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.conferenceProperties`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

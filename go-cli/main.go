@@ -20,7 +20,7 @@ import (
 const prompt = "gcal"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "event"
+const entitiesHelp = "acl calendar calendar_list channel color event free_busy import quick_add setting stop watch"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

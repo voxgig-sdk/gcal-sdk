@@ -1,0 +1,332 @@
+{
+  "existing": {
+    "free_busy": {
+      "FREE_BUSY00": {
+        "calendarExpansionMax": 90,
+        "calendars": {},
+        "groupExpansionMax": 92,
+        "groups": {},
+        "items": [],
+        "kind": "s5f",
+        "timeMax": "s60",
+        "timeMin": "s61",
+        "timeZone": "s62",
+        "id": "FREE_BUSY00"
+      },
+      "FREE_BUSY01": {
+        "calendarExpansionMax": 180,
+        "calendars": {},
+        "groupExpansionMax": 182,
+        "groups": {},
+        "items": [],
+        "kind": "sb9",
+        "timeMax": "sba",
+        "timeMin": "sbb",
+        "timeZone": "sbc",
+        "id": "FREE_BUSY01"
+      },
+      "FREE_BUSY02": {
+        "calendarExpansionMax": 270,
+        "calendars": {},
+        "groupExpansionMax": 272,
+        "groups": {},
+        "items": [],
+        "kind": "s113",
+        "timeMax": "s114",
+        "timeMin": "s115",
+        "timeZone": "s116",
+        "id": "FREE_BUSY02"
+      }
+    }
+  },
+  "new": {
+    "free_busy": {
+      "free_busy_ref01": {
+        "calendarExpansionMax": 360,
+        "calendars": {},
+        "groupExpansionMax": 362,
+        "groups": {},
+        "items": [],
+        "kind": "s16d",
+        "timeMax": "s16e",
+        "timeMin": "s16f",
+        "timeZone": "s170"
+      }
+    }
+  },
+  "requests": {
+    "POST /freeBusy": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "calendar.freebusy.query",
+        "parameters": [
+          {
+            "description": "Data format for the response.",
+            "in": "query",
+            "name": "alt",
+            "schema": {
+              "enum": [
+                "json"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "description": "Selector specifying which fields to include in a partial response.",
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+            "in": "query",
+            "name": "key",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "OAuth 2.0 token for the current user.",
+            "in": "query",
+            "name": "oauth_token",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Returns response with indentations and line breaks.",
+            "in": "query",
+            "name": "prettyPrint",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "An opaque string that represents a user for quota purposes. Must not exceed 40 characters.",
+            "in": "query",
+            "name": "quotaUser",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Deprecated. Please use quotaUser instead.",
+            "in": "query",
+            "name": "userIp",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "calendarExpansionMax": {
+                    "description": "Maximal number of calendars for which FreeBusy information is to be provided. Optional. Maximum value is 50.",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "groupExpansionMax": {
+                    "description": "Maximal number of calendar identifiers to be provided for a single group. Optional. An error is returned for a group with more members than this value. Maximum value is 100.",
+                    "format": "int32",
+                    "type": "integer"
+                  },
+                  "items": {
+                    "description": "List of calendars and/or groups to query.",
+                    "items": {
+                      "properties": {
+                        "id": {
+                          "description": "The identifier of a calendar or a group.",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "type": "array"
+                  },
+                  "timeMax": {
+                    "description": "The end of the interval for the query formatted as per RFC3339.",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "timeMin": {
+                    "description": "The start of the interval for the query formatted as per RFC3339.",
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "timeZone": {
+                    "default": "UTC",
+                    "description": "Time zone used in the response. Optional. The default is UTC.",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "calendars": {
+                      "additionalProperties": {
+                        "description": "Free/busy expansions for a single calendar.",
+                        "properties": {
+                          "busy": {
+                            "description": "List of time ranges during which this calendar should be regarded as busy.",
+                            "items": {
+                              "properties": {
+                                "end": {
+                                  "description": "The (exclusive) end of the time period.",
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                "start": {
+                                  "description": "The (inclusive) start of the time period.",
+                                  "format": "date-time",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          },
+                          "errors": {
+                            "description": "Optional error(s) (if computation for the calendar failed).",
+                            "items": {
+                              "properties": {
+                                "domain": {
+                                  "description": "Domain, or broad category, of the error.",
+                                  "type": "string"
+                                },
+                                "reason": {
+                                  "description": "Specific reason for the error. Some of the possible values are:  \n- \"groupTooBig\" - The group of users requested is too large for a single query. \n- \"tooManyCalendarsRequested\" - The number of calendars requested is too large for a single query. \n- \"notFound\" - The requested resource was not found. \n- \"internalError\" - The API service has encountered an internal error.  Additional error types may be added in the future, so clients should gracefully handle additional error statuses not included in this list.",
+                                  "type": "string"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "description": "List of free/busy information for calendars.",
+                      "type": "object"
+                    },
+                    "groups": {
+                      "additionalProperties": {
+                        "description": "List of calendars that are members of this group.",
+                        "properties": {
+                          "calendars": {
+                            "description": "List of calendars' identifiers within a group.",
+                            "items": {
+                              "type": "string"
+                            },
+                            "type": "array"
+                          },
+                          "errors": {
+                            "description": "Optional error(s) (if computation for the group failed).",
+                            "items": {
+                              "properties": {
+                                "$ref": "#/responses/200/content/application~1json/schema/properties/calendars/additionalProperties/properties/errors/items/properties"
+                              },
+                              "type": "object"
+                            },
+                            "type": "array"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "description": "Expansion of groups.",
+                      "type": "object"
+                    },
+                    "kind": {
+                      "default": "calendar#freeBusy",
+                      "description": "Type of the resource (\"calendar#freeBusy\").",
+                      "type": "string"
+                    },
+                    "timeMax": {
+                      "description": "The end of the interval.",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "timeMin": {
+                      "description": "The start of the interval.",
+                      "format": "date-time",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          }
+        },
+        "security": [
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar"
+            ]
+          },
+          {
+            "Oauth2": [
+              "https://www.googleapis.com/auth/calendar.readonly"
+            ],
+            "Oauth2c": [
+              "https://www.googleapis.com/auth/calendar.readonly"
+            ]
+          }
+        ],
+        "securitySchemes": {
+          "Oauth2": {
+            "description": "Oauth 2.0 implicit authentication",
+            "flows": {
+              "implicit": {
+                "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+                "scopes": {
+                  "https://www.googleapis.com/auth/calendar": "See, edit, share, and permanently delete all the calendars you can access using Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.events": "View and edit events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.events.readonly": "View events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.readonly": "See and download any calendar you can access using your Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.settings.readonly": "View your Calendar settings"
+                }
+              }
+            },
+            "type": "oauth2"
+          },
+          "Oauth2c": {
+            "description": "Oauth 2.0 authorizationCode authentication",
+            "flows": {
+              "authorizationCode": {
+                "authorizationUrl": "https://accounts.google.com/o/oauth2/auth",
+                "scopes": {
+                  "https://www.googleapis.com/auth/calendar": "See, edit, share, and permanently delete all the calendars you can access using Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.events": "View and edit events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.events.readonly": "View events on all your calendars",
+                  "https://www.googleapis.com/auth/calendar.readonly": "See and download any calendar you can access using your Google Calendar",
+                  "https://www.googleapis.com/auth/calendar.settings.readonly": "View your Calendar settings"
+                },
+                "tokenUrl": "https://accounts.google.com/o/oauth2/token"
+              }
+            },
+            "type": "oauth2"
+          }
+        },
+        "securitySource": "operation"
+      }
+    }
+  }
+}

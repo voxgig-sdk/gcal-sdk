@@ -1,0 +1,72 @@
+# BasicCalendarFlow
+
+main: kit: flow: BasicCalendarFlow:
+{
+  entity: "calendar",
+  kind: "basic",
+  name: "BasicCalendarFlow",
+  step: [
+    {
+      input: {
+        ref: "calendar_ref01"
+      }
+
+      op: "create"
+    }
+
+    {
+      input: {
+        ref: "calendar_ref01",
+        srcdatavar: "calendar_ref01_data",
+        suffix: "_up0",
+        textfield: "description"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-calendar_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "calendar_ref01",
+        srcdatavar: "calendar_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "calendar01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-calendar_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "calendar_ref01",
+        suffix: "_rm0"
+      }
+
+      match: {
+        id: "calendar01"
+      }
+
+      op: "remove"
+    }
+  ],
+  "key$": "BasicCalendarFlow"
+}

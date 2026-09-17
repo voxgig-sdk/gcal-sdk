@@ -1,6 +1,17 @@
 // Gcal Ts SDK
 
+import { AclEntity } from './entity/AclEntity'
+import { CalendarEntity } from './entity/CalendarEntity'
+import { CalendarListEntity } from './entity/CalendarListEntity'
+import { ChannelEntity } from './entity/ChannelEntity'
+import { ColorEntity } from './entity/ColorEntity'
 import { EventEntity } from './entity/EventEntity'
+import { FreeBusyEntity } from './entity/FreeBusyEntity'
+import { ImportEntity } from './entity/ImportEntity'
+import { QuickAddEntity } from './entity/QuickAddEntity'
+import { SettingEntity } from './entity/SettingEntity'
+import { StopEntity } from './entity/StopEntity'
+import { WatchEntity } from './entity/WatchEntity'
 
 export type * from './GcalTypes'
 
@@ -297,12 +308,111 @@ class GcalSDK {
 
 
 
+  // Entity access: `client.Acl().list()` / `client.Acl().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Acl(entopts?: Record<string, any>) {
+    const self = this
+    return new AclEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.Calendar().list()` / `client.Calendar().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Calendar(entopts?: Record<string, any>) {
+    const self = this
+    return new CalendarEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.CalendarList().list()` / `client.CalendarList().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  CalendarList(entopts?: Record<string, any>) {
+    const self = this
+    return new CalendarListEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.Channel().list()` / `client.Channel().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Channel(entopts?: Record<string, any>) {
+    const self = this
+    return new ChannelEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.Color().list()` / `client.Color().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Color(entopts?: Record<string, any>) {
+    const self = this
+    return new ColorEntity(self, entopts)
+  }
+
+
   // Entity access: `client.Event().list()` / `client.Event().load({ id })`.
   // The argument is the entity OPTIONS object (passed to the entity
   // constructor as entopts), not initial entity data.
   Event(entopts?: Record<string, any>) {
     const self = this
     return new EventEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.FreeBusy().list()` / `client.FreeBusy().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  FreeBusy(entopts?: Record<string, any>) {
+    const self = this
+    return new FreeBusyEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.Import().list()` / `client.Import().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Import(entopts?: Record<string, any>) {
+    const self = this
+    return new ImportEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.QuickAdd().list()` / `client.QuickAdd().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  QuickAdd(entopts?: Record<string, any>) {
+    const self = this
+    return new QuickAddEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.Setting().list()` / `client.Setting().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Setting(entopts?: Record<string, any>) {
+    const self = this
+    return new SettingEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.Stop().list()` / `client.Stop().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Stop(entopts?: Record<string, any>) {
+    const self = this
+    return new StopEntity(self, entopts)
+  }
+
+
+  // Entity access: `client.Watch().list()` / `client.Watch().load({ id })`.
+  // The argument is the entity OPTIONS object (passed to the entity
+  // constructor as entopts), not initial entity data.
+  Watch(entopts?: Record<string, any>) {
+    const self = this
+    return new WatchEntity(self, entopts)
   }
 
 

@@ -1,0 +1,118 @@
+# BasicAclFlow
+
+main: kit: flow: BasicAclFlow:
+{
+  entity: "acl",
+  kind: "basic",
+  name: "BasicAclFlow",
+  step: [
+    {
+      input: {
+        ref: "acl_ref01"
+      }
+
+      match: {
+        calendar_id: "calendar01"
+      }
+
+      op: "create"
+    }
+
+    {
+      match: {
+        calendar_id: "calendar01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "acl_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      data: {
+        calendar_id: "calendar01"
+      }
+
+      input: {
+        ref: "acl_ref01",
+        srcdatavar: "acl_ref01_data",
+        suffix: "_up0",
+        textfield: "etag"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-acl_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "acl_ref01",
+        srcdatavar: "acl_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        calendar_id: "calendar01",
+        id: "acl01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-acl_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "acl_ref01",
+        suffix: "_rm0"
+      }
+
+      match: {
+        calendar_id: "calendar01",
+        id: "acl01"
+      }
+
+      op: "remove"
+    }
+
+    {
+      input: {
+        suffix: "_rt0"
+      }
+
+      match: {
+        calendar_id: "calendar01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemNotExists",
+          def: {
+            ref: "acl_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicAclFlow"
+}

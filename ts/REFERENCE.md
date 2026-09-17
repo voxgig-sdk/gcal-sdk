@@ -49,6 +49,66 @@ const client = GcalSDK.test()
 
 ### Instance Methods
 
+#### `Acl(data?: object)`
+
+Create a new `Acl` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `AclEntity` instance.
+
+#### `Calendar(data?: object)`
+
+Create a new `Calendar` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `CalendarEntity` instance.
+
+#### `CalendarList(data?: object)`
+
+Create a new `CalendarList` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `CalendarListEntity` instance.
+
+#### `Channel(data?: object)`
+
+Create a new `Channel` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `ChannelEntity` instance.
+
+#### `Color(data?: object)`
+
+Create a new `Color` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `ColorEntity` instance.
+
 #### `Event(data?: object)`
 
 Create a new `Event` entity instance.
@@ -60,6 +120,78 @@ Create a new `Event` entity instance.
 | `data` | `object` | Initial entity data. |
 
 **Returns:** `EventEntity` instance.
+
+#### `FreeBusy(data?: object)`
+
+Create a new `FreeBusy` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `FreeBusyEntity` instance.
+
+#### `Import(data?: object)`
+
+Create a new `Import` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `ImportEntity` instance.
+
+#### `QuickAdd(data?: object)`
+
+Create a new `QuickAdd` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `QuickAddEntity` instance.
+
+#### `Setting(data?: object)`
+
+Create a new `Setting` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `SettingEntity` instance.
+
+#### `Stop(data?: object)`
+
+Create a new `Stop` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `StopEntity` instance.
+
+#### `Watch(data?: object)`
+
+Create a new `Watch` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `WatchEntity` instance.
 
 #### `options()`
 
@@ -107,6 +239,468 @@ Alias for `GcalSDK.test()`.
 
 ---
 
+## AclEntity
+
+```ts
+const acl = client.Acl()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `etag` | `string` | No | ETag of the resource. |
+| `id` | `string` | No | Identifier of the Access Control List (ACL) rule. |
+| `kind` | `string` | No | Type of the resource ("calendar#aclRule"). |
+| `role` | `string` | No | The role assigned to the scope. |
+| `scope` | `Record<string, any>` | No | The extent to which calendar access is granted by this ACL rule. |
+| `type` | `string` | No | The type of the scope. |
+| `value` | `string` | No | The email address of a user or group, or the name of a domain, depending on the scope type. |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `watch` | `/calendars/{calendarId}/acl/watch` | `client.Acl().create({ $action: 'watch', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Acl record — check the API definition for its shape.
+
+```ts
+const result = await client.Acl().create({
+  $action: 'watch',
+  /* ...the action's own arguments */
+})
+```
+
+### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data.
+
+```ts
+const result = await client.Acl().create({
+  calendar_id: 'example_calendar_id',
+})
+```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Returns an array.
+
+```ts
+const results = await client.Acl().list({ calendar_id: "example" })
+```
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria.
+
+```ts
+const result = await client.Acl().load({ id: 'acl_id', calendar_id: 'calendar_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria.
+
+```ts
+const result = await client.Acl().remove({ id: 'acl_id', calendar_id: 'calendar_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`.
+
+```ts
+const result = await client.Acl().update({
+  id: 'acl_id',
+  calendar_id: 'calendar_id',
+  // Fields to update
+})
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `AclEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## CalendarEntity
+
+```ts
+const calendar = client.Calendar()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `allowedConferenceSolutionTypes` | `any[]` | No | The types of conference solutions that are supported for this calendar. |
+| `conferenceProperties` | `Record<string, any>` | No | Conferencing properties for this calendar, for example what types of conferences are allowed. |
+| `description` | `string` | No | Description of the calendar. |
+| `etag` | `string` | No | ETag of the resource. |
+| `id` | `string` | No | Identifier of the calendar. |
+| `kind` | `string` | No | Type of the resource ("calendar#calendar"). |
+| `location` | `string` | No | Geographic location of the calendar as free-form text. |
+| `summary` | `string` | No | Title of the calendar. |
+| `timeZone` | `string` | No | The time zone of the calendar. |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `clear` | `/calendars/{calendarId}/clear` | `client.Calendar().create({ $action: 'clear', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Calendar record — check the API definition for its shape.
+
+```ts
+const result = await client.Calendar().create({
+  $action: 'clear',
+  /* ...the action's own arguments */
+})
+```
+
+### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data.
+
+```ts
+const result = await client.Calendar().create({
+})
+```
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria.
+
+```ts
+const result = await client.Calendar().load({ id: 'calendar_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria.
+
+```ts
+const result = await client.Calendar().remove({ id: 'calendar_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`.
+
+```ts
+const result = await client.Calendar().update({
+  id: 'calendar_id',
+  // Fields to update
+})
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `CalendarEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## CalendarListEntity
+
+```ts
+const calendar_list = client.CalendarList()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `accessRole` | `string` | No | The effective access role that the authenticated user has on the calendar. |
+| `backgroundColor` | `string` | No | The main color of the calendar in the hexadecimal format "#0088aa". |
+| `colorId` | `string` | No | The color of the calendar. |
+| `conferenceProperties` | `Record<string, any>` | No | Conferencing properties for this calendar, for example what types of conferences are allowed. |
+| `defaultReminders` | `any[]` | No | The default reminders that the authenticated user has for this calendar. |
+| `deleted` | `boolean` | No | Whether this calendar list entry has been deleted from the calendar list. |
+| `description` | `string` | No | Description of the calendar. |
+| `etag` | `string` | No | ETag of the resource. |
+| `foregroundColor` | `string` | No | The foreground color of the calendar in the hexadecimal format "#ffffff". |
+| `hidden` | `boolean` | No | Whether the calendar has been hidden from the list. |
+| `id` | `string` | No | Identifier of the calendar. |
+| `kind` | `string` | No | Type of the resource ("calendar#calendarListEntry"). |
+| `location` | `string` | No | Geographic location of the calendar as free-form text. |
+| `notificationSettings` | `Record<string, any>` | No | The notifications that the authenticated user is receiving for this calendar. |
+| `primary` | `boolean` | No | Whether the calendar is the primary calendar of the authenticated user. |
+| `selected` | `boolean` | No | Whether the calendar content shows up in the calendar UI. |
+| `summary` | `string` | No | Title of the calendar. |
+| `summaryOverride` | `string` | No | The summary that the authenticated user has set for this calendar. |
+| `timeZone` | `string` | No | The time zone of the calendar. |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `watch` | `/users/me/calendarList/watch` | `client.CalendarList().create({ $action: 'watch', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+CalendarList record — check the API definition for its shape.
+
+```ts
+const result = await client.CalendarList().create({
+  $action: 'watch',
+  /* ...the action's own arguments */
+})
+```
+
+### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data.
+
+```ts
+const result = await client.CalendarList().create({
+})
+```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Returns an array.
+
+```ts
+const results = await client.CalendarList().list()
+```
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria.
+
+```ts
+const result = await client.CalendarList().load({ id: 'calendar_list_id' })
+```
+
+#### `remove(match: object, ctrl?: object)`
+
+Remove the entity matching the given criteria.
+
+```ts
+const result = await client.CalendarList().remove({ id: 'calendar_list_id' })
+```
+
+#### `update(data: object, ctrl?: object)`
+
+Update an existing entity. The data must include the entity `id`.
+
+```ts
+const result = await client.CalendarList().update({
+  id: 'calendar_list_id',
+  // Fields to update
+})
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `CalendarListEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## ChannelEntity
+
+```ts
+const channel = client.Channel()
+```
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `stop` | `/channels/stop` | `client.Channel().create({ $action: 'stop', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Channel record — check the API definition for its shape.
+
+```ts
+const result = await client.Channel().create({
+  $action: 'stop',
+  /* ...the action's own arguments */
+})
+```
+
+### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data.
+
+```ts
+const result = await client.Channel().create({
+})
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `ChannelEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## ColorEntity
+
+```ts
+const color = client.Color()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `calendar` | `Record<string, any>` | No | A global palette of calendar colors, mapping from the color ID to its definition. |
+| `event` | `Record<string, any>` | No | A global palette of event colors, mapping from the color ID to its definition. |
+| `kind` | `string` | No | Type of the resource ("calendar#colors"). |
+| `updated` | `string` | No | Last modification time of the color palette (as a RFC3339 timestamp). |
+
+### Operations
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria.
+
+```ts
+const result = await client.Color().load()
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `ColorEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
 ## EventEntity
 
 ```ts
@@ -117,31 +711,76 @@ const event = client.Event()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created` | `string` | No |  |
-| `description` | `string` | No |  |
-| `end` | `Record<string, any>` | No |  |
-| `htmlLink` | `string` | No |  |
-| `id` | `string` | No |  |
-| `location` | `string` | No |  |
-| `start` | `Record<string, any>` | No |  |
-| `status` | `string` | No |  |
-| `summary` | `string` | No |  |
-| `updated` | `string` | No |  |
+| `accessRole` | `string` | No | The user's access role for this calendar. |
+| `anyoneCanAddSelf` | `boolean` | No | Whether anyone can invite themselves to the event (deprecated). |
+| `attachments` | `any[]` | No | File attachments for the event. |
+| `attendees` | `any[]` | No | The attendees of the event. |
+| `attendeesOmitted` | `boolean` | No | Whether attendees may have been omitted from the event's representation. |
+| `colorId` | `string` | No | The color of the event. |
+| `conferenceData` | `Record<string, any>` | No | The conference-related information, such as details of a Google Meet conference. |
+| `created` | `string` | No | Creation time of the event (as a RFC3339 timestamp). |
+| `creator` | `Record<string, any>` | No | The creator of the event. |
+| `defaultReminders` | `any[]` | No | The default reminders on the calendar for the authenticated user. |
+| `description` | `string` | No | Description of the event. |
+| `end` | `Record<string, any>` | No | The (exclusive) end time of the event. |
+| `endTimeUnspecified` | `boolean` | No | Whether the end time is actually unspecified. |
+| `etag` | `string` | No | ETag of the resource. |
+| `eventType` | `string` | No | Specific type of the event. |
+| `extendedProperties` | `Record<string, any>` | No | Extended properties of the event. |
+| `gadget` | `Record<string, any>` | No | A gadget that extends this event. |
+| `guestsCanInviteOthers` | `boolean` | No | Whether attendees other than the organizer can invite others to the event. |
+| `guestsCanModify` | `boolean` | No | Whether attendees other than the organizer can modify the event. |
+| `guestsCanSeeOtherGuests` | `boolean` | No | Whether attendees other than the organizer can see who the event's attendees are. |
+| `hangoutLink` | `string` | No | An absolute link to the Google Hangout associated with this event. |
+| `htmlLink` | `string` | No | An absolute link to this event in the Google Calendar Web UI. |
+| `iCalUID` | `string` | No | Event unique identifier as defined in RFC5545. |
+| `id` | `string` | No | Opaque identifier of the event. |
+| `items` | `any[]` | No | List of events on the calendar. |
+| `kind` | `string` | No | Type of the resource ("calendar#event"). |
+| `location` | `string` | No | Geographic location of the event as free-form text. |
+| `locked` | `boolean` | No | Whether this is a locked event copy where no changes can be made to the main event fields "summary", "description", "location", "start", "end" or "recurrence". |
+| `nextPageToken` | `string` | No | Token used to access the next page of this result. |
+| `nextSyncToken` | `string` | No | Token used at a later point in time to retrieve only the entries that have changed since this result was returned. |
+| `organizer` | `Record<string, any>` | No | The organizer of the event. |
+| `originalStartTime` | `Record<string, any>` | No | For an instance of a recurring event, this is the time at which this event would start according to the recurrence data in the recurring event identified by recurringEventId. |
+| `privateCopy` | `boolean` | No | If set to True, Event propagation is disabled. |
+| `recurrence` | `any[]` | No | List of RRULE, EXRULE, RDATE and EXDATE lines for a recurring event, as specified in RFC5545. |
+| `recurringEventId` | `string` | No | For an instance of a recurring event, this is the id of the recurring event to which this instance belongs. |
+| `reminders` | `Record<string, any>` | No | Information about the event's reminders for the authenticated user. |
+| `sequence` | `number` | No | Sequence number as per iCalendar. |
+| `source` | `Record<string, any>` | No | Source from which the event was created. |
+| `start` | `Record<string, any>` | No | The (inclusive) start time of the event. |
+| `status` | `string` | No | Status of the event. |
+| `summary` | `string` | No | Title of the event. |
+| `timeZone` | `string` | No | The time zone of the calendar. |
+| `transparency` | `string` | No | Whether the event blocks time on the calendar. |
+| `updated` | `string` | No | Last modification time of the event (as a RFC3339 timestamp). |
+| `visibility` | `string` | No | Visibility of the event. |
+| `workingLocationProperties` | `Record<string, any>` | No | Developer Preview: Working Location event data. |
 
-### Field Usage by Operation
+### Actions
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `created` | - | - | - | - | - |
-| `description` | - | - | - | - | - |
-| `end` | - | - | Yes | Yes | - |
-| `htmlLink` | - | - | - | - | - |
-| `id` | - | - | - | - | - |
-| `location` | - | - | - | - | - |
-| `start` | - | - | Yes | Yes | - |
-| `status` | - | - | - | - | - |
-| `summary` | - | - | Yes | Yes | - |
-| `updated` | - | - | - | - | - |
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `import` | `/calendars/{calendarId}/events/import` | `client.Event().create({ $action: 'import', ... })` |
+| `move` | `/calendars/{calendarId}/events/{eventId}/move` | `client.Event().create({ $action: 'move', ... })` |
+| `quick_add` | `/calendars/{calendarId}/events/quickAdd` | `client.Event().create({ $action: 'quick_add', ... })` |
+| `watch` | `/calendars/{calendarId}/events/watch` | `client.Event().create({ $action: 'watch', ... })` |
+| `instance` | `/calendars/{calendarId}/events/{eventId}/instances` | `client.Event().list({ $action: 'instance', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Event record — check the API definition for its shape.
+
+```ts
+const result = await client.Event().create({
+  $action: 'import',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -151,6 +790,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Event().create({
+  calendar_id: 'example_calendar_id',
 })
 ```
 
@@ -159,7 +799,7 @@ const result = await client.Event().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Event().list()
+const results = await client.Event().list({ calendar_id: "example" })
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -167,7 +807,7 @@ const results = await client.Event().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Event().load({ id: 'event_id' })
+const result = await client.Event().load({ id: 'event_id', calendar_id: 'calendar_id' })
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -175,7 +815,7 @@ const result = await client.Event().load({ id: 'event_id' })
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.Event().remove({ id: 'event_id' })
+const result = await client.Event().remove({ id: 'event_id', calendar_id: 'calendar_id' })
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -185,6 +825,7 @@ Update an existing entity. The data must include the entity `id`.
 ```ts
 const result = await client.Event().update({
   id: 'event_id',
+  calendar_id: 'calendar_id',
   // Fields to update
 })
 ```
@@ -204,6 +845,291 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `EventEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## FreeBusyEntity
+
+```ts
+const free_busy = client.FreeBusy()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `calendarExpansionMax` | `number` | No | Maximal number of calendars for which FreeBusy information is to be provided. |
+| `calendars` | `Record<string, any>` | No | List of free/busy information for calendars. |
+| `groupExpansionMax` | `number` | No | Maximal number of calendar identifiers to be provided for a single group. |
+| `groups` | `Record<string, any>` | No | Expansion of groups. |
+| `items` | `any[]` | No | List of calendars and/or groups to query. |
+| `kind` | `string` | No | Type of the resource ("calendar#freeBusy"). |
+| `timeMax` | `string` | No | The end of the interval. |
+| `timeMin` | `string` | No | The start of the interval. |
+| `timeZone` | `string` | No | Time zone used in the response. |
+
+### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data.
+
+```ts
+const result = await client.FreeBusy().create({
+})
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `FreeBusyEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## ImportEntity
+
+```ts
+const import_ = client.Import()
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `ImportEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## QuickAddEntity
+
+```ts
+const quick_add = client.QuickAdd()
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `QuickAddEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## SettingEntity
+
+```ts
+const setting = client.Setting()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `etag` | `string` | No | ETag of the resource. |
+| `id` | `string` | No | The id of the user setting. |
+| `kind` | `string` | No | Type of the resource ("calendar#setting"). |
+| `value` | `string` | No | Value of the user setting. |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `watch` | `/users/me/settings/watch` | `client.Setting().create({ $action: 'watch', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Setting record — check the API definition for its shape.
+
+```ts
+const result = await client.Setting().create({
+  $action: 'watch',
+  /* ...the action's own arguments */
+})
+```
+
+### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data.
+
+```ts
+const result = await client.Setting().create({
+})
+```
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Returns an array.
+
+```ts
+const results = await client.Setting().list()
+```
+
+#### `load(match: object, ctrl?: object)`
+
+Load a single entity matching the given criteria.
+
+```ts
+const result = await client.Setting().load({ id: 'setting_id' })
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `SettingEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## StopEntity
+
+```ts
+const stop = client.Stop()
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `StopEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `GcalSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## WatchEntity
+
+```ts
+const watch = client.Watch()
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `WatchEntity` instance with the same client and
 options.
 
 #### `client()`

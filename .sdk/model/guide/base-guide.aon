@@ -1,21 +1,193 @@
 # Guide
 
 guide: {
-  metrics: count: entity: 1
-  metrics: count: path: 2
-  metrics: count: method: 5
+  metrics: count: entity: 12
+  metrics: count: path: 22
+  metrics: count: method: 37
 
-  entity: event: {
-    path: "/calendars/primary/events": {
+  entity: acl: {
+    path: "/calendars/{calendarId}/acl": {
+      rename: param: "calendarId": *"calendar_id"
+      op: create: method: *POST
+      op: create: transform: res: *("`body.scope`")|top
+      op: list: method: *GET
+      op: list: transform: res: *("`body.items`")|top
+    }
+    path: "/calendars/{calendarId}/acl/watch": {
+      action: "watch": {}
+      rename: param: "calendarId": *"calendar_id"
+      op: create: method: *POST
+      op: create: transform: res: *("`body.params`")|top
+    }
+    path: "/calendars/{calendarId}/acl/{ruleId}": {
+      rename: param: "calendarId": *"calendar_id"
+      rename: param: "ruleId": *"id"
+      op: load: method: *GET
+      op: load: transform: res: *("`body.scope`")|top
+      op: patch: method: *PATCH
+      op: patch: transform: res: *("`body.scope`")|top
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+      op: update: transform: res: *("`body.scope`")|top
+    }
+  }
+
+  entity: calendar: {
+    path: "/calendars": {
+      op: create: method: *POST
+      op: create: transform: res: *("`body.conferenceProperties`")|top
+    }
+    path: "/calendars/{calendarId}": {
+      rename: param: "calendarId": *"id"
+      op: load: method: *GET
+      op: load: transform: res: *("`body.conferenceProperties`")|top
+      op: patch: method: *PATCH
+      op: patch: transform: res: *("`body.conferenceProperties`")|top
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+      op: update: transform: res: *("`body.conferenceProperties`")|top
+    }
+    path: "/calendars/{calendarId}/acl": {
+      action: "acl": {}
+      rename: param: "calendarId": *"id"
+    }
+    path: "/calendars/{calendarId}/clear": {
+      action: "clear": {}
+      rename: param: "calendarId": *"id"
+      op: create: method: *POST
+    }
+    path: "/calendars/{calendarId}/events": {
+      action: "event": {}
+      rename: param: "calendarId": *"id"
+    }
+  }
+
+  entity: calendar_list: {
+    path: "/users/me/calendarList": {
       op: create: method: *POST
       op: list: method: *GET
       op: list: transform: res: *("`body.items`")|top
     }
-    path: "/calendars/primary/events/{eventId}": {
+    path: "/users/me/calendarList/watch": {
+      action: "watch": {}
+      op: create: method: *POST
+      op: create: transform: res: *("`body.params`")|top
+    }
+    path: "/users/me/calendarList/{calendarId}": {
+      rename: param: "calendarId": *"id"
+      op: load: method: *GET
+      op: patch: method: *PATCH
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+    }
+  }
+
+  entity: channel: {
+    path: "/channels/stop": {
+      action: "stop": {}
+      op: create: method: *POST
+    }
+  }
+
+  entity: color: {
+    path: "/colors": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: event: {
+    path: "/calendars/{calendarId}/events": {
+      rename: param: "calendarId": *"calendar_id"
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/calendars/{calendarId}/events/import": {
+      action: "import": {}
+      rename: param: "calendarId": *"calendar_id"
+      op: create: method: *POST
+    }
+    path: "/calendars/{calendarId}/events/quickAdd": {
+      action: "quick_add": {}
+      rename: param: "calendarId": *"calendar_id"
+      op: create: method: *POST
+    }
+    path: "/calendars/{calendarId}/events/watch": {
+      action: "watch": {}
+      rename: param: "calendarId": *"calendar_id"
+      op: create: method: *POST
+      op: create: transform: res: *("`body.params`")|top
+    }
+    path: "/calendars/{calendarId}/events/{eventId}": {
+      rename: param: "calendarId": *"calendar_id"
       rename: param: "eventId": *"id"
       op: load: method: *GET
       op: patch: method: *PATCH
       op: remove: method: *DELETE
+      op: update: method: *PUT
+    }
+    path: "/calendars/{calendarId}/events/{eventId}/instances": {
+      action: "instance": {}
+      rename: param: "calendarId": *"calendar_id"
+      rename: param: "eventId": *"id"
+      op: list: method: *GET
+    }
+    path: "/calendars/{calendarId}/events/{eventId}/move": {
+      action: "move": {}
+      rename: param: "calendarId": *"calendar_id"
+      rename: param: "eventId": *"id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: free_busy: {
+    path: "/freeBusy": {
+      op: create: method: *POST
+    }
+  }
+
+  entity: import: {
+    path: "/calendars/{calendarId}/events/import": {
+      rename: param: "calendarId": *"calendar_id"
+    }
+  }
+
+  entity: quick_add: {
+    path: "/calendars/{calendarId}/events/quickAdd": {
+      rename: param: "calendarId": *"calendar_id"
+    }
+  }
+
+  entity: setting: {
+    path: "/users/me/settings": {
+      op: list: method: *GET
+      op: list: transform: res: *("`body.items`")|top
+    }
+    path: "/users/me/settings/watch": {
+      action: "watch": {}
+      op: create: method: *POST
+      op: create: transform: res: *("`body.params`")|top
+    }
+    path: "/users/me/settings/{setting}": {
+      rename: param: "setting": *"id"
+      op: load: method: *GET
+    }
+  }
+
+  entity: stop: {
+    path: "/channels/stop": {
+    }
+  }
+
+  entity: watch: {
+    path: "/calendars/{calendarId}/acl/watch": {
+      rename: param: "calendarId": *"calendar_id"
+    }
+    path: "/calendars/{calendarId}/events/watch": {
+      rename: param: "calendarId": *"calendar_id"
+    }
+    path: "/users/me/calendarList/watch": {
+    }
+    path: "/users/me/settings/watch": {
     }
   }
 

@@ -6,51 +6,600 @@
 -- @voxgig/apidef VALID_CANON). Annotations only — no runtime effect. Do not
 -- edit by hand.
 
+---@class Acl
+---@field etag? string
+---@field id? string
+---@field kind? string
+---@field role? string
+---@field scope? table
+---@field type? string
+---@field value? string
+
+---@class AclLoadMatch
+---@field calendar_id string
+---@field id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+
+---@class AclListMatch
+---@field calendar_id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field max_result? number
+---@field oauth_token? string
+---@field page_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field show_deleted? boolean
+---@field sync_token? string
+---@field user_ip? string
+
+---@class AclCreateData
+---@field calendar_id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field send_notification? boolean
+---@field user_ip? string
+---@field etag? string
+---@field id? string
+---@field kind? string
+---@field role? string
+---@field scope? table
+---@field type? string
+---@field value? string
+
+---@class AclUpdateData
+---@field calendar_id string
+---@field id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field send_notification? boolean
+---@field user_ip? string
+---@field etag? string
+---@field kind? string
+---@field role? string
+---@field scope? table
+---@field type? string
+---@field value? string
+
+---@class AclRemoveMatch
+---@field calendar_id string
+---@field id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+
+---@class Calendar
+---@field allowedConferenceSolutionTypes? table
+---@field conferenceProperties? table
+---@field description? string
+---@field etag? string
+---@field id? string
+---@field kind? string
+---@field location? string
+---@field summary? string
+---@field timeZone? string
+
+---@class CalendarLoadMatch
+---@field id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+
+---@class CalendarCreateData
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+---@field allowedConferenceSolutionTypes? table
+---@field conferenceProperties? table
+---@field description? string
+---@field etag? string
+---@field id? string
+---@field kind? string
+---@field location? string
+---@field summary? string
+---@field timeZone? string
+
+---@class CalendarUpdateData
+---@field id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+---@field allowedConferenceSolutionTypes? table
+---@field conferenceProperties? table
+---@field description? string
+---@field etag? string
+---@field kind? string
+---@field location? string
+---@field summary? string
+---@field timeZone? string
+
+---@class CalendarRemoveMatch
+---@field id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+
+---@class CalendarList
+---@field accessRole? string
+---@field backgroundColor? string
+---@field colorId? string
+---@field conferenceProperties? table
+---@field defaultReminders? table
+---@field deleted? boolean
+---@field description? string
+---@field etag? string
+---@field foregroundColor? string
+---@field hidden? boolean
+---@field id? string
+---@field kind? string
+---@field location? string
+---@field notificationSettings? table
+---@field primary? boolean
+---@field selected? boolean
+---@field summary? string
+---@field summaryOverride? string
+---@field timeZone? string
+
+---@class CalendarListLoadMatch
+---@field id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+
+---@class CalendarListListMatch
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field max_result? number
+---@field min_access_role? string
+---@field oauth_token? string
+---@field page_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field show_deleted? boolean
+---@field show_hidden? boolean
+---@field sync_token? string
+---@field user_ip? string
+
+---@class CalendarListCreateData
+---@field alt? string
+---@field color_rgb_format? boolean
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+---@field accessRole? string
+---@field backgroundColor? string
+---@field colorId? string
+---@field conferenceProperties? table
+---@field defaultReminders? table
+---@field deleted? boolean
+---@field description? string
+---@field etag? string
+---@field foregroundColor? string
+---@field hidden? boolean
+---@field id? string
+---@field kind? string
+---@field location? string
+---@field notificationSettings? table
+---@field primary? boolean
+---@field selected? boolean
+---@field summary? string
+---@field summaryOverride? string
+---@field timeZone? string
+
+---@class CalendarListUpdateData
+---@field id string
+---@field alt? string
+---@field color_rgb_format? boolean
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+---@field accessRole? string
+---@field backgroundColor? string
+---@field colorId? string
+---@field conferenceProperties? table
+---@field defaultReminders? table
+---@field deleted? boolean
+---@field description? string
+---@field etag? string
+---@field foregroundColor? string
+---@field hidden? boolean
+---@field kind? string
+---@field location? string
+---@field notificationSettings? table
+---@field primary? boolean
+---@field selected? boolean
+---@field summary? string
+---@field summaryOverride? string
+---@field timeZone? string
+
+---@class CalendarListRemoveMatch
+---@field id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+
+---@class Channel
+
+---@class ChannelCreateData
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+
+---@class Color
+---@field calendar? table
+---@field event? table
+---@field kind? string
+---@field updated? string
+
+---@class ColorLoadMatch
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+
 ---@class Event
+---@field accessRole? string
+---@field anyoneCanAddSelf? boolean
+---@field attachments? table
+---@field attendees? table
+---@field attendeesOmitted? boolean
+---@field colorId? string
+---@field conferenceData? table
 ---@field created? string
+---@field creator? table
+---@field defaultReminders? table
 ---@field description? string
 ---@field end? table
+---@field endTimeUnspecified? boolean
+---@field etag? string
+---@field eventType? string
+---@field extendedProperties? table
+---@field gadget? table
+---@field guestsCanInviteOthers? boolean
+---@field guestsCanModify? boolean
+---@field guestsCanSeeOtherGuests? boolean
+---@field hangoutLink? string
 ---@field htmlLink? string
+---@field iCalUID? string
 ---@field id? string
+---@field items? table
+---@field kind? string
 ---@field location? string
+---@field locked? boolean
+---@field nextPageToken? string
+---@field nextSyncToken? string
+---@field organizer? table
+---@field originalStartTime? table
+---@field privateCopy? boolean
+---@field recurrence? table
+---@field recurringEventId? string
+---@field reminders? table
+---@field sequence? number
+---@field source? table
 ---@field start? table
 ---@field status? string
 ---@field summary? string
+---@field timeZone? string
+---@field transparency? string
 ---@field updated? string
+---@field visibility? string
+---@field workingLocationProperties? table
 
 ---@class EventLoadMatch
+---@field calendar_id string
 ---@field id string
+---@field alt? string
+---@field always_include_email? boolean
+---@field field? string
+---@field key? string
+---@field max_attendee? number
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field time_zone? string
+---@field user_ip? string
 
 ---@class EventListMatch
+---@field calendar_id string
+---@field alt? string
+---@field always_include_email? boolean
+---@field event_type? table
+---@field field? string
+---@field i_cal_uid? string
+---@field key? string
+---@field max_attendee? number
+---@field max_result? number
+---@field oauth_token? string
 ---@field order_by? string
+---@field page_token? string
+---@field pretty_print? boolean
+---@field private_extended_property? table
+---@field q? string
+---@field quota_user? string
+---@field shared_extended_property? table
+---@field show_deleted? boolean
+---@field show_hidden_invitation? boolean
 ---@field single_event? boolean
+---@field sync_token? string
+---@field time_max? string
+---@field time_min? string
+---@field time_zone? string
+---@field updated_min? string
+---@field user_ip? string
 
 ---@class EventCreateData
+---@field calendar_id string
+---@field alt? string
+---@field conference_data_version? number
+---@field field? string
+---@field key? string
+---@field max_attendee? number
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field send_notification? boolean
+---@field send_update? string
+---@field supports_attachment? boolean
+---@field user_ip? string
+---@field accessRole? string
+---@field anyoneCanAddSelf? boolean
+---@field attachments? table
+---@field attendees? table
+---@field attendeesOmitted? boolean
+---@field colorId? string
+---@field conferenceData? table
 ---@field created? string
+---@field creator? table
+---@field defaultReminders? table
 ---@field description? string
 ---@field end? table
+---@field endTimeUnspecified? boolean
+---@field etag? string
+---@field eventType? string
+---@field extendedProperties? table
+---@field gadget? table
+---@field guestsCanInviteOthers? boolean
+---@field guestsCanModify? boolean
+---@field guestsCanSeeOtherGuests? boolean
+---@field hangoutLink? string
 ---@field htmlLink? string
+---@field iCalUID? string
 ---@field id? string
+---@field items? table
+---@field kind? string
 ---@field location? string
+---@field locked? boolean
+---@field nextPageToken? string
+---@field nextSyncToken? string
+---@field organizer? table
+---@field originalStartTime? table
+---@field privateCopy? boolean
+---@field recurrence? table
+---@field recurringEventId? string
+---@field reminders? table
+---@field sequence? number
+---@field source? table
 ---@field start? table
 ---@field status? string
 ---@field summary? string
+---@field timeZone? string
+---@field transparency? string
 ---@field updated? string
+---@field visibility? string
+---@field workingLocationProperties? table
 
 ---@class EventUpdateData
+---@field calendar_id string
 ---@field id string
+---@field alt? string
+---@field always_include_email? boolean
+---@field conference_data_version? number
+---@field field? string
+---@field key? string
+---@field max_attendee? number
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field send_notification? boolean
+---@field send_update? string
+---@field supports_attachment? boolean
+---@field user_ip? string
+---@field accessRole? string
+---@field anyoneCanAddSelf? boolean
+---@field attachments? table
+---@field attendees? table
+---@field attendeesOmitted? boolean
+---@field colorId? string
+---@field conferenceData? table
 ---@field created? string
+---@field creator? table
+---@field defaultReminders? table
 ---@field description? string
 ---@field end? table
+---@field endTimeUnspecified? boolean
+---@field etag? string
+---@field eventType? string
+---@field extendedProperties? table
+---@field gadget? table
+---@field guestsCanInviteOthers? boolean
+---@field guestsCanModify? boolean
+---@field guestsCanSeeOtherGuests? boolean
+---@field hangoutLink? string
 ---@field htmlLink? string
+---@field iCalUID? string
+---@field items? table
+---@field kind? string
 ---@field location? string
+---@field locked? boolean
+---@field nextPageToken? string
+---@field nextSyncToken? string
+---@field organizer? table
+---@field originalStartTime? table
+---@field privateCopy? boolean
+---@field recurrence? table
+---@field recurringEventId? string
+---@field reminders? table
+---@field sequence? number
+---@field source? table
 ---@field start? table
 ---@field status? string
 ---@field summary? string
+---@field timeZone? string
+---@field transparency? string
 ---@field updated? string
+---@field visibility? string
+---@field workingLocationProperties? table
 
 ---@class EventRemoveMatch
+---@field calendar_id string
 ---@field id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field send_notification? boolean
+---@field send_update? string
+---@field user_ip? string
+
+---@class FreeBusy
+---@field calendarExpansionMax? number
+---@field calendars? table
+---@field groupExpansionMax? number
+---@field groups? table
+---@field items? table
+---@field kind? string
+---@field timeMax? string
+---@field timeMin? string
+---@field timeZone? string
+
+---@class FreeBusyCreateData
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+---@field calendarExpansionMax? number
+---@field calendars? table
+---@field groupExpansionMax? number
+---@field groups? table
+---@field items? table
+---@field kind? string
+---@field timeMax? string
+---@field timeMin? string
+---@field timeZone? string
+
+---@class Import
+
+---@class QuickAdd
+
+---@class Setting
+---@field etag? string
+---@field id? string
+---@field kind? string
+---@field value? string
+
+---@class SettingLoadMatch
+---@field id string
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field oauth_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field user_ip? string
+
+---@class SettingListMatch
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field max_result? number
+---@field oauth_token? string
+---@field page_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field sync_token? string
+---@field user_ip? string
+
+---@class SettingCreateData
+---@field alt? string
+---@field field? string
+---@field key? string
+---@field max_result? number
+---@field oauth_token? string
+---@field page_token? string
+---@field pretty_print? boolean
+---@field quota_user? string
+---@field sync_token? string
+---@field user_ip? string
+---@field etag? string
+---@field id? string
+---@field kind? string
+---@field value? string
+
+---@class Stop
+
+---@class Watch
 
 local M = {}
 

@@ -1,0 +1,28 @@
+# BasicColorFlow
+
+main: kit: flow: BasicColorFlow:
+{
+  entity: "color",
+  kind: "basic",
+  name: "BasicColorFlow",
+  step: [
+    {
+      input: {
+        ref: "color_ref01",
+        srcdatavar: "color_ref01_data",
+        suffix: "_dt0"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-color_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicColorFlow"
+}

@@ -1,0 +1,15 @@
+{
+  "existing": {
+    "stop": {
+      "STOP00": {},
+      "STOP01": {},
+      "STOP02": {}
+    }
+  },
+  "new": {
+    "stop": {
+      "stop_ref01": {}
+    }
+  },
+  "requests": {}
+}

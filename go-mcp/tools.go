@@ -16,7 +16,7 @@ import (
 // reqdata map passed through to the SDK. For load, `query` should be
 // `{"id": <value>}`. For list, omit `query` or pass an empty map.
 type Args struct {
-	Entity string         `json:"entity" jsonschema:"event"`
+	Entity string         `json:"entity" jsonschema:"acl | calendar | calendar_list | channel | color | event | free_busy | import | quick_add | setting | stop | watch"`
 	Query  map[string]any `json:"query,omitempty" jsonschema:"optional match map e.g. {\"id\":1} for load, omit for list"`
 }
 
@@ -77,8 +77,30 @@ func runOp(client *sdk.GcalSDK, op string, args Args) (*mcp.CallToolResult, any,
 // emits one `case "<name>":` per entity defined in the SDK model.
 func entityFor(client *sdk.GcalSDK, name string) (sdk.GcalEntity, error) {
 	switch strings.ToLower(name) {
+	case "acl":
+		return client.Acl(nil), nil
+	case "calendar":
+		return client.Calendar(nil), nil
+	case "calendar_list":
+		return client.CalendarList(nil), nil
+	case "channel":
+		return client.Channel(nil), nil
+	case "color":
+		return client.Color(nil), nil
 	case "event":
 		return client.Event(nil), nil
+	case "free_busy":
+		return client.FreeBusy(nil), nil
+	case "import":
+		return client.Import(nil), nil
+	case "quick_add":
+		return client.QuickAdd(nil), nil
+	case "setting":
+		return client.Setting(nil), nil
+	case "stop":
+		return client.Stop(nil), nil
+	case "watch":
+		return client.Watch(nil), nil
 
 	}
 	return nil, fmt.Errorf("unknown entity %q", name)

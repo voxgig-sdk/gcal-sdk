@@ -47,16 +47,17 @@ describe('EventDirect', async () => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup({ id: 'direct01' })
     if (maybeSkipControl(t, 'direct', 'direct-load-event', setup.live)) return
+    if (skipIfMissingIds(t, setup, ["calendar01"])) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
     if (setup.live) {
       const listResult: any = await client.direct({
-        path: 'calendars/primary/events',
+        path: 'calendars/{calendar_id}/events',
         method: 'GET',
         params: {
-
+        calendar_id: setup.idmap['calendar01'],
         },
       })
       assert(listResult.ok && listResult.status >= 200 && listResult.status < 300,
@@ -70,13 +71,14 @@ describe('EventDirect', async () => {
         throw new Error('Live load blocked: discovery returned no usable identity')
       }
       params.id = candidateId
-
+      params.calendar_id = setup.idmap['calendar01']
     } else {
-      params.id = 'direct01'
+      params.calendar_id = 'direct01'
+      params.id = 'direct02'
     }
 
     const result: any = await client.direct({
-      path: 'calendars/primary/events/{id}',
+      path: 'calendars/{calendar_id}/events/{id}',
       method: 'GET',
       params,
       query,
@@ -103,6 +105,7 @@ describe('EventDirect', async () => {
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
       assert(calls[0].url.includes('direct01'))
+      assert(calls[0].url.includes('direct02'))
     }
   })
 
@@ -110,13 +113,19 @@ describe('EventDirect', async () => {
     if (liveScenariosActive()) { t.skip('Covered by live operation scenarios'); return }
     const setup = directSetup([{ id: 'direct01' }, { id: 'direct02' }])
     if (maybeSkipControl(t, 'direct', 'direct-list-event', setup.live)) return
+    if (skipIfMissingIds(t, setup, ["calendar01"])) return
     const { client, calls } = setup
 
     const params: any = {}
     const query: any = {}
+    if (setup.live) {
+      params.calendar_id = setup.idmap['calendar01']
+    } else {
+      params.calendar_id = 'direct01'
+    }
 
     const result: any = await client.direct({
-      path: 'calendars/primary/events',
+      path: 'calendars/{calendar_id}/events',
       method: 'GET',
       params,
       query,
@@ -144,6 +153,7 @@ describe('EventDirect', async () => {
       assert(listArr!.length === 2)
       assert(calls.length === 1)
       assert(calls[0].init.method === 'GET')
+      assert(calls[0].url.includes('direct01'))
     }
   })
 
